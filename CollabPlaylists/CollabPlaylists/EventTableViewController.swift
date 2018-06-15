@@ -12,10 +12,8 @@ class EventTableViewController: UITableViewController {
     
     //MARK: Properties
     var groups = [Group]()
-    var session: SPTSession!
-    var userId: String?
+    var state: State?
     var selectedGroup: Group?
-    var player: SPTAudioStreamingController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,60 +110,15 @@ class EventTableViewController: UITableViewController {
     @IBAction func addGroupPressed(_ sender: Any) {
         //created NSURL
         
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        let requestURL = URL(string: "http://autocollabservice.com/creategroup")
-        
-        //creating NSMutableURLRequest
-        let request = NSMutableURLRequest(url: requestURL!)
-        
-        //creating the post parameter by concatenating the keys and values from text field
-        let postParameters = "admin=" + self.userId!
-        
-        //adding the parameters to request body
-        request.httpBody = postParameters.data(using: String.Encoding.utf8)
-        
-        //setting the method to post
-        request.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){
-            data, response, error in
-            
-            if error != nil{
-                print("error is \(String(describing: error))")
-                return;
-            }
-            
-            NSLog("\(String(describing: data))")
-            
-            //parsing the response
-            do {
-                //converting resonse to NSDictionary
-                let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String: AnyObject]
-                
-                //parsing the json
-                if let parseJSON = myJSON {
-                    let groupId = parseJSON["groupId"] as? Int
-                    self.selectedGroup = Group(name: nil, admin: self.userId!, id: groupId!, activated: false, users: [self.userId!])
-                }
-                
-                RequestWrapper.addGroupUser(groupId: self.selectedGroup!.id, userId: self.userId!)
-                
-            } catch {
-                NSLog("\(error)")
-            }
-            
-        }
-        //executing the task
-        task.resume()
-        _ = semaphore.wait(timeout: .distantFuture)
+        let (groupId, inviteKey) = createGroup()
+        RequestWrapper.addGroupUser(groupId: groupId, userId: self.state!.userId)
+        self.selectedGroup = Group(name: nil, admin: self.state!.userId, id: groupId, activated: false, users: [self.state!.userId], inviteKey: inviteKey)
         
         NSLog("gettingTopSongs")
+
+        RequestWrapper.addUserSongs(songs: self.state!.topSongs, userId: self.state!.userId, groupId: self.selectedGroup!.id, isTop: 1)
         
-        let topSongs = self.getTopSongs(userId: self.userId!, num: 20)
-        for song in topSongs {
-            self.addUserSong(song: song, groupId: self.selectedGroup!.id)
-        }
+        performSegue(withIdentifier: "viewGroups", sender: self)
         
     }
     
@@ -178,114 +131,29 @@ class EventTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         super.prepare(for: segue, sender: sender)
-        if (segue.identifier == "mySongSegue") {
-            let navVC = segue.destination as! UINavigationController
-            let destinationVC = navVC.viewControllers.first as! SongTableViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-        }
+
         if (segue.identifier == "viewGroups") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! GroupViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-            destinationVC.group = selectedGroup!
-            destinationVC.player = player!
+            state!.group = selectedGroup!
+            destinationVC.state = state
         }
+        if (segue.identifier == "searchGroupSegue") {
+            let navVC = segue.destination as! UINavigationController
+            let destinationVC = navVC.viewControllers.first as! GroupSearchViewController
+            destinationVC.state = state
+        }
+        
     }
     
     // MARK: Helpers
-    
-    
-    func getTopSongs(userId: String, num: Int) -> [Song] {
-        var additionalTracks = [Song]()
-        let query = "https://api.spotify.com/v1/me/top/tracks?limit=\(num)"
-        let url = URL(string: query)
-        let request = NSMutableURLRequest(url: url!)
-        request.setValue("Bearer \(session.accessToken!)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){
-            data, response, error in
-            
-            do {
-                
-                //converting resonse to NSDictionary
-                let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:AnyObject]
-                
-                if let parseJSON = myJSON {
-                    let tracks = parseJSON["items"] as! [[String: AnyObject]]
-                    for track in tracks {
-                        let id = track["id"] as! String
-                        let name = track["name"] as! String
-                        let artists = track["artists"] as? [[String: AnyObject]]
-                        var artistName =  artists?[0]["name"] as? String
-                        if (artistName == nil) {
-                            artistName = "Not Found"
-                        }
-                        let newSong = Song(name: name, artist: artistName!, id: id)
-                        additionalTracks.append(newSong!)
-                    }
-                }
-                NSLog("\(additionalTracks)")
-                semaphore.signal()
-            } catch {
-                NSLog("\(error)")
-            }
-            
-            NSLog("\(String(describing: data))")
-        }
-        //executing the task
-        task.resume()
-        
-        _ = semaphore.wait(timeout: .distantFuture)
-        return additionalTracks
-    }
-    
-    func addUserSong(song: Song, groupId: Int) {
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        let requestURL = URL(string: "http://autocollabservice.com/addusersong")
-        
-        //creating NSMutableURLRequest
-        let request = NSMutableURLRequest(url: requestURL!)
-        
-        //creating the post parameter by concatenating the keys and values from text field
-        var postParameters = "groupId=\(groupId)" + "&userId=" + self.userId!
-        postParameters = postParameters + "&songId=" + song.id + "&songName=" + song.name + "&songArtist=" + song.artist + "&isTop=1"
-        
-        //adding the parameters to request body
-        request.httpBody = postParameters.data(using: String.Encoding.utf8)
-        
-        //setting the method to post
-        request.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){
-            data, response, error in
-            
-            if error != nil{
-                print("error is \(String(describing: error))")
-                return;
-            }
-            
-            NSLog("\(String(describing: data))")
-            semaphore.signal()
-        }
-        //executing the task
-        task.resume()
-        _ = semaphore.wait(timeout: .distantFuture)
-    }
-    
     func getUsersName(id: String) -> String {
         var name: String?
         
         let query = "https://api.spotify.com/v1/users/" + id
         let url = URL(string: query)
         let request = NSMutableURLRequest(url: url!)
-        request.setValue("Bearer \(session.accessToken!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.state!.session.accessToken!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -323,11 +191,80 @@ class EventTableViewController: UITableViewController {
         
         var groups = [Group]()
         
+        let ids = getUserGroups()
+        
         //created NSURL
-        let requestURL = URL(string: "http://autocollabservice.com/getallgroups")
+        let requestURL = URL(string: "http://autocollabservice.com/getgroups")
         
         //creating NSMutableURLRequest
         let request = NSMutableURLRequest(url: requestURL!)
+        
+        let postParameters = "method=id&groupIds=" + ids
+        
+        //adding the parameters to request body
+        request.httpBody = postParameters.data(using: String.Encoding.utf8)
+        
+        //setting the method to post
+        request.httpMethod = "POST"
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){
+            data, response, error in
+            
+            if error != nil{
+                print("error is \(String(describing: error))")
+                return;
+            }
+            
+            //parsing the response
+            do {
+                //converting resonse to NSDictionary
+                let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [[String: AnyObject]]
+                
+                //parsing the json
+                if let results = myJSON {
+                    for group in results {
+                        NSLog("group")
+                        let name = group["name"] as? String
+                        let admin = group["admin"] as! String
+                        let id = group["id"] as! Int
+                        let activated = group["activated"] as! Bool
+                        let inviteKey = group["invite_key"] as! String
+                        let newGroup = Group(name: name, admin: admin, id: id, activated: activated, users:[], inviteKey: inviteKey)
+                        groups.append(newGroup!)
+                    }
+                }
+            } catch {
+                NSLog("\(error)")
+            }
+            semaphore.signal()
+            
+        }
+        //executing the task
+        task.resume()
+        _ = semaphore.wait(timeout: .distantFuture)
+        
+        for group in groups {
+            group.users = RequestWrapper.getGroupUsers(id: group.id)
+        }
+        
+        return groups
+    }
+    
+    func getUserGroups() -> String {
+        var ids = [Int]()
+        
+        //created NSURL
+        var requestURL = URL(string: "http://autocollabservice.com/getusergroups")
+        
+        //creating NSMutableURLRequest
+        let request = NSMutableURLRequest(url: requestURL!)
+        
+        let postParameters = "userId=" + self.state!.userId
+        
+        //adding the parameters to request body
+        request.httpBody = postParameters.data(using: String.Encoding.utf8)
         
         //setting the method to post
         request.httpMethod = "POST"
@@ -347,58 +284,59 @@ class EventTableViewController: UITableViewController {
             //parsing the response
             do {
                 //converting resonse to NSDictionary
-                let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [[String: AnyObject]]
+                let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String: AnyObject]
                 
                 //parsing the json
                 if let results = myJSON {
-                    for group in results {
-                        NSLog("group")
-                        let name = group["name"] as? String
-                        let admin = group["admin"] as! String
-                        let id = group["id"] as! Int
-                        let activated = group["activated"] as! Bool
-                        let newGroup = Group(name: name, admin: admin, id: id, activated: activated, users:[])
-                        groups.append(newGroup!)
-                    }
-                    semaphore.signal()
+                    ids = results["groups"] as! [Int]
                 }
             } catch {
                 NSLog("\(error)")
             }
+            semaphore.signal()
             
         }
         //executing the task
         task.resume()
         _ = semaphore.wait(timeout: .distantFuture)
         
-        for group in groups {
-            group.users = getGroupUsers(id: group.id)
+        var ids_str = ""
+        
+        for id in ids {
+            ids_str += String(id)
+            ids_str += ","
         }
         
-        return groups
+        if ids_str.count > 0 {
+            ids_str.removeLast()
+        }
+        
+        return ids_str
     }
     
-    func getGroupUsers(id: Int) -> [String] {
-        var users = [String]()
+    func createGroup() -> (Int, String) {
         
-        //created NSURL
-        let requestURL = URL(string: "http://autocollabservice.com/getgroupusers")
+        var groupId: Int?
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let requestURL = URL(string: "http://autocollabservice.com/creategroup")
         
         //creating NSMutableURLRequest
         let request = NSMutableURLRequest(url: requestURL!)
         
-        //setting the method to post
-        request.httpMethod = "POST"
+        let inviteKey = randomString(length: 15)
         
         //creating the post parameter by concatenating the keys and values from text field
-        let postParameters = "groupId=\(id)"
+        let postParameters = "admin=" + self.state!.userId + "&inviteKey=" + inviteKey
         
         //adding the parameters to request body
         request.httpBody = postParameters.data(using: String.Encoding.utf8)
         
-        let semaphore = DispatchSemaphore(value: 0)
+        //setting the method to post
+        request.httpMethod = "POST"
         
-        let task2 = URLSession.shared.dataTask(with: request as URLRequest) {
+        let task = URLSession.shared.dataTask(with: request as URLRequest){
             data, response, error in
             
             if error != nil{
@@ -413,21 +351,36 @@ class EventTableViewController: UITableViewController {
                 //converting resonse to NSDictionary
                 let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String: AnyObject]
                 
-                
                 //parsing the json
                 if let parseJSON = myJSON {
-                    NSLog("user")
-                    users = parseJSON["users"]! as! [String]
+                    groupId = parseJSON["groupId"] as? Int
                 }
-                
             } catch {
                 NSLog("\(error)")
             }
             semaphore.signal()
+            
         }
-        //executing the
-        task2.resume()
+        //executing the task
+        task.resume()
         _ = semaphore.wait(timeout: .distantFuture)
-        return users
+        
+        return (groupId!, inviteKey)
+    }
+    
+    func randomString(length: Int) -> String {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var randomString = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        
+        return randomString
     }
 }

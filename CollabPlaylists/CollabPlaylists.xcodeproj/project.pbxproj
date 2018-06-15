@@ -26,13 +26,18 @@
 		AC8401E9205D891100246476 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8401E8205D891100246476 /* SongTableViewCell.swift */; };
 		AC8401EB205D8C2200246476 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8401EA205D8C2200246476 /* Song.swift */; };
 		AC8401ED205D8F1500246476 /* SongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8401EC205D8F1500246476 /* SongTableViewController.swift */; };
-		ACA0DBE62066B41B0096FB4B /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA0DBE52066B41B0096FB4B /* CreateEventViewController.swift */; };
 		ACB40A7C205D9B9D0066A302 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A7B205D9B9D0066A302 /* SpotifyAudioPlayback.framework */; };
 		ACB40A7E205D9BBA0066A302 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A7D205D9BBA0066A302 /* SpotifyAuthentication.framework */; };
 		ACB40A81205D9D880066A302 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A80205D9D880066A302 /* AVFoundation.framework */; };
 		ACB40A83205D9D950066A302 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A82205D9D950066A302 /* SystemConfiguration.framework */; };
 		ACB40A87205D9F950066A302 /* BridgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB40A86205D9F950066A302 /* BridgeViewController.m */; };
 		ACB40A89205DA03B0066A302 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A88205DA03B0066A302 /* SpotifyMetadata.framework */; };
+		F11D9BE120C9DD2E00554E47 /* thinking_emoji.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F11D9BE020C9DD2D00554E47 /* thinking_emoji.jpeg */; };
+		F11D9BE520CC52AF00554E47 /* UserPlaylistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D9BE420CC52AF00554E47 /* UserPlaylistsTableViewController.swift */; };
+		F11D9BE720CC533100554E47 /* UserPlaylistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D9BE620CC533100554E47 /* UserPlaylistsTableViewCell.swift */; };
+		F11D9BE920CEE2B000554E47 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D9BE820CEE2B000554E47 /* Playlist.swift */; };
+		F11E890A20C39A0200C15812 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11E890920C39A0200C15812 /* State.swift */; };
+		F11E890C20C7056100C15812 /* GroupSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11E890B20C7056100C15812 /* GroupSearchViewController.swift */; };
 		F1F4121320B8DB3C0042B386 /* RequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F4121220B8DB3C0042B386 /* RequestWrapper.swift */; };
 		F1F4121520BA835D0042B386 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F4121420BA835D0042B386 /* User.swift */; };
 /* End PBXBuildFile section */
@@ -80,7 +85,6 @@
 		AC8401E8205D891100246476 /* SongTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		AC8401EA205D8C2200246476 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		AC8401EC205D8F1500246476 /* SongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
-		ACA0DBE52066B41B0096FB4B /* CreateEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		ACB40A7B205D9B9D0066A302 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpotifyAudioPlayback.framework; path = "ios-sdk-master/SpotifyAudioPlayback.framework"; sourceTree = SOURCE_ROOT; };
 		ACB40A7D205D9BBA0066A302 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpotifyAuthentication.framework; path = "ios-sdk-master/SpotifyAuthentication.framework"; sourceTree = SOURCE_ROOT; };
 		ACB40A80205D9D880066A302 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -89,6 +93,12 @@
 		ACB40A85205D9F950066A302 /* BridgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgeViewController.h; sourceTree = "<group>"; };
 		ACB40A86205D9F950066A302 /* BridgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgeViewController.m; sourceTree = "<group>"; };
 		ACB40A88205DA03B0066A302 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpotifyMetadata.framework; path = "ios-sdk-master/SpotifyMetadata.framework"; sourceTree = SOURCE_ROOT; };
+		F11D9BE020C9DD2D00554E47 /* thinking_emoji.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = thinking_emoji.jpeg; path = ../../../../Downloads/thinking_emoji.jpeg; sourceTree = "<group>"; };
+		F11D9BE420CC52AF00554E47 /* UserPlaylistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistsTableViewController.swift; sourceTree = "<group>"; };
+		F11D9BE620CC533100554E47 /* UserPlaylistsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistsTableViewCell.swift; sourceTree = "<group>"; };
+		F11D9BE820CEE2B000554E47 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		F11E890920C39A0200C15812 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		F11E890B20C7056100C15812 /* GroupSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchViewController.swift; sourceTree = "<group>"; };
 		F1F4121220B8DB3C0042B386 /* RequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestWrapper.swift; sourceTree = "<group>"; };
 		F1F4121420BA835D0042B386 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +157,7 @@
 		AC8401B9205D848D00246476 /* CollabPlaylists */ = {
 			isa = PBXGroup;
 			children = (
+				F11D9BE020C9DD2D00554E47 /* thinking_emoji.jpeg */,
 				AC8401BA205D848D00246476 /* AppDelegate.swift */,
 				ACB40A85205D9F950066A302 /* BridgeViewController.h */,
 				ACB40A86205D9F950066A302 /* BridgeViewController.m */,
@@ -156,15 +167,19 @@
 				AC58C602207D424100F6AD31 /* PlaylistSongTableViewCell.swift */,
 				AC8401EC205D8F1500246476 /* SongTableViewController.swift */,
 				AC77540E20607BC70030C006 /* SongSearchTableViewCell.swift */,
-				ACA0DBE52066B41B0096FB4B /* CreateEventViewController.swift */,
 				AC2E083D2068B0BB00FE28E2 /* EventTableViewController.swift */,
 				AC0CC2B6206963E20059A489 /* EventTableViewCell.swift */,
 				AC0CC2B8206978960059A489 /* GroupViewController.swift */,
 				AC0CC2BA20697A310059A489 /* GroupUserTableViewCell.swift */,
 				AC58C600207D3EC200F6AD31 /* ViewPlaylistViewController.swift */,
+				F11E890B20C7056100C15812 /* GroupSearchViewController.swift */,
+				F11D9BE420CC52AF00554E47 /* UserPlaylistsTableViewController.swift */,
+				F11D9BE620CC533100554E47 /* UserPlaylistsTableViewCell.swift */,
+				F11D9BE820CEE2B000554E47 /* Playlist.swift */,
 				AC8401EA205D8C2200246476 /* Song.swift */,
 				F1F4121420BA835D0042B386 /* User.swift */,
 				AC0CC2B42069632F0059A489 /* Group.swift */,
+				F11E890920C39A0200C15812 /* State.swift */,
 				F1F4121220B8DB3C0042B386 /* RequestWrapper.swift */,
 				ACB40A7A205D9B370066A302 /* Frameworks */,
 				AC8401BE205D848D00246476 /* Main.storyboard */,
@@ -329,6 +344,7 @@
 			files = (
 				AC8401C5205D848D00246476 /* LaunchScreen.storyboard in Resources */,
 				AC8401C2205D848D00246476 /* Assets.xcassets in Resources */,
+				F11D9BE120C9DD2E00554E47 /* thinking_emoji.jpeg in Resources */,
 				AC8401C0205D848D00246476 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,18 +376,22 @@
 				AC8401ED205D8F1500246476 /* SongTableViewController.swift in Sources */,
 				F1F4121320B8DB3C0042B386 /* RequestWrapper.swift in Sources */,
 				AC8401EB205D8C2200246476 /* Song.swift in Sources */,
+				F11D9BE720CC533100554E47 /* UserPlaylistsTableViewCell.swift in Sources */,
+				F11E890C20C7056100C15812 /* GroupSearchViewController.swift in Sources */,
 				AC8401E9205D891100246476 /* SongTableViewCell.swift in Sources */,
+				F11D9BE520CC52AF00554E47 /* UserPlaylistsTableViewController.swift in Sources */,
 				AC58C603207D424100F6AD31 /* PlaylistSongTableViewCell.swift in Sources */,
 				AC0CC2BB20697A310059A489 /* GroupUserTableViewCell.swift in Sources */,
 				AC2E083E2068B0BB00FE28E2 /* EventTableViewController.swift in Sources */,
+				F11E890A20C39A0200C15812 /* State.swift in Sources */,
 				ACB40A87205D9F950066A302 /* BridgeViewController.m in Sources */,
 				AC8401BD205D848D00246476 /* ViewController.swift in Sources */,
 				AC58C601207D3EC200F6AD31 /* ViewPlaylistViewController.swift in Sources */,
 				AC8401BB205D848D00246476 /* AppDelegate.swift in Sources */,
 				F1F4121520BA835D0042B386 /* User.swift in Sources */,
+				F11D9BE920CEE2B000554E47 /* Playlist.swift in Sources */,
 				AC0CC2B9206978960059A489 /* GroupViewController.swift in Sources */,
 				AC775409206074110030C006 /* SongSearchViewController.swift in Sources */,
-				ACA0DBE62066B41B0096FB4B /* CreateEventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

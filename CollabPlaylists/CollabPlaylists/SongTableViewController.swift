@@ -12,10 +12,7 @@ class SongTableViewController: UITableViewController {
     
     //MARK: Properties
     var songs = [Song]()
-    var session: SPTSession!
-    var userId: String?
-    var group: Group?
-    var player: SPTAudioStreamingController?
+    var state: State?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,19 +110,13 @@ class SongTableViewController: UITableViewController {
         if (segue.identifier == "addSongSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! SongSearchViewController
-            destinationVC.session = session
-            destinationVC.userId = userId
-            destinationVC.group = group
-            destinationVC.player = player!
+            destinationVC.state = state
         }
         
         if (segue.identifier == "songTableBackSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! ViewPlaylistViewController
-            destinationVC.session = session
-            destinationVC.userId = userId
-            destinationVC.group = group
-            destinationVC.player = player!
+            destinationVC.state = state
         }
     }
     
@@ -143,7 +134,7 @@ class SongTableViewController: UITableViewController {
         
         //creating the post parameter by concatenating the keys and values from text field
         
-        let postParameters = "userId=" + self.userId! + "&groupId=\(self.group!.id)&onlyAdded=1"
+        let postParameters = "userId=" + self.state!.userId + "&groupId=\(self.state!.group!.id)&onlyAdded=1"
         
         //adding the parameters to request body
         request.httpBody = postParameters.data(using: String.Encoding.utf8)

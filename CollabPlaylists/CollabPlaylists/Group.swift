@@ -17,10 +17,11 @@ class Group {
     var id: Int
     var activated: Bool
     var users: [String]?
+    var inviteKey: String?
     
     // MARK: Initialization
     
-    init?(name: String?, admin: String, id: Int, activated: Bool, users: [String]?) {
+    init?(name: String?, admin: String, id: Int, activated: Bool, users: [String]?, inviteKey: String?) {
         
         // Check that name and artist is supplied
         if (admin.isEmpty) {
@@ -33,6 +34,6 @@ class Group {
         self.id = id
         self.activated = activated
         self.users = users
+        self.inviteKey = inviteKey
     }
-    
 }

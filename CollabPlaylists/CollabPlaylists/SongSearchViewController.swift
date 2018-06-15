@@ -14,19 +14,16 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var songSearchBar: UISearchBar!
     @IBOutlet weak var songTable: UITableView!
     var songs = [Song]()
+    var state: State?
     var selectedSongs: Song?
-    var session: SPTSession!
-    var player: SPTAudioStreamingController?
     var searchController: UISearchController?
-    var userId: String?
-    var group: Group?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        NSLog("\(self.group)")
+        NSLog("\(self.state!.group)")
         
         if ((songTable) != nil) {
             songTable.dataSource = self
@@ -41,7 +38,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             searchController?.searchResultsUpdater = self
             searchController?.obscuresBackgroundDuringPresentation = false
             searchController?.searchBar.placeholder = "Search Songs"
-            searchController?.hidesNavigationBarDuringPresentation = false
+            searchController?.hidesNavigationBarDuringPresentation = true
         } else {
             searchController?.hidesNavigationBarDuringPresentation = false
             searchController?.dimsBackgroundDuringPresentation = false
@@ -86,42 +83,15 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSongs = songs[indexPath.row]
         
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        //created NSURL
-        let requestURL = URL(string: "http://autocollabservice.com/addusersong")
-        
-        //creating NSMutableURLRequest
-        let request = NSMutableURLRequest(url: requestURL!)
-        
-        //setting the method to post
-        request.httpMethod = "POST"
-        
         //getting values from text fields
-        let songId = selectedSongs?.id
-        let songName = selectedSongs?.name
-        let songArtist = selectedSongs?.artist
+        let song = Song(name: selectedSongs!.name, artist: selectedSongs!.artist, id: selectedSongs!.id)
         
-        //creating the post parameter by concatenating the keys and values from text field
-        var postParameters = "userId=" + self.userId! + "&songId=" + songId!
-        postParameters = postParameters + "&songName=" + songName! + "&songArtist=" + songArtist! + "&groupId=\(self.group!.id)&isTop=0"
+        RequestWrapper.addUserSongs(songs: [song!], userId: self.state!.userId, groupId: self.state!.group!.id, isTop: 0)
         
-        //adding the parameters to request body
-        request.httpBody = postParameters.data(using: String.Encoding.utf8)
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){
-            data, response, error in
-            
-            semaphore.signal()
-            if error != nil{
-                print("error is \(String(describing: error))")
-                return;
-            }            
+        if self.state!.group!.activated == true {
+            RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.state!.group!, session: self.state!.session)
         }
-        //executing the task
-        task.resume()
-        _ = semaphore.wait(timeout: .distantFuture)
-        RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.group!, session: self.session)
+        
         performSegue(withIdentifier: "songSelectSegue", sender: self)
     }
     
@@ -152,9 +122,9 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         
         songs = [Song]()
         
-        NSLog("\(session)")
+        NSLog("\(self.state!.session)")
         
-        let request = try? SPTSearch.createRequestForSearch(withQuery: query, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: session.accessToken)
+        let request = try? SPTSearch.createRequestForSearch(withQuery: query, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: self.state!.session.accessToken)
         
         if (request == nil) {
             NSLog("failed")
@@ -214,11 +184,14 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         if (segue.identifier == "songSelectSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! SongTableViewController
-            destinationVC.session = session
-            destinationVC.userId = userId
-            destinationVC.group = group
-            destinationVC.player = player!
+            destinationVC.state = state
         }
+        if (segue.identifier == "userPlaylistsSegue") {
+            let navVC = segue.destination as! UINavigationController
+            let destinationVC = navVC.viewControllers.first as! UserPlaylistsTableViewController
+            destinationVC.state = state
+        }
+        
     }
     
 

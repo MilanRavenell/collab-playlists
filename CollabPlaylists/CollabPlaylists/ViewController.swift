@@ -19,12 +19,6 @@ class ViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAu
     var userId: String?
     var svc: SFSafariViewController?
     
-    
-    // MARK: Outlets
-    
-    @IBOutlet weak var loginButton: UIButton!
-    
-    
     // MARK: Functions
     
     func setup () {
@@ -38,10 +32,6 @@ class ViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAu
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setup()
-        let userDefaults = UserDefaults.standard
-        if let _:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
-            loginButton.isHidden = true
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessful"), object: nil)
     }
@@ -50,11 +40,14 @@ class ViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAu
         super.viewDidAppear(animated)
         let userDefaults = UserDefaults.standard
         if let sessionObj:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
-            loginButton.isHidden = true
             if login(sessionObj: sessionObj) {
                 self.performSegue(withIdentifier: "loginSegue", sender: self)
             } else {
-                loginButton.isHidden = false
+                let alert = UIAlertController(title: "You are not logged into a spotify account", message: "Log into your spotify prime account to continue", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Log In", style: .default, handler: presentLogin))
+                
+                self.present(alert, animated: true)
             }
         }
     }
@@ -74,7 +67,6 @@ class ViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAu
     
     func updateAfterFirstLogin() {
         NSLog("updateafterfirstlogin")
-        loginButton.isHidden = true
         let userDefaults = UserDefaults.standard
         
         if let sessionObj:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
@@ -96,17 +88,12 @@ class ViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAu
         if (segue.identifier == "loginSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! EventTableViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-            destinationVC.player = player!
+            let state = State(group: nil, userId: userId!, session: session, player: player)
+            destinationVC.state = state
         }
     }
     
-    
-    //MARK: Actions
-    
-    @IBAction func loginButtonPressed(_ sender: Any) {
-        
+    func presentLogin(alert: UIAlertAction!) {
         self.svc = SFSafariViewController(url: loginURL!)
         self.present(svc!, animated:true, completion: nil)
         if auth.canHandle(auth.redirectURL) {
@@ -114,7 +101,6 @@ class ViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAu
         }
     }
     
-    //MARK: Helpers
     func login(sessionObj: AnyObject) -> Bool{
         let sessionDataObj = sessionObj as! Data
         

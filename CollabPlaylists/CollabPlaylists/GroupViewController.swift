@@ -15,10 +15,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var usersTable: UITableView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
-    var group: Group?
-    var userId: String!
-    var session: SPTSession!
-    var player: SPTAudioStreamingController?
+    var state: State?
     var users = [String]()
     var useTop: Int!
     @IBOutlet weak var joinActivateButton: UIButton!
@@ -36,8 +33,8 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         useTopSongsSwitch.addTarget(self, action: #selector(self.toggleSwitch), for: .valueChanged)
         
-        if (self.group!.users?.contains(self.userId!))! {
-            useTop = self.getUseTop(userId: self.userId, groupId: self.group!.id)
+        if (self.state?.group!.users?.contains(self.state!.userId))! {
+            useTop = self.getUseTop(userId: self.state!.userId, groupId: self.state!.group!.id)
         }
         
         if (useTop == 1) {
@@ -48,38 +45,38 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // If admin, then allow admin to activate/deactivate
         // If not admin, then let user leave/join
-        if (self.group!.admin == self.userId) {
+        if (self.state!.group!.admin == self.state!.userId) {
             self.joinActivateButton.setTitle("Delete Group", for: .normal)
         }
         
-        if (!(self.group!.users?.contains(self.userId!))!) {
+        if (!(self.state!.group!.users?.contains(self.state!.userId!))!) {
             self.viewPlaylistBtn.isEnabled = false
             useTopSongsSwitch.isEnabled = false
         }
         
-        if (self.group!.admin != self.userId! && (self.group!.users?.contains(self.userId!))!) {
+        if (self.state!.group!.admin != self.state!.userId! && (self.state!.group!.users?.contains(self.state!.userId!))!) {
             self.joinActivateButton.setTitle("Leave Group", for: .normal)
         }
         
-        if (self.group!.admin != self.userId! && !(self.group!.users?.contains(self.userId!))!) {
+        if (self.state!.group!.admin != self.state!.userId! && !(self.state!.group!.users?.contains(self.state!.userId!))!) {
             self.joinActivateButton.setTitle("Join Group", for: .normal)
         }
 
         
         // If the group has a name, display name
-        if (group?.name == nil && group?.admin == userId) {
+        if (self.state!.group?.name == nil && self.state!.group?.admin == self.state!.userId) {
             nameLabel.isHidden = true
-        } else if (group?.name != nil && group?.admin == userId) {
-            nameLabel.text = group?.name
+        } else if (self.state!.group?.name != nil && self.state!.group?.admin == self.state!.userId) {
+            nameLabel.text = self.state!.group?.name
             nameTextField.isHidden = true
             nameButton.setTitle("Rename Group", for: .normal)
-        } else if (group?.name == nil && group?.admin != userId) {
+        } else if (self.state!.group?.name == nil && self.state!.group?.admin != self.state!.userId) {
             nameTextField.isHidden = true
-            nameLabel.text = getUsersName(id: self.group!.admin) + "'s Group"
+            nameLabel.text = getUsersName(id: self.state!.group!.admin) + "'s Group"
             nameButton.isHidden = true
         } else {
             nameTextField.isHidden = true
-            nameLabel.text = group?.name
+            nameLabel.text = self.state!.group?.name
             nameButton.isHidden = true
         }
     }
@@ -92,7 +89,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //MARK: Table Functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return group!.users!.count
+        return state!.group!.users!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,7 +99,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         // Fetches the appropriate song
-        let user = self.group!.users?[indexPath.row]
+        let user = state!.group!.users?[indexPath.row]
         
         cell.user.text = getUsersName(id: user!)
         
@@ -118,6 +115,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             nameLabel.isHidden = false
             nameTextField.isHidden = true
             nameButton.setTitle("Rename Group", for: .normal)
+            state!.group?.name = nameTextField.text
             
             //created NSURL
             let requestURL = URL(string: "http://autocollabservice.com/addgroupname")
@@ -126,7 +124,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let request = NSMutableURLRequest(url: requestURL!)
             
             //creating the post parameter by concatenating the keys and values from text field
-            let postParameters = "groupId=\(self.group!.id)" + "&name=" + nameLabel.text!
+            let postParameters = "groupId=\(self.state!.group!.id)" + "&name=" + nameLabel.text!
             
             //adding the parameters to request body
             request.httpBody = postParameters.data(using: String.Encoding.utf8)
@@ -165,7 +163,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let request = NSMutableURLRequest(url: requestURL!)
             
             //creating the post parameter by concatenating the keys and values from text field
-            let postParameters = "groupId=\(self.group!.id)" + "&userId=" + self.userId! + "&useTop=1"
+            let postParameters = "groupId=\(self.state!.group!.id)" + "&userId=" + self.state!.userId! + "&useTop=1"
             
             //adding the parameters to request body
             request.httpBody = postParameters.data(using: String.Encoding.utf8)
@@ -180,45 +178,39 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     print("error is \(String(describing: error))")
                     return;
                 }
-                
-                NSLog("\(String(describing: data))")
             }
             //executing the task
             task.resume()
             
             // Add songs to the user
             if (self.useTopSongsSwitch.isOn == true) {
-                let topSongs = getTopSongs(userId: self.userId, num: 20)
-                
-                for song in topSongs {
-                    addUserSong(song: song)
-                }
+                RequestWrapper.addUserSongs(songs: self.state!.topSongs, userId: self.state!.userId, groupId: self.state!.group!.id, isTop: 1)
             }
             
             joinActivateButton.setTitle("Leave Group", for: .normal)
             viewPlaylistBtn.isEnabled = true
             useTopSongsSwitch.isEnabled = true
-            RequestWrapper.addGroupUser(groupId: self.group!.id, userId: self.userId)
-            let useTop = getUseTop(userId: self.userId, groupId: self.group!.id)
+            RequestWrapper.addGroupUser(groupId: self.state!.group!.id, userId: self.state!.userId)
+            let useTop = getUseTop(userId: self.state!.userId, groupId: self.state!.group!.id)
             if (useTop == 1) {
                 useTopSongsSwitch.isOn = true
             } else {
                 useTopSongsSwitch.isOn = false
             }
-            group?.users?.append(userId)
+            state!.group?.users?.append(self.state!.userId)
 
         }
         
         if (joinActivateButton.titleLabel?.text == "Leave Group") {
             
-            deleteGroupUser(userId: self.userId!, groupId: self.group!.id)
-            deleteUserFromGroup(userId: self.userId!, groupId: self.group!.id)
+            deleteGroupUser(userId: self.state!.userId!, groupId: self.state!.group!.id)
+            deleteUserFromGroup(userId: self.state!.userId!, groupId: self.state!.group!.id)
             
             joinActivateButton.setTitle("Join Group", for: .normal)
             viewPlaylistBtn.isEnabled = false
             useTopSongsSwitch.isEnabled = false
-            if let index = group?.users?.index(of: userId) {
-                group?.users?.remove(at: index)
+            if let index = self.state!.group?.users?.index(of: self.state!.userId) {
+                self.state!.group?.users?.remove(at: index)
             }
         }
         
@@ -230,13 +222,15 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let request = NSMutableURLRequest(url: requestURL!)
             
             //creating the post parameter by concatenating the keys and values from text field
-            let postParameters = "groupId=\(self.group!.id)"
+            let postParameters = "groupId=\(self.state!.group!.id)"
             
             //adding the parameters to request body
             request.httpBody = postParameters.data(using: String.Encoding.utf8)
             
             //setting the method to post
             request.httpMethod = "POST"
+            
+            let semaphore = DispatchSemaphore(value: 0)
             
             let task = URLSession.shared.dataTask(with: request as URLRequest){
                 data, response, error in
@@ -246,10 +240,13 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     return;
                 }
                 
+                semaphore.signal()
+                
                 NSLog("\(String(describing: data))")
             }
             //executing the task
             task.resume()
+            _ = semaphore.wait(timeout: .distantFuture)
             
             performSegue(withIdentifier: "groupBackSegue", sender: self)
         }
@@ -258,20 +255,24 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func toggleSwitch(sender:UISwitch!) {
         if (sender.isOn == false) {
-            deleteTopSongs(userId: self.userId, groupId: self.group!.id)
+            deleteTopSongs(userId: self.state!.userId, groupId: self.state!.group!.id)
             self.useTop = 0
-            changeUseTop(userId: self.userId, groupId: self.group!.id, useTop: 0)
+            changeUseTop(userId: self.state!.userId, groupId: self.state!.group!.id, useTop: 0)
         } else {
-            let topSongs = getTopSongs(userId: self.userId, num: 20)
-            
-            for song in topSongs {
+            // Update to get rid of for loops
+            for song in self.state!.topSongs {
                 addUserSong(song: song)
             }
             self.useTop = 1
-            changeUseTop(userId: self.userId, groupId: self.group!.id, useTop: 1)
+            changeUseTop(userId: self.state!.userId, groupId: self.state!.group!.id, useTop: 1)
         }
-        RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: group!, session: session)
+        let _ = RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.state!.group!, session: self.state!.session, reuseNetwork: 0)
     }
+    
+    @IBAction func copyInviteKey(_ sender: Any) {
+        UIPasteboard.general.string = self.state!.group!.inviteKey!
+    }
+    
 
     
     // MARK: - Navigation
@@ -284,18 +285,14 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if (segue.identifier == "groupBackSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! EventTableViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-            destinationVC.player = player!
+            state?.group = nil
+            destinationVC.state = state
         }
         
         if (segue.identifier == "viewPlaylistSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! ViewPlaylistViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-            destinationVC.group = group
-            destinationVC.player = player!
+            destinationVC.state = state
         }
     }
     
@@ -306,7 +303,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let query = "https://api.spotify.com/v1/me/top/tracks?limit=\(num)"
         let url = URL(string: query)
         let request = NSMutableURLRequest(url: url!)
-        request.setValue("Bearer \(session.accessToken!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.state!.session.accessToken!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -358,7 +355,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let request = NSMutableURLRequest(url: requestURL!)
         
         //creating the post parameter by concatenating the keys and values from text field
-        var postParameters = "groupId=\(self.group!.id)" + "&userId=" + self.userId!
+        var postParameters = "groupId=\(self.state!.group!.id)" + "&userId=" + self.state!.userId!
         postParameters = postParameters + "&songId=" + song.id + "&songName=" + song.name + "&songArtist=" + song.artist + "&isTop=1"
         
         //adding the parameters to request body
@@ -451,7 +448,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let query = "https://api.spotify.com/v1/users/" + id
         let url = URL(string: query)
         let request = NSMutableURLRequest(url: url!)
-        request.setValue("Bearer \(session.accessToken!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.state!.session.accessToken!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         let semaphore = DispatchSemaphore(value: 0)

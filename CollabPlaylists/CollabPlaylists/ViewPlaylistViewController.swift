@@ -16,19 +16,15 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var activateBtn: UIButton!
     @IBOutlet weak var songsTable: UITableView!
     var songs = [Song]()
-    var group: Group?
-    var userId: String!
-    var session: SPTSession!
-    var player: SPTAudioStreamingController?
+    var state: State?
     @IBOutlet weak var playPauseBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (self.player != nil) {
-            self.player?.playbackDelegate = self
+        if (self.state!.player != nil) {
+            self.state!.player?.playbackDelegate = self
         }
 
         // Do any additional setup after loading the view.
@@ -39,13 +35,13 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         // FIX THIS
-        if (self.group!.activated == false) {
+        if (self.state!.group!.activated == false) {
             self.songsTable.isHidden = true
             self.playPauseBtn.isHidden = true
             self.nextBtn.isHidden = true
         }
         
-        if (self.group!.admin != self.userId!) {
+        if (self.state!.group!.admin != self.state!.userId) {
             self.activateBtn.isHidden = true
             self.playPauseBtn.isHidden = true
             self.nextBtn.isHidden = true
@@ -54,20 +50,20 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
         
-        if(self.group!.activated == true) {
+        if(self.state!.group!.activated == true) {
             self.songs = getPlaylistSongs()
         }
         
-        if (self.group!.admin == self.userId! && self.group!.activated == false) {
+        if (self.state!.group!.admin == self.state!.userId && self.state!.group!.activated == false) {
             self.activateBtn.setTitle("Activate", for: .normal)
         }
 
-        if (self.group!.admin == self.userId! && self.group!.activated == true) {
+        if (self.state!.group!.admin == self.state!.userId && self.state!.group!.activated == true) {
             self.activateBtn.setTitle("Deactivate", for: .normal)
         }
 
         // Check playback state
-        if (player!.playbackState != nil && player!.playbackState.isPlaying) {
+        if (self.state!.player!.playbackState != nil && self.state!.player!.playbackState.isPlaying) {
             playPauseBtn.setTitle("Pause", for: .normal)
         }
         else {
@@ -97,22 +93,32 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         cell.name.text = song.name
         cell.artist.text = song.artist
         
+        if (indexPath.section == 0 && indexPath.row == 0) {
+            cell.name.textColor = UIColor.blue
+            cell.artist.textColor = UIColor.blue
+        } else {
+            cell.name.textColor = UIColor.black
+            cell.artist.textColor = UIColor.black
+        }
+        
         // Configure the cell...
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.userId! == self.group!.admin) {
+        if (self.state!.userId == self.state!.group!.admin) {
             songs.removeFirst(indexPath.row)
-            let newSongs = RequestWrapper.loadSongs(numSongs: indexPath.row, lastSong: songs.last?.id, group: self.group!, session: session)
+            playPauseBtn.setTitle("Pause", for: .normal)
+            playSong(id: songs[0].id)
+            
+            self.state?.hasSong = true
+            let newSongs = RequestWrapper.loadSongs(numSongs: indexPath.row, lastSong: songs.last?.id, group: self.state!.group!, session: self.state!.session, reuseNetwork: 1)
             for song in newSongs {
                 self.songs.append(song)
             }
             updatePlaylistSongs()
             self.songsTable.reloadData()
-            playSong(id: songs[0].id)
-            playPauseBtn.setTitle("Pause", for: .normal)
         }
     }
     
@@ -124,21 +130,14 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "playlistBackSegue") {
-            NSLog("back segue")
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! GroupViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-            destinationVC.group = group
-            destinationVC.player = player!
+            destinationVC.state = state
         }
         if (segue.identifier == "mySongSegue") {
             let navVC = segue.destination as! UINavigationController
             let destinationVC = navVC.viewControllers.first as! SongTableViewController
-            destinationVC.session = session
-            destinationVC.userId = userId!
-            destinationVC.group = group
-            destinationVC.player = player!
+            destinationVC.state = state
         }
     }
     
@@ -155,7 +154,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             let request = NSMutableURLRequest(url: requestURL!)
             
             //creating the post parameter by concatenating the keys and values from text field
-            let postParameters = "groupId=\(self.group!.id)"
+            let postParameters = "groupId=\(self.state!.group!.id)"
             
             //adding the parameters to request body
             request.httpBody = postParameters.data(using: String.Encoding.utf8)
@@ -178,11 +177,12 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             
             activateBtn.setTitle("Deactivate", for: .normal)
             songsTable.isHidden = false
-            group?.activated = true
+            self.state!.group?.activated = true
             self.playPauseBtn.isHidden = false
+            self.playPauseBtn.setTitle("Play", for: .normal)
             self.nextBtn.isHidden = false
             
-            self.songs = RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.group!, session: session)
+            self.songs = RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.state!.group!, session: self.state!.session, reuseNetwork: 0)
             self.songsTable.reloadData()
         }
         
@@ -194,7 +194,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             let request = NSMutableURLRequest(url: requestURL!)
             
             //creating the post parameter by concatenating the keys and values from text field
-            let postParameters = "groupId=\(self.group!.id)"
+            let postParameters = "groupId=\(self.state!.group!.id)"
             
             //adding the parameters to request body
             request.httpBody = postParameters.data(using: String.Encoding.utf8)
@@ -215,44 +215,57 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             //executing the task
             task.resume()
             
+            self.state!.player?.setIsPlaying(false, callback: { (error) in
+                if (error != nil) {
+                    print("error")
+                }
+            })
+            
             activateBtn.setTitle("Activate", for: .normal)
             songsTable.isHidden = true
-            group?.activated = false
+            self.state!.group?.activated = false
             self.playPauseBtn.isHidden = true
             self.nextBtn.isHidden = true
+            self.state?.hasSong = false
             songs = []
         }
     }
     
     @IBAction func playPauseBtnPressed(_ sender: Any) {
-        if (player!.playbackState != nil && player!.playbackState.isPlaying) {
-            player?.setIsPlaying(false, callback: { (error) in
-                if (error != nil) {
-                    print("error")
-                }
-            })
-            playPauseBtn.setTitle("Play", for: .normal)
-        }
-        else {
-            player?.setIsPlaying(true, callback: { (error) in
-                if (error != nil) {
-                    print("error")
-                }
-            })
+        if (self.state!.player!.playbackState != nil && self.state!.hasSong == true) {
+            if (self.state!.player!.playbackState.isPlaying) {
+                self.state!.player?.setIsPlaying(false, callback: { (error) in
+                    if (error != nil) {
+                        print("error")
+                    }
+                })
+                playPauseBtn.setTitle("Play", for: .normal)
+            }
+            else {
+                self.state!.player?.setIsPlaying(true, callback: { (error) in
+                    if (error != nil) {
+                        print("error")
+                    }
+                })
+                playPauseBtn.setTitle("Pause", for: .normal)
+            }
+        } else {
+            playSong(id: songs[0].id)
             playPauseBtn.setTitle("Pause", for: .normal)
+            self.state?.hasSong = true
         }
-        
     }
     
     @IBAction func nextBtnPressed(_ sender: Any) {
         songs.removeFirst()
-        let newSongs = RequestWrapper.loadSongs(numSongs: 1, lastSong: songs.last?.id, group: self.group!, session: session)
+        playSong(id: songs[0].id)
+        let newSongs = RequestWrapper.loadSongs(numSongs: 1, lastSong: songs.last?.id, group: self.state!.group!, session: self.state!.session, reuseNetwork: 1)
         for song in newSongs {
             self.songs.append(song)
         }
+        self.state?.hasSong = true
         updatePlaylistSongs()
         self.songsTable.reloadData()
-        playSong(id: songs[0].id)
     }
     
     // MARK: SPTAudioStreamingPlaybackDelegate Methods
@@ -267,7 +280,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
         songs.removeFirst()
-        self.songs = RequestWrapper.loadSongs(numSongs: 1, lastSong: songs.last?.id, group: self.group!, session: session)
+        self.songs = RequestWrapper.loadSongs(numSongs: 1, lastSong: songs.last?.id, group: self.state!.group!, session: self.state!.session, reuseNetwork: 1)
         self.songsTable.reloadData()
         playSong(id: songs[0].id)
     }
@@ -275,12 +288,13 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Helpers
     
     func playSong(id: String) {
-        print("test")
-        self.player?.playSpotifyURI("spotify:track:\(id)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
+        self.state!.player?.playSpotifyURI("spotify:track:\(id)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
             if (error == nil) {
                 print("playing!")
             }
         })
+        //Change cell color
+        //updatePlayingSongColor()
     }
     
     
@@ -291,7 +305,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         let url = URL(string: query)
         let request = NSMutableURLRequest(url: url!)
 
-        request.setValue("Bearer \(session.accessToken!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.state!.session.accessToken!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -338,7 +352,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         let request = NSMutableURLRequest(url: requestURL!)
         
         //creating the post parameter by concatenating the keys and values from text field
-        let postParameters = "groupId=\(self.group!.id)"
+        let postParameters = "groupId=\(self.state!.group!.id)"
         //adding the parameters to request body
         request.httpBody = postParameters.data(using: String.Encoding.utf8)
         
@@ -397,12 +411,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func updatePlaylistSongs() {
-        RequestWrapper.deletePlaylist(group: self.group!)
-        var ordering = 0
-        for song in self.songs {
-            RequestWrapper.addPlaylistSong(song: song, ordering: ordering, group: self.group!)
-            ordering += 1
-        }
+        RequestWrapper.deletePlaylist(group: self.state!.group!)
+        RequestWrapper.addPlaylistSongs(songs: self.songs, group: self.state!.group!)
     }
-
 }

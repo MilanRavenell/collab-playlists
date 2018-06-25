@@ -83,7 +83,7 @@ class RequestWrapper {
         //setting the method to get
         request.httpMethod = "GET"
         
-        let _ = sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 1) as! [String: AnyObject]
+        let _ = sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 1)
     }
     
     static func getSongs(userId: String, groupId: Int) -> String {

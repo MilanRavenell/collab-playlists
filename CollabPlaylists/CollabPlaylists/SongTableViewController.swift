@@ -60,11 +60,11 @@ class SongTableViewController: UITableViewController {
 
         // Add delete Button
         let track_Button = UIButton()
-        track_Button.setTitle("Track", for: .normal)
+        track_Button.setTitle("Delete", for: .normal)
         track_Button.setTitleColor(UIColor.blue, for: .normal)
-        track_Button.frame = CGRect(x: self.view.frame.size.width-100, y: 0, width: 100, height: 400)
-        track_Button.backgroundColor = UIColor.gray
-        track_Button.addTarget(self, action: "track_Button_Pressed:", for: .touchUpInside)
+        track_Button.frame = CGRect(x: self.view.frame.size.width-100, y: 0, width: 100, height: 90)
+        //track_Button.backgroundColor = UIColor.gray
+        track_Button.addTarget(self, action: #selector(SongTableViewController.deleteBtnPressed), for: .touchUpInside)
         track_Button.tag = indexPath.row
         cell.addSubview(track_Button)
         
@@ -188,7 +188,7 @@ class SongTableViewController: UITableViewController {
         _ = semaphore.wait(timeout: .distantFuture)
     }
     
-    func track_Button_Pressed(sender: UIButton!) {
+    func deleteBtnPressed(sender: UIButton!) {
         
         // Track Functionality
         print("Add Track Functionality here")

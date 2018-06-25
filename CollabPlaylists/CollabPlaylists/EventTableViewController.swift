@@ -193,6 +193,10 @@ class EventTableViewController: UITableViewController {
         
         let ids = getUserGroups()
         
+        if (ids == "") {
+            return []
+        }
+        
         //created NSURL
         let requestURL = URL(string: "http://autocollabservice.com/getgroups")
         
@@ -201,49 +205,18 @@ class EventTableViewController: UITableViewController {
         
         let postParameters = "method=id&groupIds=" + ids
         
-        //adding the parameters to request body
-        request.httpBody = postParameters.data(using: String.Encoding.utf8)
+        let response = RequestWrapper.sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0) as! [[String: AnyObject]]
         
-        //setting the method to post
-        request.httpMethod = "POST"
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){
-            data, response, error in
-            
-            if error != nil{
-                print("error is \(String(describing: error))")
-                return;
-            }
-            
-            //parsing the response
-            do {
-                //converting resonse to NSDictionary
-                let myJSON =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [[String: AnyObject]]
-                
-                //parsing the json
-                if let results = myJSON {
-                    for group in results {
-                        NSLog("group")
-                        let name = group["name"] as? String
-                        let admin = group["admin"] as! String
-                        let id = group["id"] as! Int
-                        let activated = group["activated"] as! Bool
-                        let inviteKey = group["invite_key"] as! String
-                        let newGroup = Group(name: name, admin: admin, id: id, activated: activated, users:[], inviteKey: inviteKey)
-                        groups.append(newGroup!)
-                    }
-                }
-            } catch {
-                NSLog("\(error)")
-            }
-            semaphore.signal()
-            
+        for group in response {
+            NSLog("group")
+            let name = group["name"] as? String
+            let admin = group["admin"] as! String
+            let id = group["id"] as! Int
+            let activated = group["activated"] as! Bool
+            let inviteKey = group["invite_key"] as! String
+            let newGroup = Group(name: name, admin: admin, id: id, activated: activated, users:[], inviteKey: inviteKey)
+            groups.append(newGroup!)
         }
-        //executing the task
-        task.resume()
-        _ = semaphore.wait(timeout: .distantFuture)
         
         for group in groups {
             group.users = RequestWrapper.getGroupUsers(id: group.id)

@@ -247,7 +247,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3G-ty-mWA">
-                                <rect key="frame" x="13" y="150" width="346" height="30"/>
+                                <rect key="frame" x="13" y="150" width="109" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save Name"/>
                                 <connections>
@@ -743,10 +743,10 @@
         <image name="thinking_emoji.jpeg" width="180" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OJu-Fr-sCw"/>
+        <segue reference="jgE-eS-V2y"/>
         <segue reference="TJd-0P-6J9"/>
         <segue reference="8f4-D5-ipV"/>
-        <segue reference="Qfh-8l-z2v"/>
+        <segue reference="3zQ-KS-tSi"/>
         <segue reference="Hul-nR-ISp"/>
     </inferredMetricsTieBreakers>
 </document>

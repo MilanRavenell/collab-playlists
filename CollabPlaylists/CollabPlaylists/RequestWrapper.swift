@@ -26,10 +26,10 @@ class RequestWrapper {
                     query = query + ";" + user + ":" + songIds
                 }
             }
-            query = query + "&\(group.id)&\(numSongs)&1"
+            query = query + "&\(group.id)&\(numSongs)&0"
         }
         else {
-            query = "&\(group.id)&\(numSongs)&0"
+            query = "&\(group.id)&\(numSongs)&1"
         }
         
         if (lastSong == nil) {
@@ -49,7 +49,7 @@ class RequestWrapper {
         //setting the method to get
         request.httpMethod = "GET"
         
-        let response = sendRequestSync(request: request, postParameters: nil, method: "GET") as! [String: AnyObject]
+        let response = sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 0) as! [String: AnyObject]
         
         let songIds = response["songs"] as! [String]
         
@@ -62,6 +62,28 @@ class RequestWrapper {
         }
         
         return songs
+    }
+    
+    static func updateNetworkAsync(add_delete: Int, user: String, songs: [Song]) {
+        NSLog("LoadSongs")
+        // Generate Songs
+        var query = "\(add_delete)&" + user + "&"
+        for song in songs {
+            query += song.id
+            query += ";"
+        }
+        query.removeLast()
+        
+        //created NSURL
+        let requestURL = URL(string: "http://autocollabservice.com/cgi-bin/UpdateNetwork.cgi?" + query)
+        
+        //creating NSMutableURLRequest
+        let request = NSMutableURLRequest(url: requestURL!)
+        
+        //setting the method to get
+        request.httpMethod = "GET"
+        
+        let _ = sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 1) as! [String: AnyObject]
     }
     
     static func getSongs(userId: String, groupId: Int) -> String {
@@ -78,7 +100,7 @@ class RequestWrapper {
         //creating the post parameter by concatenating the keys and values from text field
         let postParameters = "userId=" + userId + "&groupId=\(groupId)&onlyAdded=0"
         
-        let response = sendRequestSync(request: request, postParameters: postParameters, method: "POST") as! [String: AnyObject]
+        let response = sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0) as! [String: AnyObject]
         
         let songs = response["songs"]! as! [[AnyObject]]
         
@@ -107,7 +129,7 @@ class RequestWrapper {
             return ("None","None")
         }
         
-        let response = sendRequestSync(request: request as! NSMutableURLRequest, postParameters: nil, method: "GET") as! [String: AnyObject]
+        let response = sendRequest(request: request as! NSMutableURLRequest, postParameters: nil, method: "GET", isAsync: 0) as! [String: AnyObject]
         
         let name = response["name"] as! String
         let artists = response["artists"] as? [[String: AnyObject]]
@@ -129,7 +151,7 @@ class RequestWrapper {
         //creating the post parameter by concatenating the keys and values from text field
         let postParameters = "groupId=\(group.id)"
         
-        let _ = sendRequestSync(request: request, postParameters: postParameters, method: "POST") as! [String: AnyObject]
+        let _ = sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0) as! [String: AnyObject]
     }
     
     static func addPlaylistSongs(songs: [Song], group: Group) {
@@ -165,7 +187,7 @@ class RequestWrapper {
         //creating the post parameter by concatenating the keys and values from text field
         let postParameters = "groupId=\(group.id)&songIds=" + songIds + "&songNames=" + songNames + "&songArtists=" + songArtists
         
-        let _ = sendRequestSync(request: request as! NSMutableURLRequest, postParameters: postParameters, method: "POST") as! [String: AnyObject]
+        let _ = sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0) as! [String: AnyObject]
     }
     
     static func addGroupUser(groupId: Int, userId: String) {
@@ -179,7 +201,7 @@ class RequestWrapper {
         //creating the post parameter by concatenating the keys and values from text field
         let postParameters = "groupId=\(groupId)" + "&userId=" + userId
         
-        let _ = sendRequestSync(request: request as! NSMutableURLRequest, postParameters: postParameters, method: "POST") as! [String: AnyObject]
+        let _ = sendRequest(request: request , postParameters: postParameters, method: "POST", isAsync: 0) as! [String: AnyObject]
     }
     
     static func getTopSongs(userId: String, num: Int, session: SPTSession) -> [Song] {
@@ -189,7 +211,7 @@ class RequestWrapper {
         let request = NSMutableURLRequest(url: url!)
         request.setValue("Bearer \(session.accessToken!)", forHTTPHeaderField: "Authorization")
         
-        let response = sendRequestSync(request: request, postParameters: nil, method: "GET") as! [String: AnyObject]
+        let response = sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 0) as! [String: AnyObject]
         
         let tracks = response["items"] as! [[String: AnyObject]]
         for track in tracks {
@@ -243,11 +265,35 @@ class RequestWrapper {
         postParameters += "&songArtists=" + songArtists
         postParameters += "&isTop=\(isTop)"
         
-        let _ = sendRequestSync(request: request, postParameters: postParameters, method: "POST")
+        let _ = sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0)
+    }
+    
+    static func deleteUserSongs(songs: [Song], userId: String, groupId: Int) {
+        
+        let requestURL = URL(string: "http://autocollabservice.com/deleteusersongs")
+        
+        //creating NSMutableURLRequest
+        let request = NSMutableURLRequest(url: requestURL!)
+        
+        var songIds = ""
+        
+        for song in songs {
+            songIds += String(song.id)
+            songIds += "///"
+        }
+        
+        if songs.count > 0 {
+            songIds.removeLast(3)
+        }
+        
+        //creating the post parameter by concatenating the keys and values from text field
+        var postParameters = "groupId=\(groupId)" + "&userId=" + userId
+        postParameters += "&songIds=" + songIds
+        
+        let _ = sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0)
     }
     
     static func getGroupUsers(id: Int) -> [String] {
-        var users = [String]()
         
         //created NSURL
         let requestURL = URL(string: "http://autocollabservice.com/getgroupusers")
@@ -258,45 +304,51 @@ class RequestWrapper {
         //creating the post parameter by concatenating the keys and values from text field
         let postParameters = "groupId=\(id)"
         
-        let response = sendRequestSync(request: request, postParameters: postParameters, method: "POST") as! [String: [String]]
+        let response = sendRequest(request: request, postParameters: postParameters, method: "POST", isAsync: 0) as! [String: [String]]
         
         return response["users"]!
     }
+    
+    static func sendRequest(request: NSMutableURLRequest, postParameters: String?, method: String, isAsync: Int) -> AnyObject? {
+        //setting the method to post
+        request.httpMethod = method
+        
+        if (method == "POST") {
+            //adding the parameters to request body
+            request.httpBody = postParameters!.data(using: String.Encoding.utf8)
+        }
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var JSON: AnyObject?
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            
+            if error != nil{
+                print("error is \(String(describing: error))")
+                return;
+            }
+            
+            //parsing the response
+            do {
+                //converting resonse to NSDictionary
+                JSON  = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as AnyObject
+                
+            } catch {
+                print("\(error)")
+            }
+            if (isAsync == 0) {
+                semaphore.signal()
+            }
+        }
+        //executing the
+        task.resume()
+        if (isAsync == 0) {
+            _ = semaphore.wait(timeout: .distantFuture)
+        }
+        return JSON
+    }
 }
 
-func sendRequestSync(request: NSMutableURLRequest, postParameters: String?, method: String) -> AnyObject? {
-    //setting the method to post
-    request.httpMethod = method
-    
-    if (method == "POST") {
-        //adding the parameters to request body
-        request.httpBody = postParameters!.data(using: String.Encoding.utf8)
-    }
-    
-    let semaphore = DispatchSemaphore(value: 0)
-    
-    var JSON: AnyObject?
-    
-    let task = URLSession.shared.dataTask(with: request as URLRequest) {
-        data, response, error in
-        
-        if error != nil{
-            print("error is \(String(describing: error))")
-            return;
-        }
-        
-        //parsing the response
-        do {
-            //converting resonse to NSDictionary
-            JSON  = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as AnyObject
-            
-        } catch {
-            print("\(error)")
-        }
-        semaphore.signal()
-    }
-    //executing the
-    task.resume()
-    _ = semaphore.wait(timeout: .distantFuture)
-    return JSON
-}
+

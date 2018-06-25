@@ -118,7 +118,7 @@ class UserPlaylistsTableViewController: UITableViewController {
         let request = NSMutableURLRequest(url: url!)
         request.setValue("Bearer \(self.state!.session.accessToken!)", forHTTPHeaderField: "Authorization")
         
-        let response = sendRequestSync(request: request, postParameters: nil, method: "GET") as! [String: AnyObject]
+        let response = RequestWrapper.sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 0) as! [String: AnyObject]
         
         let playlists = response["items"] as! [[String: AnyObject]]
         for playlist in playlists {
@@ -135,7 +135,7 @@ class UserPlaylistsTableViewController: UITableViewController {
         let request = NSMutableURLRequest(url: url!)
         request.setValue("Bearer \(self.state!.session.accessToken!)", forHTTPHeaderField: "Authorization")
         
-        let response = sendRequestSync(request: request, postParameters: nil, method: "GET") as! [String: AnyObject]
+        let response = RequestWrapper.sendRequest(request: request, postParameters: nil, method: "GET", isAsync: 0) as! [String: AnyObject]
         
         let tracks = response["tracks"]!["items"] as! [[String: AnyObject]]
         
@@ -152,6 +152,7 @@ class UserPlaylistsTableViewController: UITableViewController {
         }
         
         RequestWrapper.addUserSongs(songs: songs, userId: self.state!.userId, groupId: self.state!.group!.id, isTop: 0)
+        RequestWrapper.updateNetworkAsync(add_delete: 0, user: self.state!.userId, songs: songs)
     }
 
 }

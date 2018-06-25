@@ -58,9 +58,16 @@ class SongTableViewController: UITableViewController {
         cell.songName.text = song.name
         cell.songArtist.text = song.artist
 
-        // Configure the cell...
-        NSLog("End")
-
+        // Add delete Button
+        let track_Button = UIButton()
+        track_Button.setTitle("Track", for: .normal)
+        track_Button.setTitleColor(UIColor.blue, for: .normal)
+        track_Button.frame = CGRect(x: self.view.frame.size.width-100, y: 0, width: 100, height: 400)
+        track_Button.backgroundColor = UIColor.gray
+        track_Button.addTarget(self, action: "track_Button_Pressed:", for: .touchUpInside)
+        track_Button.tag = indexPath.row
+        cell.addSubview(track_Button)
+        
         return cell
     }
     
@@ -179,5 +186,17 @@ class SongTableViewController: UITableViewController {
         //executing the task
         task.resume()
         _ = semaphore.wait(timeout: .distantFuture)
+    }
+    
+    func track_Button_Pressed(sender: UIButton!) {
+        
+        // Track Functionality
+        print("Add Track Functionality here")
+        let song = songs[sender.tag]
+        songs.remove(at: sender.tag)
+        self.tableView.reloadData()
+        
+        RequestWrapper.updateNetworkAsync(add_delete: 1, user: self.state!.userId, songs: [song])
+        RequestWrapper.deleteUserSongs(songs: [song], userId: self.state!.userId, groupId: self.state!.group!.id)
     }
 }

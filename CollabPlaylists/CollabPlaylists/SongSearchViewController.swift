@@ -15,7 +15,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var songTable: UITableView!
     var songs = [Song]()
     var state: State?
-    var selectedSongs: Song?
+    var selectedSong: Song?
     var searchController: UISearchController?
     
 
@@ -81,16 +81,14 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedSongs = songs[indexPath.row]
+        selectedSong = songs[indexPath.row]
         
         //getting values from text fields
-        let song = Song(name: selectedSongs!.name, artist: selectedSongs!.artist, id: selectedSongs!.id)
+        let song = Song(name: selectedSong!.name, artist: selectedSong!.artist, id: selectedSong!.id)
         
         RequestWrapper.addUserSongs(songs: [song!], userId: self.state!.userId, groupId: self.state!.group!.id, isTop: 0)
         
-        if self.state!.group!.activated == true {
-            RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.state!.group!, session: self.state!.session)
-        }
+        RequestWrapper.updateNetworkAsync(add_delete: 0, user: self.state!.userId, songs: [song!])
         
         performSegue(withIdentifier: "songSelectSegue", sender: self)
     }

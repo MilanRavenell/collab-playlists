@@ -149,6 +149,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             nameLabel.isHidden = true
             nameButton.setTitle("Save Name", for: .normal)
         }
+        view.endEditing(true)
     }
     
     @IBAction func joinActivateButtonPressed(_ sender: Any) {
@@ -590,5 +591,11 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         _ = semaphore.wait(timeout: .distantFuture)
         return useTop!
+    }
+    
+    // Dismiss keyboard when done typing
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
     }
 }

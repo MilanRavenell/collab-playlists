@@ -183,6 +183,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             self.nextBtn.isHidden = false
             
             self.songs = RequestWrapper.loadSongs(numSongs: 10, lastSong: nil, group: self.state!.group!, session: self.state!.session, reuseNetwork: 0)
+            updatePlaylistSongs()
             self.songsTable.reloadData()
         }
         

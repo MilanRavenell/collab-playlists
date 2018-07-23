@@ -9,8 +9,8 @@
 import Foundation
 
 class HITS {
-    static func authorityUpdate(hub: [String: Int], songDict: [String: [Song]]) -> [String: Int]{
-        var newAuthority = [String: Int]()
+    static func authorityUpdate(hub: [String: Float], songDict: [String: [Song]]) -> [String: Float]{
+        var newAuthority = [String: Float]()
         for (user, songs) in songDict {
             for song in songs {
                 newAuthority[song.id] = newAuthority[song.id, default: 0] + hub[user]!
@@ -19,8 +19,8 @@ class HITS {
         return newAuthority
     }
     
-    static func hubUpdate(authority: [String: Int], songDict: [String: [Song]]) -> [String: Int] {
-        var newHub = [String: Int]()
+    static func hubUpdate(authority: [String: Float], songDict: [String: [Song]]) -> [String: Float] {
+        var newHub = [String: Float]()
         for (user, songs) in songDict {
             for song in songs {
                 newHub[user] = newHub[user, default: 0] + authority[song.id]!
@@ -29,15 +29,15 @@ class HITS {
         return newHub
     }
     
-    static func HITS(songDict: [String: [Song]], t: Int) -> ([String: Int]){
-        var hub = [String: Int]()
-        var authority = [String: Int]()
+    static func HITS(songDict: [String: [Song]], t: Int) -> ([String: Float]){
+        var hub = [String: Float]()
+        var authority = [String: Float]()
         
         for (user, songs) in songDict {
             for song in songs {
-                authority[song.id] = 1
+                authority[song.id] = 0.001
             }
-            hub[user] = 1
+            hub[user] = 0.001
         }
         
         for _ in 0 ..< t {
@@ -48,8 +48,8 @@ class HITS {
         return authority
     }
     
-    static func getTopAuth(auth: [String: Int], n: Int) -> [String] {
-        var unordered = [(String, Int)]()
+    static func getTopAuth(auth: [String: Float], n: Int) -> [String] {
+        var unordered = [(String, Float)]()
         for (song, score) in auth {
             unordered.append((song, score))
         }

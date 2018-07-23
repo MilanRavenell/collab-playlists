@@ -692,7 +692,10 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         self.songsTable.isHidden = false
         print("done")
         self.activityIndicator?.stopAnimating()
-        self.getTotalSongsAsync()
+        //self.getTotalSongsAsync()
+        DispatchQueue.global().async {
+            Globals.updateNetwork(group: self.state!.group!, state: self.state!)
+        }
     }
     
     func playSong(player: SPTAudioStreamingController, song: Song) {

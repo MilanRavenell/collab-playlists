@@ -106,6 +106,7 @@ class Globals {
         group.network = network
         group.totalSongs = totalSongs
         group.totalIds = totalIds
+        group.totalSongsFinishedLoading = true
     }
     
     static func generateSongs2(group: Group, numSongs: Int, lastSong: String?, state: State) -> [Song] {
@@ -172,7 +173,7 @@ class Globals {
                         totalIds.insert(id)
                         totalSongs.append(newSong!)
                     }
-                    songsDict[user]!.append(newSong!)
+                    songsDict[user, default: [Song]()].append(newSong!)
                 }
             }
         }, isAsync: 0)

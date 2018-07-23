@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "UserPlaylistsTableViewController.viewDidLoad():UserPlaylistsTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in static RequestWrapper.sendRequest(request:postParameters:method:isAsync:):RequestWrapper.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "JSON as! [String: String]">
+            </PersistentString>
+            <PersistentString
+               value = "JSON as! [String: AnyObject]">
+            </PersistentString>
+            <PersistentString
+               value = "as! String">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "EventTableViewController.addGroupPressed(_:):EventTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in SongTableViewController.getUserSongs():SongTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UserPlaylistsTableViewController.getUserPlaylists():UserPlaylistsTableViewController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

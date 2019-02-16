@@ -17,6 +17,10 @@ class TotalSongsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        let buttonsLabel = UILabel(frame: CGRect(x: contentView.frame.width + 80, y: contentView.frame.minY, width: 40, height: contentView.frame.height))
+        buttonsLabel.text = "..."
+        contentView.addSubview(buttonsLabel)
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

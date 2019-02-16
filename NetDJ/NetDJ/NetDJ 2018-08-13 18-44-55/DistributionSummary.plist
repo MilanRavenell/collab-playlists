@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NetDJ.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+				<key>dateExpires</key>
+				<string>5/16/19</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>Bolts.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>FBSDKCoreKit.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>FBSDKLoginKit.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>FBSDKShareKit.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>FacebookCore.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>FacebookLogin.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D77DE52C00B73E2B669D5D02BA039B33B359396C</string>
+						<key>dateExpires</key>
+						<string>5/16/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>FacebookShare.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>268VRZTQN7</string>
+						<key>name</key>
+						<string>Milan Ravenell</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>268VRZTQN7.com.mycompany.CollabPlaylists</string>
+				<key>aps-environment</key>
+				<string>development</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>268VRZTQN7</string>
+				<key>get-task-allow</key>
+				<true/>
+			</dict>
+			<key>name</key>
+			<string>CollabPlaylists.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>3aca5bbf-48c0-4c7b-b0f5-c2956417bbf1</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: com.mycompany.CollabPlaylists</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>268VRZTQN7</string>
+				<key>name</key>
+				<string>Milan Ravenell</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

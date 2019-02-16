@@ -24,21 +24,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         auth.redirectURL = URL(string: "collabplaylists-login://callback")
         auth.sessionUserDefaultsKey = "current session"
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        registerForPushNotifications()
-        UNUserNotificationCenter.current().delegate = self
+        //registerForPushNotifications()
+        //UNUserNotificationCenter.current().delegate = self
         
         // If user opened app from push notification
-        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
-            // 2
-            let aps = notification["aps"] as! [String: AnyObject]
-        }
+//        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+//            // 2
+//            let aps = notification["aps"] as! [String: AnyObject]
+//        }
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         // Called when a user logs into Spotify
         if url.absoluteString.contains("collabplaylists-login://callback/") && auth.canHandle(auth.redirectURL) {
-            auth.handleAuthCallback(withTriggeredAuthURL: url, callback: { (error, _) in
+            auth.handleAuthCallback(withTriggeredAuthURL: url, callback: { [unowned self] (error, _) in
                 
                 if error != nil {
                     print(error)
@@ -51,25 +51,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let tokens = Globals.getTokens(code: code)
                 print(tokens.1)
-                let userName = self.getUserId(accessToken: tokens.0)
-                
-                
-                let session = SPTSession(userName: userName, accessToken: tokens.0, encryptedRefreshToken: tokens.1, expirationDate: Date.init(timeIntervalSinceNow: 3600))
-                
-                if (session == nil) {
-                    print("session init failed!")
-                    return
+                if let userName = self.getUserId(accessToken: tokens.0) {
+                    Globals.createUser(userId: userName)
+                    
+                    
+                    let session = SPTSession(userName: userName, accessToken: tokens.0, encryptedRefreshToken: tokens.1, expirationDate: Date.init(timeIntervalSinceNow: 3600))
+                    
+                    if (session == nil) {
+                        print("session init failed!")
+                        return
+                    }
+                    
+                    let userDefaults = UserDefaults.standard
+                    let sessionData = NSKeyedArchiver.archivedData(withRootObject: session!)
+                    
+                    userDefaults.set(sessionData, forKey: "SpotifySession")
+                    userDefaults.synchronize()
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessful"), object: nil)
                 }
-                
-                let userDefaults = UserDefaults.standard
-                let sessionData = NSKeyedArchiver.archivedData(withRootObject: session!)
-                
-                userDefaults.set(sessionData, forKey: "SpotifySession")
-                userDefaults.synchronize()
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessful"), object: nil)
             })
-            
             return true
+            
         } else if url.absoluteString.contains("fb1886072364788623://") {
             return FBSDKApplicationDelegate.sharedInstance().application(_:app, open: url, options: options)
         }
@@ -165,7 +167,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             print("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else { return }
-            UIApplication.shared.registerForRemoteNotifications()
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
         }
     }
     

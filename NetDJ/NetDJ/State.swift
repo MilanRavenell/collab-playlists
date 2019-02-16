@@ -15,17 +15,31 @@ class State {
     
     var group: Group?
     var user: User
-    var session: SPTSession!
+    var session: SPTSession?
     var player: SPTAudioStreamingController?
     var friends = [Friend]()
-    var currentActiveGroup: Int?
+    var currentActiveGroup: Group?
+    var curActiveId: Int?
     var userNetworks = [Int: Group]()
     var metadata: SPTPlaybackMetadata?
     var groupRequests = [Group]()
+    var inviters = [String]()
+    var isAtHomeScreen: Bool!
+    var numSongsLoaded = 0
+    var songLoadQueue = SongLoadQueue(n: 10)
+    var loadingSongRange = false
+    var groupIds: [Int]?
+    var isArchiving = false
+    var curCreatingGroup: Group?
+    weak var totalSongsVC: TotalSongsViewController?
+    weak var songsVC: SongsViewController?
+    weak var userPlaylistVC: UserPlaylistsTableViewController?
+    weak var viewPlaylistVC: ViewPlaylistViewController?
+    weak var groupUsersVC: GroupUserTableViewController?
     
     // MARK: Initialization
     
-    init?(group: Group?, user: User, session: SPTSession!, player: SPTAudioStreamingController?) {
+    init?(group: Group?, user: User, session: SPTSession?, player: SPTAudioStreamingController?) {
         
         // Initialize stored properties
         self.group = group
@@ -35,17 +49,25 @@ class State {
     }
     
     func getAccessToken() -> String {
-        if (self.session.isValid()) {
-            return self.session.accessToken
+        if (self.session!.isValid()) {
+            return self.session!.accessToken
         } else {
-            self.session = Globals.renewSession(session: self.session)
+            self.session = Globals.renewSession(session: self.session!)
             if (self.session == nil) {
                 print("invalid session")
                 return ""
             }
             else {
-                return self.session.accessToken
+                return self.session!.accessToken
             }
+        }
+    }
+    
+    func archiveGroups() {
+        isArchiving = true
+        DispatchQueue.global().async { [unowned self] in
+            NSKeyedArchiver.archiveRootObject(Array(self.userNetworks.values), toFile: Globals.networksFilePath)
+            self.isArchiving = false
         }
     }
 }

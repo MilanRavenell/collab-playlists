@@ -20,5 +20,6 @@ target 'CollabPlaylists' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  pod 'SwiftLint'
 
 end

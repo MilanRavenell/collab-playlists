@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var userId: String?
     var svc: SFSafariViewController?
     var deviceToken: String?
+    var isFirstTime = false
     @IBOutlet weak var mainImage: UIImageView!
     
     // MARK: Functions
@@ -30,10 +31,7 @@ class ViewController: UIViewController {
         SPTAuth.defaultInstance().tokenSwapURL = URL(string: "http://autocollabservice.com/swap")
         SPTAuth.defaultInstance().tokenRefreshURL = URL(string: "http://autocollabservice.com/refresh")
         SPTAuth.defaultInstance()
-//        loginURL = SPTAuth.defaultInstance().spotifyWebAuthenticationURL()
-//        print(loginURL)
         loginURL = SPTAuth.loginURL(forClientId: "003f496ec27d4f20961bf866071fb6fe", withRedirectURL: URL(string: "collabplaylists-login://callback"), scopes: [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPublicScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthUserReadTopScope, SPTAuthUserLibraryReadScope, SPTAuthUserLibraryModifyScope], responseType: "code")
-//        print(loginURL)
     }
 
     override func viewDidLoad() {
@@ -51,24 +49,28 @@ class ViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         if let sessionObj:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
            if login(sessionObj: sessionObj) {
-                self.performSegue(withIdentifier: "loginSegue", sender: self)
+                self.performSegue(withIdentifier: "unwindLoginSegue", sender: self)
                 return
+            } else {
+                retryAlert(sessionObj: sessionObj)
             }
-        }
-        let alert = UIAlertController(title: "You are not logged into a spotify account", message: "Log into your spotify prime account to continue", preferredStyle: .alert)
+        } else {
+            let alert = UIAlertController(title: "You are not logged into a spotify account", message: "Log into your spotify prime account to continue", preferredStyle: .alert)
             
-        alert.addAction(UIAlertAction(title: "Log In", style: .default, handler: presentLogin))
-        
-        self.present(alert, animated: true)
+            alert.addAction(UIAlertAction(title: "Log In", style: .default, handler: presentLogin))
+            
+            self.present(alert, animated: true)
+        }
     }
     
     func updateAfterFirstLogin() {
         NSLog("updateafterfirstlogin")
         let userDefaults = UserDefaults.standard
+        isFirstTime = true
         
         if let sessionObj:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
             if login(sessionObj: sessionObj) {
-                svc!.dismiss(animated: true, completion: {() in self.performSegue(withIdentifier: "loginSegue", sender: self)})
+                svc!.dismiss(animated: true, completion: {() in self.performSegue(withIdentifier: "unwindLoginSegue", sender: self)})
             }
         }
     }
@@ -78,34 +80,63 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: Navigation
+    
+    //MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if (segue.identifier == "loginSegue") {
-            let navVC = segue.destination as! UINavigationController
-            let destinationVC = navVC.viewControllers.first as! NetworkTableViewController
-            
-            let groups = Globals.getGroupsById(ids: getUserGroups())
-            var songs = [Int: [Song]]()
-            var playlists = [Int: [Playlist]]()
+        if (segue.identifier == "unwindLoginSegue") {
+            let destinationVC = segue.destination as! NetworkTableViewController
             
             let user = User(id: userId!, name: nil)
+            
             let state = State(group: nil, user: user!, session: session, player: player)
             state?.user.name = Globals.getUsersName(id: userId!, state: state!)
+            DispatchQueue.global().async {
+                state?.user.getSavedSongs(state: state!)
+            }
+            
+            if let networks = NSKeyedUnarchiver.unarchiveObject(withFile: Globals.networksFilePath) as? [Group] {
+                for network in networks {
+                    network.state = state
+                    state?.userNetworks[network.id] = network
+                }
+            } else {
+                let networks = Globals.getGroupsById(ids: Globals.getUserGroups(userId: userId!), state: state!)
+                
+                for network in networks {
+                    let networkSongs = Globals.getPlaylistSongs(userId: userId!, groupId: network.id, state: state!)
+                    if networkSongs.count > 0 {
+                        network.songs = [networkSongs[0]]
+                    }
+                    
+                    state?.userNetworks[network.id] = network
+                }
+            }
             
             DispatchQueue.global().async {
                 // Add defaults
-                songs[-1] = Globals.getUserSongs(userId: self.userId!, groupId: -1, state: state!)
-                playlists[-1] = Globals.getUserPlaylists(userId: self.userId!, groupId: -1, state: state!)
-                state!.user.songs = songs
-                state!.user.playlists = playlists
-                state!.user.topSongs = Globals.getTopSongs(userId: user!.id, num: 20, state: state!)
+                Globals.getUserSongs(user: user!, groupId: -1, state: state!)
+                state!.user.getPlaylists(state: state!)
+                Globals.getUserSelectedPlaylists(user: user!, groupId: -1, state: state!)
+
+                if let playlists = NSKeyedUnarchiver.unarchiveObject(withFile: Globals.playlistsFilePath) as? [Playlist] {
+                    for playlist in playlists {
+                        playlist.state = state
+                        if let selectedPlaylists = state!.user.selectedPlaylists[-1], selectedPlaylists.contains(playlist.id) {
+                            state!.user.songs[-1]?.append(contentsOf: playlist.getSongs()  )
+                        }
+                    }
+                }
+                
+                state!.user.defaultsLoaded = true
+                if let songsVC = state!.songsVC {
+                    songsVC.mySongsDidFinishLoading()
+                }
             }
-            for group in groups {
-                state?.userNetworks[group.id] = group
-            }
+
             destinationVC.state = state
+            destinationVC.doFirstTimeAlert = isFirstTime
             if (self.deviceToken != nil) {
                 addDeviceToken(token: self.deviceToken!, userId: self.userId!)
             }
@@ -114,7 +145,7 @@ class ViewController: UIViewController {
     
     func presentLogin(alert: UIAlertAction!) {
         self.svc = SFSafariViewController(url: loginURL!)
-        self.present(svc!, animated:true, completion: nil)
+        self.present(svc!, animated: true, completion: nil)
         if auth.canHandle(auth.redirectURL) {
             // TODO - error handling
             print("URL:")
@@ -122,7 +153,21 @@ class ViewController: UIViewController {
         }
     }
     
-    func login(sessionObj: AnyObject) -> Bool{
+    func retryAlert(sessionObj: AnyObject) {
+        let alert = UIAlertController(title: "You are not connected to the Internet", message: "Please connect and retry to continue", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { [weak self] (_) in
+            if self!.login(sessionObj: sessionObj) {
+                self?.performSegue(withIdentifier: "unwindLoginSegue", sender: self!)
+            } else {
+                self?.retryAlert(sessionObj: sessionObj)
+            }
+        }))
+        
+        self.present(alert, animated: true)
+    }
+    
+    func login(sessionObj: AnyObject) -> Bool {
         let sessionDataObj = sessionObj as! Data
         
         self.session = NSKeyedUnarchiver.unarchiveObject(with: sessionDataObj) as! SPTSession
@@ -137,18 +182,10 @@ class ViewController: UIViewController {
             }
         }
         self.userId = self.session.canonicalUsername
-        addSpotifyId(userId: self.userId!)
+        
+        print(self.session.accessToken)
         
         return self.session.isValid()
-    }
-    
-    func addSpotifyId(userId: String) {
-        let requestURL = URL(string: "http://autocollabservice.com/addspotifyid")
-        let request = NSMutableURLRequest(url: requestURL!)
-        print(session.encryptedRefreshToken)
-        let postParameters = "spotifyId=" + userId
-        
-        Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 1)
     }
     
     func updateDeviceToken() {
@@ -170,26 +207,5 @@ class ViewController: UIViewController {
     }
     
     // MARK: Helpers
-    func getUserGroups() -> [Int] {
-        print("usergroups")
-        //created NSURL
-        let requestURL = URL(string: "http://autocollabservice.com/getusergroups")
-        
-        //creating NSMutableURLRequest
-        let request = NSMutableURLRequest(url: requestURL!)
-        
-        let postParameters = "userId=" + userId!
-        
-        var responseDict: [String: AnyObject]?
-        Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {(response) in
-            responseDict = response as? [String: AnyObject]
-        }, isAsync: 0)
-        
-        if (responseDict == nil) {
-            return []
-        }
-        
-        return responseDict!["groups"] as! [Int]
-    }
 }
 

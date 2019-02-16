@@ -3,36 +3,95 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "static Globals.generateSongs(groupId:numSongs:lastSong:session:):Globals.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "response as! [String: [String]]">
-            </PersistentString>
-            <PersistentString
-               value = "[String]">
-            </PersistentString>
-            <PersistentString
-               value = "value as! [String]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FriendSearchViewController.tableView(_:didSelectRowAt:):FriendSearchViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "static RequestWrapper.generateSongs(groupId:numSongs:lastSong:session:):RequestWrapper.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ViewPlaylistViewController.audioStreaming(_:didStopPlayingTrack:):ViewPlaylistViewController.swift">
+         contextName = "closure #1 in static Globals.renewSession(completion:):Globals.swift">
       </ContextState>
       <ContextState
          contextName = "GroupUserTableViewController.getProfPicURL(userId:):GroupUserTableViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "FriendSearchViewController.deleteBtnPressed(sender:):FriendSearchViewController.swift">
+         contextName = "closure #1 in static Globals.sendRequest(request:postParameters:method:completion:isAsync:):Globals.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "([String: AnyObject)JSON">
+            </PersistentString>
+            <PersistentString
+               value = "JSON as! [String: AnyObject]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Globals.generateSongs(group:numSongs:lastSong:state:):Globals.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewPlaylistViewController.audioStreaming(_:didChangePosition:):ViewPlaylistViewController.swift">
       </ContextState>
       <ContextState
          contextName = "SongTableViewController.tableView(_:cellForRowAt:):SongTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in Song.init(name:artist:id:imageURL:session:):Song.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FriendSearchViewController.tableView(_:didSelectRowAt:):FriendSearchViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static HITS.hubUpdate(authority:songDict:):HITS.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static Globals.generateSongs(groupId:numSongs:lastSong:session:):Globals.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "value as! [String]">
+            </PersistentString>
+            <PersistentString
+               value = "[String]">
+            </PersistentString>
+            <PersistentString
+               value = "response as! [String: [String]]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Kmeans.getClosestCentroid(vec:):Kmeans.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Kmeans.fit(data:):Kmeans.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #1 in ViewPlaylistViewController.tableView(_:cellForRowAt:):ViewPlaylistViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.presentLogin(alert:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "State.getAccessToken():State.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static HITS.HITS(songDict:t:):HITS.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewPlaylistViewController.tableView(_:cellForRowAt:):ViewPlaylistViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static RequestWrapper.generateSongs(groupId:numSongs:lastSong:session:):RequestWrapper.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TotalSongsViewController.tableView(_:cellForRowAt:):TotalSongsViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.login(sessionObj:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in AppDelegate.application(_:open:options:):AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in static Globals.getSongsFromPlaylist(userId:id:session:):Globals.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewPlaylistViewController.audioStreaming(_:didStopPlayingTrack:):ViewPlaylistViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FriendSearchViewController.deleteBtnPressed(sender:):FriendSearchViewController.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

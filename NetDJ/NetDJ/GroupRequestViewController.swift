@@ -14,13 +14,16 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var requestTable: UITableView!
     var groups = [Group]()
     var state: State?
+    var alertView: UIView!
+    var alertLabel: UILabel!
+    var networkTableVC: NetworkTableViewController!
+    var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barTintColor = Globals.getThemeColor1()
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
+        self.title = "Your Network Requests"
+
         self.requestTable.delegate = self
         self.requestTable.dataSource = self
         self.requestTable.frame = self.view.frame
@@ -28,22 +31,22 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
         self.requestTable.rowHeight = 80
         self.requestTable.tableFooterView = UIView()
         
-        groups = self.state!.groupRequests
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         
-        if (groups.count == 0) {
-            self.requestTable.isHidden = true
-            let emptyLabel = UILabel(frame: self.view.frame)
-            emptyLabel.text = "No Requests"
-            emptyLabel.textColor = UIColor.gray
-            emptyLabel.textAlignment = .center
-            self.view.addSubview(emptyLabel)
-            
+        DispatchQueue.global().async { [weak self] in
+            self?.getUserGroupRequests()
         }
         
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight))
         rightSwipeGesture.direction = .right
         self.requestTable.addGestureRecognizer(rightSwipeGesture)
         self.view.addGestureRecognizer(rightSwipeGesture)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,73 +72,91 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
             fatalError("It messed up")
         }
         let group = self.groups[indexPath.row]
+        let inviter = self.state!.inviters[indexPath.row]
         
         cell.backgroundColor = UIColor.clear
         
         // Configure the cell...
-        if (group.name == nil) {
-            cell.groupNameLabel.text = Globals.getUsersName(id: group.admin, state: self.state!) + "'s Network"
-        } else {
-            cell.groupNameLabel.text = group.name
-        }
-        cell.groupAdminLabel.text = "Admin: " + group.admin
+        cell.groupNameLabel.text = group.name
+        cell.groupAdminLabel.text = "Invited By: " + Globals.getUsersName(id: inviter, state: self.state!)!
         cell.groupAdminLabel.font = cell.groupAdminLabel.font.withSize(15)
+        
+        let networkPicView = UIImageView(frame: CGRect(x: 10, y: 10, width: 80, height: cell.frame.height - 20))
+        cell.addSubview(networkPicView)
+        group.assignPicToView(imageView: networkPicView)
+        
+        cell.groupNameLabel.frame = CGRect(x: cell.groupNameLabel.frame.minX, y: cell.groupNameLabel.frame.minY, width: cell.contentView.bounds.width - 100, height: cell.groupNameLabel.frame.height)
+        cell.groupAdminLabel.frame = CGRect(x: cell.groupAdminLabel.frame.minX, y: cell.groupAdminLabel.frame.minY, width: cell.contentView.bounds.width - 100, height: cell.groupAdminLabel.frame.height)
+        
         
         // Add join Button
         let join_Button = UIButton(type: .system)
-        join_Button.setTitle("Join", for: .normal)
+        join_Button.setTitle("+", for: .normal)
+        join_Button.titleLabel?.font = join_Button.titleLabel?.font.withSize(30)
         join_Button.setTitleColor(Globals.getThemeColor1(), for: .normal)
-        join_Button.frame = CGRect(x: self.view.frame.size.width-200, y: 0, width: 100, height: 80)
+        join_Button.frame = CGRect(x: self.view.frame.size.width-120, y: 0, width: 60, height: 80)
         join_Button.addTarget(self, action: #selector(joinBtnPressed), for: .touchUpInside)
         join_Button.tag = indexPath.row
-        join_Button.backgroundColor = UIColor.white
         cell.addSubview(join_Button)
         
         // Add delete Button
         let delete_Button = UIButton(type: .system)
-        delete_Button.setTitle("Delete", for: .normal)
+        delete_Button.setTitle("x", for: .normal)
+        delete_Button.titleLabel?.font = delete_Button.titleLabel?.font.withSize(25)
         delete_Button.setTitleColor(UIColor.red, for: .normal)
-        delete_Button.frame = CGRect(x: self.view.frame.size.width-100, y: 0, width: 100, height: 80)
+        delete_Button.frame = CGRect(x: self.view.frame.size.width-60, y: 0, width: 60, height: 80)
         delete_Button.addTarget(self, action: #selector(deleteBtnPressed), for: .touchUpInside)
         delete_Button.tag = indexPath.row
-        delete_Button.backgroundColor = Globals.getThemeColor2()
         cell.addSubview(delete_Button)
         
         return cell
     }
     
     func didSwipeRight() {
-        self.performSegue(withIdentifier: "groupRequestsBackSegue", sender: self)
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "groupRequestsBackSegue") {
-            let navVC = segue.destination as! UINavigationController
-            let destinationVC = navVC.viewControllers.first as! NetworkTableViewController
-            destinationVC.userShown = true
-            destinationVC.state = state
-        }
+
     }
     
     
     // MARK: Helpers
     func joinBtnPressed(sender: UIButton!) {
+        Globals.showAlert(text: "Joined!", view: self.view)
         let group = self.groups[sender.tag]
         self.groups.remove(at: sender.tag)
         self.requestTable.reloadData()
-        
-        self.state!.userNetworks[group.id] = group
-        
-        Globals.addGroupUsers(groupId: group.id, userIds: [self.state!.user.id])
-        Globals.addUserDefaults(user: self.state!.user.id, group: group, state: self.state!)
-        
         deleteGroupRequest(groupId: group.id)
         
+        self.state!.userNetworks[group.id] = group
+        networkTableVC.groups = Array(self.state!.userNetworks.values)
+        networkTableVC.networkTable.reloadData()
+        
+        DispatchQueue.global().async { [weak self] in
+            if let state = self?.state {
+                Globals.addGroupUsers(groupId: group.id, userIds: [state.user.id])
+                Globals.addUserDefaults(user: state.user, group: group, state: state)
+                
+                group.isJoining = true
+                Globals.updateNetwork(group: group, state: state)
+                group.songs = [Song]()
+                Globals.generateSongs(group: group, numSongs: 10, lastSong: nil, state: state, viewPlaylistVC: nil)
+                Globals.addPlaylistSongs(songs: group.songs!, groupId: group.id, userId: state.user.id)
+                if group.songs!.count > 0 {
+                    group.songs = [group.songs![0]]
+                }
+                group.isJoining = false
+                self?.state!.viewPlaylistVC?.networkSetup()
+                state.archiveGroups()
+            }
+        }
+        
         if (groups.count == 0) {
-            self.requestTable.isHidden = true
+            self.requestTable.reloadData()
             let emptyLabel = UILabel(frame: self.view.frame)
             emptyLabel.text = "No Requests"
             emptyLabel.textColor = UIColor.gray
@@ -146,14 +167,15 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func deleteBtnPressed(sender: UIButton!) {
+        Globals.showAlert(text: "Deleted!", view: self.view)
         let group = self.groups[sender.tag]
         self.groups.remove(at: sender.tag)
         self.requestTable.reloadData()
         
         deleteGroupRequest(groupId: group.id)
         
+        
         if (groups.count == 0) {
-            self.requestTable.isHidden = true
             let emptyLabel = UILabel(frame: self.view.frame)
             emptyLabel.text = "No Requests"
             emptyLabel.textColor = UIColor.gray
@@ -170,5 +192,42 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
         
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 0)
     }
-
+    
+    func getUserGroupRequests() {
+        
+        var groupRequests = [Int]()
+        let requestURL = URL(string: "http://autocollabservice.com/getgrouprequests")
+        let request = NSMutableURLRequest(url: requestURL!)
+        let postParameters = "userId=" + self.state!.user.id
+        
+        Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: { [weak self] (response) in
+            print("start")
+            let groups = response as? [[AnyObject]]
+            
+            if (groups == nil) {
+                return
+            }
+            for group in groups! {
+                let id = group[1] as! Int
+                let inviter = group[2] as! String
+                groupRequests.append(id)
+                self?.state!.inviters.append(inviter)
+            }
+        }, isAsync: 0)
+        
+        self.groups = Globals.getGroupsById(ids: groupRequests, state: self.state!)
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.stopAnimating()
+            self?.requestTable.reloadData()
+            if self?.groups.count == 0 {
+                if let view = self?.view {
+                    let emptyLabel = UILabel(frame: view.frame)
+                    emptyLabel.text = "No Requests"
+                    emptyLabel.textColor = UIColor.gray
+                    emptyLabel.textAlignment = .center
+                    self?.view.addSubview(emptyLabel)
+                }
+            }
+        }
+    }
 }

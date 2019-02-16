@@ -24,11 +24,13 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.34.0):
     - FBSDKCoreKit (~> 4.34.0)
+  - SwiftLint (0.26.0)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FacebookShare
+  - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -39,6 +41,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -48,7 +51,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
   FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
   FBSDKShareKit: 511d1dfc71204c0a8d69e6c5e3c964dcf0d4f3d9
+  SwiftLint: f6b83e8d95ee1e91e11932d843af4fdcbf3fc764
 
-PODFILE CHECKSUM: 2027bc1c05ea1d530295fd68507fd7605adf2cd6
+PODFILE CHECKSUM: cbe58d9a86f9771960947ccfb613fa29a231a5e5
 
 COCOAPODS: 1.5.3

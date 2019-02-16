@@ -15,21 +15,20 @@ class NetworkView: UIView {
     //MARK: Properties
     var nameTextField: UITextField!
     var nameLabel: UILabel!
-    var groupPicView: UIImageView?
+    var groupPicView: UIImageView!
     var refreshBtn: UIButton!
     var deleteLeaveBtn: UIButton!
     var inviteBtn: UIButton!
     var viewUsersBtn: UIButton!
     var songsBtn: UIButton!
-    var playlistsBtn: UIButton!
     var totalSongsBtn: UIButton!
-    var parent: ViewPlaylistViewController!
+    weak var parent: ViewPlaylistViewController!
     
     init (frame : CGRect, parent: ViewPlaylistViewController) {
         super.init(frame: CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: frame.height + 70))
         
         self.parent = parent
-        self.backgroundColor = Globals.getThemeColor2()
+        self.backgroundColor = UIColor.white
         
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
         scrollView.contentSize = self.bounds.size
@@ -39,26 +38,28 @@ class NetworkView: UIView {
         
         // Add picture subview
         groupPicView = UIImageView(frame: CGRect(x: 0, y: 20, width: 200, height: 200))
-        groupPicView?.center.x = self.frame.width/2
+        groupPicView.center.x = self.frame.width/2
         scrollView.addSubview(groupPicView!)
+        parent.state!.group?.assignPicToView(imageView: groupPicView!)
         
-        if (parent.state!.group?.pic != nil) {
-            groupPicView?.image = parent.state!.group!.pic.pointee
-        } else {
-            groupPicView?.image = UIImage(named: Globals.defaultPic)
-        }
+        let path = UIBezierPath(roundedRect: groupPicView.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 10, height: 10))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        groupPicView.layer.mask = mask
         
-        groupPicView?.contentMode = .scaleAspectFill
+        groupPicView.contentMode = .scaleAspectFill
         
         let picGesture = UITapGestureRecognizer(target: self, action: #selector(self.triggerPicAlert))
-        groupPicView?.isUserInteractionEnabled = true
-        groupPicView?.addGestureRecognizer(picGesture)
+        groupPicView.isUserInteractionEnabled = true
+        groupPicView.addGestureRecognizer(picGesture)
         
         // Add name label subview
         let nameLabelView = UIView(frame: CGRect(x: 0, y: groupPicView!.frame.maxY + Globals.medOffset, width: self.frame.width, height: 50))
         nameLabelView.backgroundColor = UIColor.white
-        let nameGesture = UITapGestureRecognizer(target: self, action: #selector(self.beginEdit))
+        let nameGesture = UITapGestureRecognizer(target: self, action: #selector(self.showEditAlert))
         nameLabelView.addGestureRecognizer(nameGesture)
+        nameLabelView.layer.borderWidth = 1
+        nameLabelView.layer.borderColor = Globals.getThemeColor2().cgColor
         scrollView.addSubview(nameLabelView)
         
         nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: nameLabelView.frame.width, height: nameLabelView.frame.height))
@@ -74,7 +75,7 @@ class NetworkView: UIView {
                 nameLabel.isHidden = true
             } else {
                 nameTextField.isHidden = true
-                nameLabel.text = parent.state!.group!.name
+                nameLabel.text = parent.state!.group?.name
             }
         }
         
@@ -86,59 +87,112 @@ class NetworkView: UIView {
         totalSongsView.backgroundColor = UIColor.white
         scrollView.addSubview(totalSongsView)
         
+        let totalSongsImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        totalSongsImage.image = UIImage(named: "everybody_icon.png")
+        
+        if let image = totalSongsImage.image {
+            let maskImage = image.cgImage!
+            
+            let width = image.size.width
+            let height = image.size.height
+            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+            
+            context.clip(to: bounds, mask: maskImage)
+            context.setFillColor(Globals.getThemeColor1().cgColor)
+            context.fill(bounds)
+            
+            if let cgImage = context.makeImage() {
+                totalSongsImage.image = UIImage(cgImage: cgImage)
+            }
+        }
+        totalSongsView.addSubview(totalSongsImage)
+        
         totalSongsBtn = UIButton(type: .system)
-        totalSongsBtn.frame = CGRect(x: 0, y: 0, width: totalSongsView.frame.width, height: totalSongsView.frame.height)
-        totalSongsBtn.setTitle("Total Network Songs", for: .normal)
+        totalSongsBtn.frame = CGRect(x: 50, y: 0, width: totalSongsView.frame.width, height: totalSongsView.frame.height)
+        totalSongsBtn.setTitle("Everybody's Songs", for: .normal)
         totalSongsBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
         totalSongsBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        totalSongsBtn.contentHorizontalAlignment = .left
         totalSongsView.addSubview(totalSongsBtn)
         
-        // Add refresh Btn view
-        let refreshView = UIView(frame: CGRect(x: 0, y: totalSongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
-        refreshView.backgroundColor = UIColor.white
-        scrollView.addSubview(refreshView)
-        
-        refreshBtn = UIButton(type: .system)
-        refreshBtn.frame = CGRect(x: 0, y: 0, width: refreshView.frame.width, height: refreshView.frame.height)
-        refreshBtn.setTitle("Refresh", for: .normal)
-        refreshBtn.addTarget(self, action: #selector(refreshBtnPressed), for: .touchUpInside)
-        refreshBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
-        refreshView.addSubview(refreshBtn)
-        
         // Add my songs subview
-        let mySongsView = UIView(frame: CGRect(x: 0, y: refreshView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
+        let mySongsView = UIView(frame: CGRect(x: 0, y: totalSongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
         mySongsView.backgroundColor = UIColor.white
         scrollView.addSubview(mySongsView)
         
+        let mySongsImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        mySongsImage.image = UIImage(named: "user_icon.png")
+        
+        if let image = mySongsImage.image {
+            let maskImage = image.cgImage!
+            
+            let width = image.size.width
+            let height = image.size.height
+            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+            
+            context.clip(to: bounds, mask: maskImage)
+            context.setFillColor(Globals.getThemeColor1().cgColor)
+            context.fill(bounds)
+            
+            if let cgImage = context.makeImage() {
+                mySongsImage.image = UIImage(cgImage: cgImage)
+            }
+        }
+        
+        mySongsView.addSubview(mySongsImage)
+        
         songsBtn = UIButton(type: .system)
-        songsBtn.frame = CGRect(x: 0, y: 0, width: mySongsView.frame.width, height: mySongsView.frame.height)
-        songsBtn.setTitle("My Songs", for: .normal)
+        songsBtn.frame = CGRect(x: 50, y: 0, width: mySongsView.frame.width, height: mySongsView.frame.height)
+        songsBtn.setTitle("Your Songs", for: .normal)
         songsBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
         songsBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        songsBtn.contentHorizontalAlignment = .left
         mySongsView.addSubview(songsBtn)
         
-        // Add my playlists subview
-        let myPlaylistsView = UIView(frame: CGRect(x: 0, y: mySongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
-        myPlaylistsView.backgroundColor = UIColor.white
-        scrollView.addSubview(myPlaylistsView)
-        
-        playlistsBtn = UIButton(type: .system)
-        playlistsBtn.frame = CGRect(x: 0, y: 0, width: myPlaylistsView.frame.width, height: myPlaylistsView.frame.height)
-        playlistsBtn.setTitle("My Spotify Playlists", for: .normal)
-        playlistsBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
-        playlistsBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
-        myPlaylistsView.addSubview(playlistsBtn)
-        
         // Add members subview
-        let membersView = UIView(frame: CGRect(x: 0, y: myPlaylistsView.frame.maxY + Globals.bigOffset, width: self.frame.width, height: 50))
+        let membersView = UIView(frame: CGRect(x: 0, y: mySongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
         membersView.backgroundColor = UIColor.white
         scrollView.addSubview(membersView)
         
+        let membersImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        membersImage.image = UIImage(named: "icons8-people-30.png")
+        
+        if let image = membersImage.image {
+            let maskImage = image.cgImage!
+            
+            let width = image.size.width
+            let height = image.size.height
+            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+            
+            context.clip(to: bounds, mask: maskImage)
+            context.setFillColor(Globals.getThemeColor1().cgColor)
+            context.fill(bounds)
+            
+            if let cgImage = context.makeImage() {
+                membersImage.image = UIImage(cgImage: cgImage)
+            }
+        }
+        
+        membersView.addSubview(membersImage)
+        
         viewUsersBtn = UIButton(type: .system)
-        viewUsersBtn.frame = CGRect(x: 0, y: 0, width: membersView.frame.width, height: membersView.frame.height)
+        viewUsersBtn.frame = CGRect(x: 50, y: 0, width: membersView.frame.width, height: membersView.frame.height)
         viewUsersBtn.setTitle("Members", for: .normal)
         viewUsersBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
         viewUsersBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        viewUsersBtn.contentHorizontalAlignment = .left
         membersView.addSubview(viewUsersBtn)
         
         // Add invite key subview
@@ -146,11 +200,37 @@ class NetworkView: UIView {
         inviteKeyView.backgroundColor = UIColor.white
         scrollView.addSubview(inviteKeyView)
         
+        let inviteKeyImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        inviteKeyImage.image = UIImage(named: "icons8-paste-50.png")
+        
+        if let image = inviteKeyImage.image {
+            let maskImage = image.cgImage!
+            
+            let width = image.size.width
+            let height = image.size.height
+            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+            
+            context.clip(to: bounds, mask: maskImage)
+            context.setFillColor(Globals.getThemeColor1().cgColor)
+            context.fill(bounds)
+            
+            if let cgImage = context.makeImage() {
+                inviteKeyImage.image = UIImage(cgImage: cgImage)
+            }
+        }
+        
+        inviteKeyView.addSubview(inviteKeyImage)
+        
         inviteBtn = UIButton(type: .system)
-        inviteBtn.frame = CGRect(x: 0, y: 0, width: inviteKeyView.frame.width, height: inviteKeyView.frame.height)
-        inviteBtn.setTitle("Copy Invite Key", for: .normal)
+        inviteBtn.frame = CGRect(x: 50, y: 0, width: inviteKeyView.frame.width, height: inviteKeyView.frame.height)
+        inviteBtn.setTitle("Copy Invite Code", for: .normal)
         inviteBtn.addTarget(self, action: #selector(copyInviteKey), for: .touchUpInside)
         inviteBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        inviteBtn.contentHorizontalAlignment = .left
         inviteKeyView.addSubview(inviteBtn)
         
         // Add delete/leave subview
@@ -158,21 +238,41 @@ class NetworkView: UIView {
         deleteLeaveView.backgroundColor = UIColor.white
         scrollView.addSubview(deleteLeaveView)
         
+        let deleteLeaveImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        deleteLeaveImage.image = UIImage(named: "icons8-waste-32.png")
+        
+        if let image = deleteLeaveImage.image {
+            let maskImage = image.cgImage!
+            
+            let width = image.size.width
+            let height = image.size.height
+            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+            
+            context.clip(to: bounds, mask: maskImage)
+            context.setFillColor(Globals.getThemeColor1().cgColor)
+            context.fill(bounds)
+            
+            if let cgImage = context.makeImage() {
+                deleteLeaveImage.image = UIImage(cgImage: cgImage)
+            }
+        }
+        
+        deleteLeaveView.addSubview(deleteLeaveImage)
+        
         deleteLeaveBtn = UIButton(type: .system)
-        deleteLeaveBtn.frame = CGRect(x: 0, y: 0, width: deleteLeaveView.frame.width, height: deleteLeaveView.frame.height)
+        deleteLeaveBtn.frame = CGRect(x: 50, y: 0, width: deleteLeaveView.frame.width, height: deleteLeaveView.frame.height)
         deleteLeaveBtn.addTarget(self, action: #selector(deleteLeaveAlarm), for: .touchUpInside)
         deleteLeaveBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        deleteLeaveBtn.contentHorizontalAlignment = .left
         deleteLeaveView.addSubview(deleteLeaveBtn)
         
         // If admin, then allow admin to delete
         // If not admin, then let user leave
-        if (parent.state?.group == nil) {
-             self.deleteLeaveBtn.setTitle("", for: .normal)
-        } else if (parent.state?.group?.admin == parent.state?.user.id) {
-            self.deleteLeaveBtn.setTitle("Delete Network", for: .normal)
-        } else {
-            self.deleteLeaveBtn.setTitle("Leave Network", for: .normal)
-        }
+        self.deleteLeaveBtn.setTitle("Leave Group", for: .normal)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -186,9 +286,7 @@ class NetworkView: UIView {
         if (sender == songsBtn) {
             parent.performSegue(withIdentifier: "mySongsSegue", sender: self)
         }
-        if (sender == playlistsBtn) {
-            parent.performSegue(withIdentifier: "myPlaylistsSegue", sender: self)
-        }
+
         if (sender == viewUsersBtn) {
             parent.performSegue(withIdentifier: "viewUsersSegue", sender: self)
         }
@@ -196,7 +294,7 @@ class NetworkView: UIView {
     
     func deleteLeaveAlarm() {
         var alert: UIAlertController?
-        if (parent.state?.group!.admin == parent.state?.user.id) {
+        if let usersLoaded = parent.state?.group?.usersLoaded, usersLoaded &&  parent.state?.group?.users.count == 1 {
             alert = UIAlertController(title: "Delete Network", message: "Are you sure you want to delete?", preferredStyle: .alert)
         } else {
             alert = UIAlertController(title: "Leave Network", message: "Are you sure you want to leave?", preferredStyle: .alert)
@@ -209,7 +307,7 @@ class NetworkView: UIView {
     }
     
     func triggerPicAlert() {
-        let alert = UIAlertController(title: "Add Photo?", message: "How do you want to add a Network Photo?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Change Picture?", message: "Select a method", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Library", style: .default, handler: addPhotoFromLibrary))
         alert.addAction(UIAlertAction(title: "Camera", style: .default , handler: addPhotoFromCamera))
@@ -221,220 +319,132 @@ class NetworkView: UIView {
     
     //MARK: Actions
     func refreshBtnPressed(_ sender: Any) {
-        self.parent.songsTable.isHidden = true
-        self.parent.activityIndicator?.startAnimating()
-        DispatchQueue.global().async {
-            self.parent.songs = Globals.generateSongs(groupId: self.parent.state!.group!.id, numSongs: 10, lastSong: nil, state: self.parent.state!)
-            
-            if (self.parent.songs.count > 0) {
-                self.parent.playSong(player: self.parent.state!.player!, song: self.parent.songs[0])
-                self.parent.state!.currentActiveGroup = self.parent.state!.group!.id
-                self.parent.playPauseBtn?.setTitle("Pause", for: .normal)
+        let initialCount = self.parent.songs.count
+        refreshBtn.isEnabled = false
+        DispatchQueue.global().async { [unowned self] in
+            var n = 10
+            if self.parent.state?.group?.id == self.parent.state?.curActiveId {
+                if let songs = self.parent.state!.group?.songs, songs.count > 0 {
+                    self.parent.state!.group?.songs = [songs[0]]
+                    n -= 1
+                }
             } else {
-                self.parent.updateIsPlaying(update: false)
-                self.parent.playPauseBtn?.setTitle("Play", for: .normal)
-                self.parent.state!.currentActiveGroup = nil
+                self.parent.state!.group?.songs = []
             }
-            Globals.addPlaylistSongs(songs: self.parent.songs, groupId: self.parent.state!.group!.id, userId: self.parent.state!.user.id)
+            
+            Globals.generateSongs(group: self.parent.state!.group, numSongs: n, lastSong: self.parent.state!.group?.songs?.first, state: self.parent.state!, viewPlaylistVC: nil)
+            self.parent.songs = self.parent.state!.group?.songs ?? [Song]()
+            if let id = self.parent.state!.group?.id {
+                Globals.addPlaylistSongs(songs: self.parent.songs, groupId: id, userId: self.parent.state!.user.id)
+            }
+            
+            
             DispatchQueue.main.async {
-                self.parent.songsTable.reloadData()
-                self.parent.songsTable.isHidden = false
-                self.parent.activityIndicator?.stopAnimating()
+                if (self.parent.songs.count > 0) {
+                    self.parent.songsTable.beginUpdates()
+                    var deletePaths = [IndexPath]()
+                    var insertPaths = [IndexPath]()
+                    for i in (10 - n)..<initialCount {
+                        deletePaths.append(IndexPath(row: i, section: 0))
+                    }
+                    for i in (10 - n)..<self.parent.songs.count {
+                        insertPaths.append(IndexPath(row: i, section: 0))
+                    }
+                    self.parent.songsTable.deleteRows(at: deletePaths, with: .fade)
+                    self.parent.songsTable.insertRows(at: insertPaths, with: .fade)
+                    self.parent.songsTable.endUpdates()
+                } else {
+                    self.parent.updateIsPlaying(update: false)
+                    self.parent.state!.currentActiveGroup = nil
+                }
+                self.refreshBtn.isEnabled = true
             }
         }
     }
     
     func deleteLeaveBtnPressed(alert: UIAlertAction!) {
-        parent.updateIsPlaying(update: false)
-        parent.state!.userNetworks.removeValue(forKey: parent.state!.group!.id)
-        
+        if parent.state!.group?.id == parent.state!.curActiveId {
+            parent.updateIsPlaying(update: false)
+        }
+        parent.groupToDelete = parent.state!.group?.id
         if (deleteLeaveBtn.titleLabel?.text == "Leave Network") {
-            Globals.deleteGroupUser(userId: parent.state!.user.id, groupId: parent.state!.group!.id)
-            Globals.deleteUserFromGroup(userId: parent.state!.user.id, groupId: parent.state!.group!.id)
+            if let id = parent.state!.group?.id {
+                Globals.deleteGroupUser(userId: parent.state!.user.id, groupId: id)
+                Globals.deleteUserFromGroup(userId: parent.state!.user.id, groupId: id)
+            }
             parent.state!.group = nil
-            parent.performSegue(withIdentifier: "playlistBackSegue", sender: self)
         }
         
         if (deleteLeaveBtn.titleLabel?.text == "Delete Network") {
-            Globals.deleteGroup(group: parent.state!.group!)
+            if let group = self.parent.state!.group {
+                Globals.deleteGroup(group: group)
+            }
             parent.state!.group = nil
-            parent.performSegue(withIdentifier: "playlistBackSegue", sender: self)
         }
+        
+        parent.performSegue(withIdentifier: "unwindToNetworkTableFromPlaylist", sender: parent)
         
     }
     
     func addPhotoFromLibrary(alert: UIAlertAction!) {
-        // Get the current authorization state.
-        let access = PHPhotoLibrary.authorizationStatus()
-        
-        switch access {
-        case .authorized:
-            break
-        case .denied:
-            return
-        case .notDetermined:
-            // Access has not been determined.
-            PHPhotoLibrary.requestAuthorization({ (newStatus) in
-                
-                if (newStatus == PHAuthorizationStatus.authorized) {
-                    
-                }
-                    
-                else {
-                    return
-                }
-            })
-        case .restricted:
-            return
-        }
-        
-        // https://stackoverflow.com/questions/39812390/how-to-load-image-from-camera-or-photo-library-in-swift/39812909
-        let photoLibrary = UIImagePickerController()
-        let isPhotoLibraryAvailable = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-        let isSavedPhotoAlbumAvailable = UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum)
-        
-        if !isPhotoLibraryAvailable && !isSavedPhotoAlbumAvailable { return }
-        let type = kUTTypeImage as String
-        
-        if isPhotoLibraryAvailable {
-            photoLibrary.sourceType = .photoLibrary
-            if let availableTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary) {
-                if availableTypes.contains(type) {
-                    photoLibrary.mediaTypes = [type]
-                    photoLibrary.allowsEditing = true
-                }
-            }
-            
-            photoLibrary.sourceType = .savedPhotosAlbum
-            if let availableTypes = UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum) {
-                if availableTypes.contains(type) {
-                    photoLibrary.mediaTypes = [type]
-                }
-            }
-        } else {
-            return
-        }
-        
-        photoLibrary.allowsEditing = true
-        photoLibrary.delegate = parent
-        parent.present(photoLibrary, animated: true, completion: nil)
+        Globals.addPhotoFromLibrary(controller: parent)
     }
     
     func addPhotoFromCamera(alert: UIAlertAction!) {
-        
-        let access = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        
-        switch access {
-        case .authorized:
-            break
-        case .denied:
-            return
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted :Bool) -> Void in
-                if granted == false
-                {
-                    return
-                }
-            });
-        case .restricted:
-            return
-        }
-        
-        let camera = UIImagePickerController()
-        let isCameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
-        let isRearCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.rear)
-        let isFrontCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.front)
-        let sourceTypeCamera = UIImagePickerControllerSourceType.camera
-        let rearCamera = UIImagePickerControllerCameraDevice.rear
-        let frontCamera = UIImagePickerControllerCameraDevice.front
-        
-        if !isCameraAvailable { return }
-        let type1 = kUTTypeImage as String
-        
-        if isCameraAvailable {
-            if let availableTypes = UIImagePickerController.availableMediaTypes(for: .camera) {
-                if availableTypes.contains(type1) {
-                    camera.mediaTypes = [type1]
-                    camera.sourceType = sourceTypeCamera
-                }
-            }
-            
-            if isRearCameraAvailable {
-                camera.cameraDevice = rearCamera
-            } else if isFrontCameraAvailable {
-                camera.cameraDevice = frontCamera
-            }
-        } else {
-            return
-        }
-        
-        camera.allowsEditing = true
-        camera.showsCameraControls = true
-        camera.delegate = parent
-        parent.present(camera, animated: true, completion: nil)
+        Globals.addPhotoFromCamera(controller: parent)
     }
     
     func deleteGroupPhoto(alert: UIAlertAction!) {
-        parent.state!.group?.pic.pointee = UIImage(named: Globals.defaultPic)!
+        parent.state!.group?.pic = UIImage(named: Globals.defaultPic)!
         self.groupPicView?.image = UIImage(named: Globals.defaultPic)
         
         let requestURL = URL(string: "http://autocollabservice.com/deletegrouppic")
         let request = NSMutableURLRequest(url: requestURL!)
-        let postParameters = "groupId=\(parent.state!.group!.id)"
+        let postParameters = "groupId=\(parent.state!.group?.id ?? -2)"
         
-        Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 0)
+        Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 1)
     }
     
     func copyInviteKey(_ sender: Any) {
-        UIPasteboard.general.string = parent.state!.group!.inviteKey!
-        parent.showAlert(text: "Copied!")
+        UIPasteboard.general.string = parent.state!.group?.inviteKey
+        Globals.showAlert(text: "Copied!", view: parent.view)
     }
     
     func emptySpaceTapped() {
+        saveName()
+    }
+    
+    func saveName() {
         if (self.nameTextField.isHidden == false) {
             if (self.nameTextField.text != "") {
                 self.nameLabel.text = self.nameTextField.text
                 self.nameLabel.isHidden = false
                 self.nameTextField.isHidden = true
+                Globals.setGroupName(name: self.nameTextField.text!, groupId: parent.state!.group?.id ?? -2)
+                parent.state!.group?.name = self.nameTextField.text!
+                parent.title = self.nameTextField.text!
+            } else {
+                self.nameLabel.text = parent.state!.group?.name
+                self.nameLabel.isHidden = false
+                self.nameTextField.isHidden = true
             }
             self.endEditing(true)
-            self.setGroupName(name: self.nameTextField.text!)
-            parent.state!.group!.name = self.nameTextField.text!
-            if (self.nameTextField.text! == "") {
-                parent.groupName.text = Globals.getUsersName(id: parent.state!.group!.admin, state: parent.state!) + "'s Network"
-            } else {
-                parent.groupName.text = self.nameTextField.text!
-            }
+            Globals.showAlert(text: "Saved!", view: parent.view)
+            parent.state!.archiveGroups()
         }
     }
     
     // MARK: HELPERS
-    
-    func beginEdit() {
-        if (parent.state!.group!.admin == parent.state!.user.id) {
-            self.nameTextField.text = self.nameLabel.text
-            self.nameLabel.isHidden = true
-            self.nameTextField.isHidden = false
-            self.nameTextField.becomeFirstResponder()
-        }
+    func showEditAlert() {
+        let alert = UIAlertController(title: "Change network name?", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Change", style: .default, handler: beginEdit))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: nil))
+        parent.present(alert, animated: true)
     }
-    
-    func setGroupName(name: String) {
-        var setName = ""
-        if (name == "") {
-            setName = "///NULL///"
-        } else {
-            setName = name
-        }
-        //created NSURL
-        let requestURL = URL(string: "http://autocollabservice.com/addgroupname")
-        
-        //creating NSMutableURLRequest
-        let request = NSMutableURLRequest(url: requestURL!)
-        
-        //creating the post parameter by concatenating the keys and values from text field
-        let postParameters = "groupId=\(parent.state!.group!.id)" + "&name=" + setName
-        
-        Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 1)
+    func beginEdit(alert: UIAlertAction!) {
+        self.nameTextField.text = self.nameLabel.text
+        self.nameLabel.isHidden = true
+        self.nameTextField.isHidden = false
+        self.nameTextField.becomeFirstResponder()
     }
 }

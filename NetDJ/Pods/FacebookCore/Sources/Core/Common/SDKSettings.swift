@@ -152,7 +152,7 @@ extension SDKSettings {
 #if swift(>=4.1)
       let behaviors = FBSDKSettings.loggingBehavior().compactMap(createBehavior)
 #else
-      let behaviors = FBSDKSettings.loggingBehavior().flatMap(createBehavior)
+      let behaviors = FBSDKSettings.loggingBehavior().compactMap(createBehavior)
 #endif
 
       return Set(behaviors)

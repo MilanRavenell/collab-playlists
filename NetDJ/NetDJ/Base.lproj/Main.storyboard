@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qi8-Az-6aI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,14 +34,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jsu-HL-fX2">
-                                                    <rect key="frame" x="110" y="8" width="265" height="21"/>
+                                                    <rect key="frame" x="102" y="20" width="265" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-Lz-zmt">
-                                                    <rect key="frame" x="110" y="34" width="265" height="21"/>
+                                                    <rect key="frame" x="102" y="50" width="265" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -74,12 +74,11 @@
                     <connections>
                         <outlet property="addBtn" destination="b04-JJ-SHo" id="wtb-5j-vWf"/>
                         <outlet property="networkTable" destination="OVQ-Jk-Ttb" id="M6Q-9C-Bpz"/>
-                        <segue destination="wCP-NF-q5A" kind="show" identifier="viewPlaylistSegue" id="cRg-FS-5vu"/>
-                        <segue destination="gIM-eA-Bcw" kind="show" identifier="searchGroupSegue" id="hw2-YE-fF2"/>
-                        <segue destination="FoU-6S-C3O" kind="show" identifier="findFriendsSegue" id="nNL-1S-fll"/>
-                        <segue destination="I56-zQ-05D" kind="show" identifier="defaultPlaylistsSegue" id="WnK-dn-BYd"/>
-                        <segue destination="W6z-gF-99h" kind="show" identifier="defaultSongsSegue" id="cB0-Hu-IRs"/>
-                        <segue destination="Uc0-wT-9wJ" kind="show" identifier="viewGroupRequestsSegue" id="mNY-RS-X8F"/>
+                        <segue destination="rrF-RT-8gK" kind="show" identifier="viewGroupRequestsSegue" id="Vfv-2T-YxN"/>
+                        <segue destination="5BD-60-FTp" kind="show" identifier="findFriendsSegue" id="aq9-DB-zvg"/>
+                        <segue destination="UBw-eG-fhI" kind="show" identifier="viewPlaylistSegue" id="CDJ-nR-hvF"/>
+                        <segue destination="d7Y-fO-aeC" kind="show" identifier="defaultSongsSegue" id="4EV-f6-cxI"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="loginSegue" animates="NO" id="x3e-ML-gBM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5l-Mk-Qwo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -107,12 +106,13 @@
                     </view>
                     <connections>
                         <outlet property="mainImage" destination="gSb-c7-apK" id="tdK-WR-FKh"/>
-                        <segue destination="qi8-Az-6aI" kind="show" identifier="loginSegue" id="uKE-hi-J1X"/>
+                        <segue destination="hhg-Mi-5MU" kind="unwind" identifier="unwindLoginSegue" unwindAction="unwindToNetworkTableWithSender:" id="boG-Pq-SdQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="hhg-Mi-5MU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="508" y="859.52023988005999"/>
+            <point key="canvasLocation" x="2729" y="1805"/>
         </scene>
         <!--Songs View Controller-->
         <scene sceneID="V7x-0r-2VY">
@@ -131,22 +131,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongTableViewCell" rowHeight="90" id="Qby-jT-nSi" customClass="SongTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="312" height="90"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongTableViewCell" rowHeight="70" id="Qby-jT-nSi" customClass="SongTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="312" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qby-jT-nSi" id="IpR-3O-V2v">
-                                            <rect key="frame" x="0.0" y="0.0" width="312" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="312" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdB-BL-V9i">
-                                                    <rect key="frame" x="90" y="44" width="222" height="21"/>
+                                                    <rect key="frame" x="10" y="33" width="222" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1n-mT-PcP">
-                                                    <rect key="frame" x="90" y="15" width="222" height="21"/>
+                                                    <rect key="frame" x="10" y="11" width="222" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -165,138 +165,69 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="wYV-fc-Bt2">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="wGI-DW-07g">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SQb-pq-Mvr">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="d7Y-fO-aeC" eventType="touchUpInside" id="Abf-Dp-3vs"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Jr2-O3-GXc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Jr2-O3-GXc">
                             <connections>
-                                <segue destination="yjt-nE-ICQ" kind="show" identifier="addSongSegue" id="3zQ-KS-tSi"/>
+                                <action selector="addBtnPressed:" destination="d7Y-fO-aeC" id="MW5-Ih-3b6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBtn" destination="Jr2-O3-GXc" id="3Xx-WA-Ovx"/>
                         <outlet property="songsTable" destination="ij7-bT-gRr" id="UtB-ik-Gcj"/>
-                        <segue destination="wCP-NF-q5A" kind="custom" identifier="songTableBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="PtC-Fz-rHy"/>
-                        <segue destination="qi8-Az-6aI" kind="custom" identifier="songTableBackToTableSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="NsW-pM-ouq"/>
+                        <segue destination="bUm-D6-l1h" kind="show" identifier="addSongSegue" id="4zX-1W-dEW"/>
+                        <segue destination="d1D-gs-NqB" kind="show" identifier="addPlaylistSegue" id="0xY-t7-hhs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J1J-Y2-zVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7133.6000000000004" y="44.527736131934034"/>
         </scene>
-        <!--Group Search View Controller-->
-        <scene sceneID="xhX-md-Ol4">
+        <!--Group User Table View Controller-->
+        <scene sceneID="6fh-et-Ls3">
             <objects>
-                <viewController id="xKk-L0-bI8" customClass="GroupSearchViewController" customModule="CollabPlaylists" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="48D-8Y-gwz" customClass="GroupUserTableViewController" customModule="CollabPlaylists" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PgS-eb-fLG"/>
-                        <viewControllerLayoutGuide type="bottom" id="cih-wR-qT3"/>
+                        <viewControllerLayoutGuide type="top" id="DmZ-CH-Xe2"/>
+                        <viewControllerLayoutGuide type="bottom" id="aKB-10-JfG"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="aOz-dU-PC8">
+                    <view key="view" contentMode="scaleToFill" id="4SL-xk-WF8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DgG-BJ-yIr">
-                                <rect key="frame" x="16" y="120" width="343" height="30"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BvL-qs-5cD">
+                                <rect key="frame" x="67" y="209" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heb-NZ-Ksb">
-                                <rect key="frame" x="16" y="158" width="90" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Join Network"/>
-                                <connections>
-                                    <action selector="joinGroup:" destination="xKk-L0-bI8" eventType="touchUpInside" id="UD4-fx-uAT"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupUserTableViewCell" rowHeight="70" id="oFB-wk-yOP" customClass="GroupUserTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="240" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oFB-wk-yOP" id="vCZ-ue-fXp">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.94727574479999999" green="0.94727574479999999" blue="0.94727574479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" id="pHH-uE-DBO">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="FOc-Xe-YzC">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bwo-g5-CV9">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <segue destination="qi8-Az-6aI" kind="custom" identifier="groupSearchBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="bKZ-5w-Z4g"/>
-                                </connections>
-                            </button>
+                    <navigationItem key="navigationItem" id="TLd-ZE-Rc2">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ax8-c9-4F6">
+                            <connections>
+                                <segue destination="5BD-60-FTp" kind="show" identifier="addUsersSegue" id="Uyr-lS-F0M"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="inviteKeyTextField" destination="DgG-BJ-yIr" id="S4b-8V-Eoz"/>
-                        <outlet property="joinBtn" destination="heb-NZ-Ksb" id="IwN-7u-z0R"/>
-                        <segue destination="wCP-NF-q5A" kind="show" identifier="joinGroupSegue" id="Jel-xO-vko"/>
+                        <outlet property="userTable" destination="BvL-qs-5cD" id="AiG-Gr-2Ur"/>
+                        <segue destination="UBw-eG-fhI" kind="show" identifier="viewUserQueueSegue" id="R97-Hc-hae"/>
+                        <segue destination="d7Y-fO-aeC" kind="show" identifier="viewUsersSongsSegue" id="mDu-iU-77N"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N1m-EU-LOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pqz-6l-Fqu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2729" y="2502"/>
-        </scene>
-        <!--Group User Table View Controller-->
-        <scene sceneID="NdT-Zp-J6h">
-            <objects>
-                <tableViewController id="mOa-hx-6oS" customClass="GroupUserTableViewController" customModule="CollabPlaylists" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5d-6O-KaE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupUserTableViewCell" rowHeight="80" id="wsr-No-Zhg" customClass="GroupUserTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wsr-No-Zhg" id="hJ1-iA-2pT">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzb-hc-YqS">
-                                            <rect key="frame" x="90" y="19" width="343" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="user" destination="xzb-hc-YqS" id="nFj-59-scU"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="mOa-hx-6oS" id="w8o-qT-gRP"/>
-                            <outlet property="delegate" destination="mOa-hx-6oS" id="S4b-No-5le"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="sGX-dt-cFv">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="BT5-tO-40B">
-                            <connections>
-                                <segue destination="wCP-NF-q5A" kind="custom" identifier="groupUsersBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="n4a-Jb-UEo"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cqj-A4-39V">
-                            <connections>
-                                <segue destination="FoU-6S-C3O" kind="show" identifier="addUsersSegue" id="c1w-Jn-q5K"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="wCP-NF-q5A" kind="show" identifier="viewMemberSegue" id="7qC-Km-Xdl"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ae7-z2-11z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="9342" y="860"/>
+            <point key="canvasLocation" x="5622" y="860"/>
         </scene>
         <!--View Playlist View Controller-->
         <scene sceneID="9Y1-G7-Qnr">
@@ -349,42 +280,27 @@
                         <color key="backgroundColor" red="0.94727574479999999" green="0.94727574479999999" blue="0.94727574479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="67A-Eu-gC1">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="Rvz-17-i9U">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hKR-85-y8p">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="UBw-eG-fhI" eventType="touchUpInside" id="E6w-b2-evN"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="uD1-Z5-erz">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KeZ-oE-U0g">
-                                <rect key="frame" x="276" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Network"/>
-                                <connections>
-                                    <action selector="viewNetworkBtnPressed:" destination="UBw-eG-fhI" eventType="touchUpInside" id="qGJ-nY-B38"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="hamburgericon.png" id="dPG-Ve-1On">
+                            <connections>
+                                <action selector="viewNetworkBtnPressed:" destination="UBw-eG-fhI" id="LjY-e1-stQ"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="networkBtn" destination="KeZ-oE-U0g" id="gcc-eU-zMe"/>
+                        <outlet property="networkBtn" destination="dPG-Ve-1On" id="HZu-h7-vjY"/>
                         <outlet property="songsTable" destination="jjx-35-7cw" id="Ncz-Zw-OnV"/>
-                        <segue destination="dGa-hk-MxI" kind="show" identifier="viewUsersSegue" id="nUU-0s-ENz"/>
-                        <segue destination="I56-zQ-05D" kind="show" identifier="myPlaylistsSegue" id="xWn-2d-CaE"/>
-                        <segue destination="qi8-Az-6aI" kind="custom" identifier="playlistBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="hzf-dO-nYY"/>
-                        <segue destination="W6z-gF-99h" kind="show" identifier="mySongsSegue" id="VcQ-0j-xp0"/>
-                        <segue destination="VKU-kz-b2Q" kind="show" identifier="totalSongsSegue" id="iX0-M5-L5k"/>
+                        <segue destination="jtt-Sj-ICk" kind="show" identifier="totalSongsSegue" id="XUl-Mb-o7P"/>
+                        <segue destination="48D-8Y-gwz" kind="show" identifier="viewUsersSegue" id="2ct-Q9-mzb"/>
+                        <segue destination="d7Y-fO-aeC" kind="show" identifier="mySongsSegue" id="Yf4-jw-cXu"/>
+                        <segue destination="g4r-He-t7p" kind="unwind" identifier="unwindToNetworkTableFromPlaylist" unwindAction="unwindToNetworkTableWithSender:" id="Kqf-WJ-fw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IeY-Dj-uXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="g4r-He-t7p" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7135" y="860"/>
+            <point key="canvasLocation" x="3980" y="860"/>
         </scene>
-        <!--Song Search View Controller-->
+        <!--Title-->
         <scene sceneID="aen-hA-MP3">
             <objects>
                 <viewController id="bUm-D6-l1h" customClass="SongSearchViewController" customModule="CollabPlaylists" customModuleProvider="target" sceneMemberID="viewController">
@@ -401,7 +317,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongSearchTableViewCell" id="55U-Fi-utQ" customClass="SongSearchTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongSearchTableViewCell" rowHeight="80" id="55U-Fi-utQ" customClass="SongSearchTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="55U-Fi-utQ" id="0Hn-W2-NTY">
@@ -431,29 +347,46 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jgq-Bl-S7g">
+                                <rect key="frame" x="81" y="87" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectedSongTableViewCell" rowHeight="80" id="Ghf-ea-ykA" customClass="SelectedSongTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="240" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ghf-ea-ykA" id="tRF-dD-OgK">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="79.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wV8-K6-svZ">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="JBv-qP-cjn">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zMC-l4-FxN">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="bUm-D6-l1h" eventType="touchUpInside" id="T1A-Ro-pgo"/>
-                                </connections>
-                            </button>
+                    <navigationItem key="navigationItem" title="Title" id="V3Z-6D-x1z">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="0U0-a8-zLA">
+                            <connections>
+                                <action selector="cancel:" destination="bUm-D6-l1h" id="Jf4-O1-CDN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="dPt-bh-wow">
+                            <connections>
+                                <action selector="save:" destination="bUm-D6-l1h" id="KfA-Di-GPl"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="selectedSongTable" destination="Jgq-Bl-S7g" id="VRF-cl-dQe"/>
                         <outlet property="songTable" destination="gqH-55-SPS" id="pGQ-fA-WaM"/>
-                        <segue destination="W6z-gF-99h" kind="custom" identifier="songSelectSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="wab-8w-qCZ"/>
+                        <segue destination="12i-is-uae" kind="unwind" identifier="songSelectSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" unwindAction="unwindToSongViewWithSender:" id="um6-sw-gCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="New-L4-DHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="12i-is-uae" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="9343" y="45"/>
+            <point key="canvasLocation" x="8254" y="45"/>
         </scene>
         <!--User Playlists Table View Controller-->
         <scene sceneID="B9z-gG-hV3">
@@ -491,25 +424,25 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="P7e-he-SjO">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="VPw-Ar-JG9">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K1a-LR-7Xn">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="d1D-gs-NqB" eventType="touchUpInside" id="dBQ-Re-rwZ"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="RcT-28-d3H">
+                            <connections>
+                                <action selector="cancelBtnPressed:" destination="d1D-gs-NqB" id="NJY-wY-0jj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="CKA-2K-HhT">
+                            <connections>
+                                <segue destination="aqp-Zd-Pls" kind="unwind" unwindAction="unwindToSongViewWithSender:" id="vus-ep-OGS"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="wCP-NF-q5A" kind="custom" identifier="userPlaylistsBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="oMN-Ii-zLa"/>
-                        <segue destination="qi8-Az-6aI" kind="custom" identifier="userPlaylistBackToTableSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="dFq-NY-zeJ"/>
+                        <outlet property="tableView" destination="kdp-b1-rbD" id="Roc-Kv-wbh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wtm-fO-ypu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="aqp-Zd-Pls" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7134" y="1702"/>
+            <point key="canvasLocation" x="7134" y="860"/>
         </scene>
         <!--Total Songs View Controller-->
         <scene sceneID="D8O-Fp-Hud">
@@ -528,22 +461,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TotalSongsTableViewCell" rowHeight="90" id="zts-z1-3Ld" customClass="TotalSongsTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="292" height="90"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TotalSongsTableViewCell" rowHeight="70" id="zts-z1-3Ld" customClass="TotalSongsTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="292" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zts-z1-3Ld" id="00G-lM-SoS">
-                                            <rect key="frame" x="0.0" y="0.0" width="292" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="292" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEH-gB-xvH">
-                                                    <rect key="frame" x="90" y="15" width="264" height="21"/>
+                                                    <rect key="frame" x="10" y="11" width="264" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fp5-gg-QaM">
-                                                    <rect key="frame" x="90" y="44" width="277" height="21"/>
+                                                    <rect key="frame" x="10" y="33" width="277" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -562,38 +495,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ar5-aD-Gve">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="r4Q-hG-GxM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="MxV-iP-Y4m">
                             <connections>
-                                <segue destination="wCP-NF-q5A" kind="custom" identifier="totalSongsBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="5qB-c0-7wT"/>
+                                <action selector="refresh:" destination="jtt-Sj-ICk" id="nbN-5k-6v4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="backBtn" destination="r4Q-hG-GxM" id="0Cm-fL-Hle"/>
                         <outlet property="songTable" destination="UJH-NJ-B2k" id="FUf-V1-AvG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PhE-aP-0EA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9229.6000000000004" y="1683.5082458770617"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Iz9-vQ-8ta">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yjt-nE-ICQ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TDm-9L-hOU">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="bUm-D6-l1h" kind="relationship" relationship="rootViewController" id="LwH-T9-ODX"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FvC-GE-5Hp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8255" y="45"/>
+            <point key="canvasLocation" x="5943.1999999999998" y="1804.9475262368817"/>
         </scene>
         <!--Friend Search View Controller-->
         <scene sceneID="q3N-gC-siO">
@@ -620,7 +534,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HK-0M-CPz">
-                                                    <rect key="frame" x="90" y="19" width="313" height="21"/>
+                                                    <rect key="frame" x="70" y="19" width="313" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -647,7 +561,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI8-9C-Pp9">
-                                                    <rect key="frame" x="90" y="19" width="313" height="21"/>
+                                                    <rect key="frame" x="70" y="19" width="313" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -665,16 +579,11 @@
                         <color key="backgroundColor" red="0.94727574479999999" green="0.94727574479999999" blue="0.94727574479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="6Sy-Gy-gm7">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="kRv-A0-R00">
-                            <connections>
-                                <action selector="cancelBtnPressed:" destination="5BD-60-FTp" id="cfN-uO-l6Y"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="1af-Xl-SPZ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NTL-pD-gHI">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
+                                <state key="normal" title="Create"/>
                                 <connections>
                                     <action selector="saveBtnPressed:" destination="5BD-60-FTp" eventType="touchUpInside" id="9Z0-5U-XWj"/>
                                 </connections>
@@ -684,104 +593,15 @@
                     <connections>
                         <outlet property="searchTable" destination="Ggt-9N-eDT" id="SLB-zF-L2W"/>
                         <outlet property="selectedTable" destination="xUH-FU-ufN" id="8B0-7G-Wnx"/>
-                        <segue destination="wCP-NF-q5A" kind="show" identifier="saveFriendsToPlaylistSegue" id="ssg-WI-wEw"/>
-                        <segue destination="dGa-hk-MxI" kind="show" identifier="saveFriendsToGroupSegue" id="TBV-w9-KgZ"/>
-                        <segue destination="qi8-Az-6aI" kind="show" identifier="findFriendBackSegue" id="XBv-vP-q6e"/>
+                        <segue destination="UBw-eG-fhI" kind="show" identifier="saveFriendsToPlaylistSegue" id="Cvj-F0-CLF"/>
+                        <segue destination="t89-Zy-Nw1" kind="unwind" identifier="unwindToGroupUserSegue" unwindAction="unwindToGroupUserWithSender:" id="Mpx-0L-kls"/>
+                        <segue destination="t89-Zy-Nw1" kind="unwind" identifier="unwindToNetworkTableSegue" customClass="UIStoryboardSegueWithCompletion" customModule="CollabPlaylists" customModuleProvider="target" unwindAction="unwindToNetworkTableWithSender:" id="KwF-PL-cF2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwi-2a-e9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="t89-Zy-Nw1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4974" y="45"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="io1-Kb-8NX">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wCP-NF-q5A" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rph-l3-dWM">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="UBw-eG-fhI" kind="relationship" relationship="rootViewController" id="kVH-Ym-mec"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Tf-ca-vZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6140" y="860"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="pVz-Lm-v1K">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gIM-eA-Bcw" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XCN-Ua-3Ra">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="xKk-L0-bI8" kind="relationship" relationship="rootViewController" id="1xB-23-mlm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mbc-3H-9Lt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2729" y="1611"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="luR-4r-Zuz">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I56-zQ-05D" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YyL-wO-Eh4">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="d1D-gs-NqB" kind="relationship" relationship="rootViewController" id="N4m-A0-Kll"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Li-cs-sL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6140" y="1701"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="KmP-V8-mZ9">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FoU-6S-C3O" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aId-je-DMC">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="5BD-60-FTp" kind="relationship" relationship="rootViewController" id="tHm-is-30n"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PNk-g8-jJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3895" y="45"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="FSa-JZ-78u">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dGa-hk-MxI" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vct-sJ-f4t">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="mOa-hx-6oS" kind="relationship" relationship="rootViewController" id="HD7-zi-xTJ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HQ4-zt-enq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8198" y="860"/>
+            <point key="canvasLocation" x="3980" y="45"/>
         </scene>
         <!--Group Request View Controller-->
         <scene sceneID="1Ca-Zy-fnH">
@@ -800,22 +620,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupRequestTableViewCell" rowHeight="90" id="VwB-vH-I12" customClass="GroupRequestTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="308" height="90"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupRequestTableViewCell" rowHeight="80" id="VwB-vH-I12" customClass="GroupRequestTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="308" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VwB-vH-I12" id="BQs-Hh-9uK">
-                                            <rect key="frame" x="0.0" y="0.0" width="308" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="308" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asv-dF-NLT">
-                                                    <rect key="frame" x="16" y="11" width="343" height="21"/>
+                                                    <rect key="frame" x="100" y="11" width="343" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvl-o8-cHg">
-                                                    <rect key="frame" x="16" y="40" width="343" height="21"/>
+                                                    <rect key="frame" x="100" y="40" width="343" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -833,25 +653,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" id="iBd-AV-Xpa">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="2MB-Fq-vTY">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ch4-xc-zPG">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <segue destination="qi8-Az-6aI" kind="custom" identifier="groupRequestsBackSegue" customClass="SegueFromLeft" customModule="CollabPlaylists" customModuleProvider="target" id="Hc8-DR-zJj"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="iBd-AV-Xpa"/>
                     <connections>
                         <outlet property="requestTable" destination="o0J-CS-ppB" id="zOc-2M-J11"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tgz-7m-LWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2729" y="-773"/>
+            <point key="canvasLocation" x="2729" y="45"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7oD-dV-a52">
@@ -871,71 +680,15 @@
             </objects>
             <point key="canvasLocation" x="1615" y="860"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="RkM-JJ-mje">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="W6z-gF-99h" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nIj-VT-cAW">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="d7Y-fO-aeC" kind="relationship" relationship="rootViewController" id="YF5-ol-DEK"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pts-rb-2ha" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6140" y="45"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="sJL-Nk-eu0">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Uc0-wT-9wJ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aOz-sp-iFL">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="rrF-RT-8gK" kind="relationship" relationship="rootViewController" id="5oB-dz-GZr"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dZC-0w-9hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2729" y="45"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Sq4-gB-Jam">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VKU-kz-b2Q" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eyK-7P-oju">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="jtt-Sj-ICk" kind="relationship" relationship="rootViewController" id="qRO-yM-SWz"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UTR-kh-Nlf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8197.6000000000004" y="1700.5997001499252"/>
-        </scene>
     </scenes>
     <resources>
+        <image name="hamburgericon.png" width="25" height="25"/>
         <image name="netDJ_5_big.png" width="748" height="1328"/>
         <image name="user.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VcQ-0j-xp0"/>
-        <segue reference="dFq-NY-zeJ"/>
-        <segue reference="nUU-0s-ENz"/>
-        <segue reference="c1w-Jn-q5K"/>
-        <segue reference="xWn-2d-CaE"/>
-        <segue reference="oMN-Ii-zLa"/>
+        <segue reference="aq9-DB-zvg"/>
+        <segue reference="Cvj-F0-CLF"/>
+        <segue reference="Yf4-jw-cXu"/>
     </inferredMetricsTieBreakers>
 </document>

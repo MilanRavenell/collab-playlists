@@ -68,12 +68,12 @@ class HITS {
         return top
     }
     
-    static func decreaseSongLikelihood(graph: [[Float]], song: Int) -> [[Float]]{
+    static func decreaseSongLikelihood(graph: [[Int]], song: Int) -> [[Int]] {
         var newGraph = graph
         for i in 0 ..< graph.count {
-            newGraph[i][song] -= 3.0
-            if (newGraph[i][song] < 0.1) {
-                newGraph[i][song] = 0.1
+            newGraph[i][song] -= 400
+            if (newGraph[i][song] < 10) {
+                newGraph[i][song] = 10
             }
         }
         return newGraph
@@ -83,7 +83,7 @@ class HITS {
         let M = songIdsTotal.count
         var graph = [[Float]](repeating: [Float](repeating: 0, count: M), count: M)
         
-        for (user, songs) in songDict {
+        for (_, songs) in songDict {
             for i in 0 ..< songs.count {
                 for j in i ..< songs.count {
                     let song1 = songIdsTotal.index(of: songs[i].id)
@@ -119,14 +119,13 @@ class HITS {
         return graph
     }
     
-    static func getRandSong(songs: [String], dist: [Float]) -> String {
-        let summ = dist.reduce(0, +)
-        var distNorm = dist
+    static func getRandSong(songs: [Song], dist: [Int]) -> Song {
+        let summ = Float(dist.reduce(0, +))
+        var distNorm = [Float]()
         if (summ > 0) {
-            
             // Normalize
             for i in  0 ..< songs.count {
-                distNorm[i] /= summ
+                distNorm.append(Float(dist[i])/summ)
             }
             
             let rand = Float(Float(arc4random()) / Float(UINT32_MAX))
@@ -135,16 +134,16 @@ class HITS {
             for i in 0 ..< songs.count {
                 total += distNorm[i]
                 if (rand <= total) {
-                    return songs[i]
+                    return songs[i].copy() as! Song
                 }
             }
-            return songs.last!
+            return songs.last!.copy() as! Song
         }
-        return "None"
+        return songs.first!.copy() as! Song
     }
     
-    static func getNextSongs(network: [[Float]], start: String, songs: [String], n: Int) -> ([String], [[Float]]){
-        var nodesFound = [String]()
+    static func getNextSongs(network: [[Int]], start: Song, songs: [Song], n: Int) -> [Song] {
+        var nodesFound = [Song]()
         var curNode = start
         var newNetwork = network
         var num = n
@@ -154,12 +153,28 @@ class HITS {
         }
         
         while (nodesFound.count < num) {
-            curNode = getRandSong(songs: songs, dist: network[songs.index(of: curNode)!])
-            if (!songs.contains(curNode)) {
+            curNode = getRandSong(songs: songs, dist: network[getSongIndex(song: curNode, songs: songs)!])
+            curNode.loadPic()
+            
+            if (!isContained(song: curNode, songs: nodesFound)) {
                 nodesFound.append(curNode)
-                newNetwork = decreaseSongLikelihood(graph: newNetwork, song: songs.index(of: curNode)!)
+                newNetwork = decreaseSongLikelihood(graph: newNetwork, song: getSongIndex(song: curNode, songs: songs)!)
             }
         }
-        return (nodesFound, newNetwork)
+        
+        return nodesFound
+    }
+    
+    static func getSongIndex(song: Song, songs: [Song]) -> Int? {
+        let indx = songs.index(where: { (item) -> Bool in
+            item.id == song.id
+        })
+        return indx
+    }
+    
+    static func isContained(song: Song, songs: [Song]) -> Bool {
+        return songs.contains { (item) -> Bool in
+            item.id == song.id
+        }
     }
 }

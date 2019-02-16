@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserPlaylistsTableViewController: UITableViewController {
+class UserPlaylistsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Properties
     var state: State?
@@ -16,24 +16,45 @@ class UserPlaylistsTableViewController: UITableViewController {
     var startingPlaylists = [String]()
     var selectedPlaylists = [Playlist]()
     var prevController: String?
-
+    @IBOutlet weak var tableView: UITableView!
+    var activityIndicator: UIActivityIndicatorView?
+    var emptyLabel: UILabel?
+    var retryBtn: UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Your Playlists"
         
+        self.state!.userPlaylistVC = self
+        
         self.tableView.reloadData()
-        self.tableView.backgroundColor = Globals.getThemeColor2()
+        self.tableView.tableFooterView = UIView()
         
-        navigationController?.navigationBar.barTintColor = Globals.getThemeColor1()
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator?.center = self.view.center
+        self.view.addSubview(activityIndicator!)
         
-        for selectedPlaylist in self.state!.user.playlists[self.state!.group!.id]!.filter({ (playlist) -> Bool in
-            return playlist.selected
-        }) {
-            startingPlaylists.append(selectedPlaylist.id)
+        emptyLabel = UILabel(frame: self.view.frame)
+        emptyLabel?.text = "You have no Spotify playlists"
+        emptyLabel?.textColor = UIColor.gray
+        emptyLabel?.textAlignment = .center
+        emptyLabel?.isHidden = true
+        self.view.addSubview(emptyLabel!)
+        
+        retryBtn = UIButton(frame: CGRect(x: view.frame.minX, y: view.frame.minY+25, width: view.frame.width, height: view.frame.height))
+        retryBtn?.setTitle("Retry", for: .normal)
+        retryBtn?.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        retryBtn?.addTarget(self, action: #selector(retry), for: .touchUpInside)
+        retryBtn?.isHidden = true
+        self.view.addSubview(retryBtn!)
+        
+        activityIndicator?.startAnimating()
+        
+        if let id = self.state!.group?.id, self.state!.user.selectedPlaylists[id] != nil {
+            configurePlaylists()
         }
+        
         
         if (self.state?.group == nil) {
             performSegue(withIdentifier: "userPlaylistBackToTableSegue", sender: self)
@@ -43,6 +64,21 @@ class UserPlaylistsTableViewController: UITableViewController {
         rightSwipeGesture.direction = .right
         self.tableView.addGestureRecognizer(rightSwipeGesture)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+     
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
+            if let id = self?.state?.group?.id {
+                if self?.state!.user.selectedPlaylists[id] == nil {
+                    self?.tableView.isHidden = true
+                    self?.emptyLabel?.isHidden = false
+                    self?.emptyLabel?.text = "Error retrieving playlists"
+                    self?.activityIndicator?.stopAnimating()
+                }
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,17 +87,17 @@ class UserPlaylistsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.state!.user.playlists[self.state!.group!.id]!.count
+        return playlists.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell...
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserPlaylistsTableViewCell", for: indexPath) as? UserPlaylistsTableViewCell else {
             fatalError("It messed up")
@@ -69,7 +105,7 @@ class UserPlaylistsTableViewController: UITableViewController {
         
         cell.backgroundColor = UIColor.clear
         
-        let playlist = self.state!.user.playlists[self.state!.group!.id]![indexPath.row]
+        let playlist = playlists[indexPath.row]
         
         // Configure the cell...
         cell.nameLabel.text = playlist.name
@@ -82,81 +118,127 @@ class UserPlaylistsTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let playlist = self.state!.user.playlists[self.state!.group!.id]![indexPath.row]
-        self.state!.user.playlists[self.state!.group!.id]![indexPath.row].selected = !playlist.selected
+        let playlist = playlists[indexPath.row]
+        if let id = self.state!.group?.id {
+            if playlist.selected {
+                playlist.selected = false
+                if let indx = self.state!.user.selectedPlaylists[id]?.index(of: playlist.id) {
+                    self.state!.user.selectedPlaylists[id]?.remove(at: indx)
+                }
+            } else {
+                playlist.selected = true
+                self.state!.user.selectedPlaylists[id]?.append(playlist.id)
+            }
+        }
         self.tableView.reloadData()
     }
     
     func didSwipeRight() {
-        backBtnPressed(self)
+        self.navigationController?.popViewController(animated: true)
     }
 
+    @IBAction func backBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "unwindToSongViewFromUserPlaylistSegue", sender: self)
+//        if self.prevController == "User" {
+//            performSegue(withIdentifier: "uniwindToNetworkFromUserPlaylistSegue", sender: self)
+//        } else {
+//            performSegue(withIdentifier: "unwindToViewPlayslitSegue", sender: self)
+//        }
+    }
+    
+    @IBAction func cancelBtnPressed(_ sender: Any) {
+        if let id = state!.group?.id {
+            state!.user.selectedPlaylists[id] = startingPlaylists
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if (segue.identifier == "userPlaylistsBackSegue") {
-            let navVC = segue.destination as! UINavigationController
-            let destinationVC = navVC.viewControllers.first as! ViewPlaylistViewController
-            destinationVC.networkShown = true
-            destinationVC.state = state
+        if let destinationVC = segue.destination as? ViewPlaylistViewController {
+            destinationVC.state = self.state
         }
-        if (segue.identifier == "userPlaylistBackToTableSegue") {
-            let navVC = segue.destination as! UINavigationController
-            let destinationVC = navVC.viewControllers.first as! NetworkTableViewController
-            self.state!.group = nil
-            destinationVC.state = state
-            destinationVC.userShown = true
+        if let destinationVC = segue.destination as? NetworkTableViewController {
+            destinationVC.state = self.state
         }
     }
-    
-    // MARK: Actions
-    @IBAction func backBtnPressed(_ sender: Any) {
-        self.updatePlaylist(groupId: self.state!.group!.id)
-        
-        if (self.prevController == "ViewPlaylist") {
-            self.performSegue(withIdentifier: "userPlaylistsBackSegue", sender: self)
-        }
-        if (self.prevController == "User") {
-            self.performSegue(withIdentifier: "userPlaylistBackToTableSegue", sender: self)
-        }
-    }
-    
     
     // MARK: Helpers
-    func updatePlaylist(groupId: Int) {
-        var songs = [Song]()
-        DispatchQueue.global().async {
-            for playlist in self.state!.user.playlists[groupId]! {
-                // Remove playlist
-                if (self.startingPlaylists.contains(playlist.id) && !playlist.selected) {
-                    if (playlist.id == Globals.topSongsToken) {
-                        songs = self.state!.user.topSongs
+    func configurePlaylists() {
+        playlists = []
+        if let savedPlaylists = NSKeyedUnarchiver.unarchiveObject(withFile: Globals.playlistsFilePath) as? [Playlist] {
+            if let id = self.state!.group?.id {
+                if self.state!.user.selectedPlaylists[id] != ["ERROR"] {
+                    if savedPlaylists.count == 0 {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.playlists = [Playlist]()
+                            self?.tableView.reloadData()
+                            self?.emptyLabel?.text = "You have no Spotify playlists"
+                            self?.emptyLabel?.isHidden = false
+                            self?.activityIndicator?.stopAnimating()
+                        }
                     } else {
-                        songs = Globals.getSongsFromPlaylist(userId: self.state!.user.id, id: playlist.id, state: self.state!)
+                        for playlist in savedPlaylists {
+                            playlist.state = self.state!
+                            if (self.state!.user.selectedPlaylists[id]!.contains(playlist.id)) {
+                                playlist.selected = true
+                                startingPlaylists.append(playlist.id)
+                            } else {
+                                playlist.selected = false
+                            }
+                            playlists.append(playlist)
+                        }
+                        DispatchQueue.main.async { [weak self] in
+                            self?.tableView.reloadData()
+                            self?.activityIndicator?.stopAnimating()
+                            self?.emptyLabel?.isHidden = true
+                            self?.retryBtn?.isHidden = true
+                        }
                     }
-                    
-                    Globals.deleteUserPlaylist(id: playlist.id, userId: self.state!.user.id, groupId: groupId)
-                    Globals.updateNetworkAsync(groupId: groupId, add_delete: 1, user: self.state!.user.id, songs: songs)
-                }
-                // Add Playlist
-                else if (!self.startingPlaylists.contains(playlist.id) && playlist.selected) {
-                    if (playlist.id == Globals.topSongsToken) {
-                        songs = self.state!.user.topSongs
-                    } else {
-                        songs = Globals.getSongsFromPlaylist(userId: self.state!.user.id, id: playlist.id, state: self.state!)
-                    }
-                    
-                    self.state!.userNetworks[groupId]?.totalSongs.append(contentsOf: songs)
-                    
-                    Globals.addUserPlaylist(playlist: playlist, userId: self.state!.user.id, groupId: groupId)
-                    Globals.updateNetworkAsync(groupId: groupId, add_delete: 0, user: self.state!.user.id, songs: songs)
+                    return
                 }
             }
         }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.playlists = [Playlist]()
+            self?.tableView.reloadData()
+            self?.emptyLabel?.text = "Could not get your playlists"
+            self?.emptyLabel?.isHidden = false
+            self?.activityIndicator?.stopAnimating()
+            self?.retryBtn?.isHidden = false
+        }
+    }
+    
+    func retry() {
+        retryBtn?.isHidden = true
+        emptyLabel?.isHidden = true
+        activityIndicator?.startAnimating()
+        
+        DispatchQueue.global().async { [weak self] in
+            if let state = self?.state {
+                let savedPlaylists = NSKeyedUnarchiver.unarchiveObject(withFile: Globals.playlistsFilePath) as? [Playlist]
+                if savedPlaylists == nil {
+                    state.user.getPlaylists(state: state)
+                }
+                if let id = state.group?.id {
+                    if state.user.selectedPlaylists[id] == ["ERROR"] {
+                        Globals.getUserSelectedPlaylists(user: state.user, groupId: id, state: state)
+                    }
+                }
+                self?.configurePlaylists()
+            }
+        }
+    }
+    
+    func selectedPlaylistsDidLoad() {
+        self.configurePlaylists()
     }
 }

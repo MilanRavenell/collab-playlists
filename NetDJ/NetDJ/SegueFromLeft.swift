@@ -22,14 +22,14 @@ class SegueFromLeft: UIStoryboardSegue
         let window = UIApplication.shared.keyWindow
         window?.insertSubview(dst.view, aboveSubview: src.view)
         
-        UIView.animate(withDuration: 0.2,
+        UIView.animate(withDuration: 0.25,
                                    delay: 0.0,
                                    options: .curveEaseOut,
                                    animations: {
                                     dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
         },
                                    completion: { finished in
-                                        src.present(dst, animated: false, completion: nil)
+                                        src.dismiss(animated: false, completion: nil)
                                     }
         )
     }

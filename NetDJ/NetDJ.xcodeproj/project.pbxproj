@@ -31,21 +31,46 @@
 		ACB40A83205D9D950066A302 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A82205D9D950066A302 /* SystemConfiguration.framework */; };
 		ACB40A87205D9F950066A302 /* BridgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB40A86205D9F950066A302 /* BridgeViewController.m */; };
 		ACB40A89205DA03B0066A302 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB40A88205DA03B0066A302 /* SpotifyMetadata.framework */; };
+		F1046B9E2158165600B059B4 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = F1046B9D2158165500B059B4 /* hamburger.png */; };
+		F1046BA021581F8A00B059B4 /* disc.png in Resources */ = {isa = PBXBuildFile; fileRef = F1046B9F21581F8900B059B4 /* disc.png */; };
+		F1046BA22158260D00B059B4 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = F1046BA12158260D00B059B4 /* play.png */; };
+		F1046BA4215827A100B059B4 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = F1046BA3215827A000B059B4 /* pause.png */; };
+		F1046BA6215CAC5500B059B4 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = F1046BA5215CAC5500B059B4 /* next.png */; };
+		F1046BA8216AC6CD00B059B4 /* ChoiceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1046BA7216AC6CD00B059B4 /* ChoiceSelection.swift */; };
+		F11406F8211365DB0058D4B3 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406F7211365DB0058D4B3 /* SegueFromRight.swift */; };
+		F11B7BF62153F8DC007382E8 /* NowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11B7BF52153F8DC007382E8 /* NowPlaying.swift */; };
 		F11D9BE120C9DD2E00554E47 /* thinking_emoji.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F11D9BE020C9DD2D00554E47 /* thinking_emoji.jpeg */; };
 		F11D9BE520CC52AF00554E47 /* UserPlaylistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D9BE420CC52AF00554E47 /* UserPlaylistsTableViewController.swift */; };
 		F11D9BE720CC533100554E47 /* UserPlaylistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D9BE620CC533100554E47 /* UserPlaylistsTableViewCell.swift */; };
 		F11D9BE920CEE2B000554E47 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D9BE820CEE2B000554E47 /* Playlist.swift */; };
 		F11E890A20C39A0200C15812 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11E890920C39A0200C15812 /* State.swift */; };
-		F11E890C20C7056100C15812 /* GroupSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11E890B20C7056100C15812 /* GroupSearchViewController.swift */; };
 		F11F4C3E20ED78C10018E26F /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F4C3D20ED78C10018E26F /* FriendSearchViewController.swift */; };
 		F11F4C4020ED7AD50018E26F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F4C3F20ED7AD50018E26F /* FriendSearchTableViewCell.swift */; };
 		F11F4C4220ED83000018E26F /* SelectedFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F4C4120ED83000018E26F /* SelectedFriendsTableViewCell.swift */; };
 		F11F4C4420F0A53A0018E26F /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F4C4320F0A53A0018E26F /* Friend.swift */; };
 		F11F4C4620F2A0F90018E26F /* GroupUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F4C4520F2A0F90018E26F /* GroupUserTableViewController.swift */; };
 		F11F4C5120F571170018E26F /* GroupRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11F4C5020F571170018E26F /* GroupRequestTableViewCell.swift */; };
+		F122806A210A6FB6003DCB7E /* SongLoadQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1228069210A6FB6003DCB7E /* SongLoadQueue.swift */; };
+		F122806E21118680003DCB7E /* SegueWithCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F122806D21118680003DCB7E /* SegueWithCompletion.swift */; };
+		F15203AB213B65E6007EFC6C /* hamburgericon.png in Resources */ = {isa = PBXBuildFile; fileRef = F15203AA213B65E5007EFC6C /* hamburgericon.png */; };
+		F15203AD213C96AA007EFC6C /* SelectedSongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15203AC213C96AA007EFC6C /* SelectedSongTableViewCell.swift */; };
+		F15203AF21423922007EFC6C /* FirstTimeAlertName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15203AE21423922007EFC6C /* FirstTimeAlertName.swift */; };
+		F15203B1214EDE1D007EFC6C /* FirstTimeAlertPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15203B0214EDE1D007EFC6C /* FirstTimeAlertPhone.swift */; };
+		F164C5D4220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F164C5D3220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift */; };
+		F170E8CA21B35227009B65F1 /* icons8-waste-32.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8C921B35226009B65F1 /* icons8-waste-32.png */; };
+		F170E8CC21B3528E009B65F1 /* play_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8CB21B3528E009B65F1 /* play_small.png */; };
+		F170E8CE21B361FF009B65F1 /* icons8-delete-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8CD21B361FF009B65F1 /* icons8-delete-50.png */; };
+		F170E8D021B362CE009B65F1 /* icons8-delete-filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8CF21B362CD009B65F1 /* icons8-delete-filled-50.png */; };
+		F170E8D221B36D69009B65F1 /* icons8-delete-40.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8D121B36D69009B65F1 /* icons8-delete-40.png */; };
+		F170E8D421B37051009B65F1 /* icons8-add-new-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8D321B37051009B65F1 /* icons8-add-new-50.png */; };
+		F170E8D721B64DD3009B65F1 /* everybody_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8D521B64DD2009B65F1 /* everybody_icon.png */; };
+		F170E8D821B64DD3009B65F1 /* user_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8D621B64DD2009B65F1 /* user_icon.png */; };
+		F170E8DA21B64DFC009B65F1 /* icons8-people-30.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8D921B64DFC009B65F1 /* icons8-people-30.png */; };
+		F170E8DC21B64F07009B65F1 /* icons8-paste-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8DB21B64F07009B65F1 /* icons8-paste-50.png */; };
 		F17AB3A820F80A7800CE0B13 /* netDJ_4_big2.png in Resources */ = {isa = PBXBuildFile; fileRef = F17AB3A720F80A7800CE0B13 /* netDJ_4_big2.png */; };
 		F17AB3AE20F8212100CE0B13 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = F17AB3AD20F8212000CE0B13 /* user.png */; };
 		F1B16BCA21064D7D00D25E45 /* HITS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B16BC921064D7B00D25E45 /* HITS.swift */; };
+		F1B16BCC210682E800D25E45 /* Kmeans.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B16BCB210682E800D25E45 /* Kmeans.swift */; };
 		F1CF859520FBFC4B00DBBAAB /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF859420FBFC4B00DBBAAB /* NetworkView.swift */; };
 		F1CF859720FC2D3100DBBAAB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF859620FC2D3100DBBAAB /* UserView.swift */; };
 		F1CF859920FC3E9A00DBBAAB /* NetworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF859820FC3E9A00DBBAAB /* NetworkTableViewController.swift */; };
@@ -115,12 +140,19 @@
 		ACB40A86205D9F950066A302 /* BridgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgeViewController.m; sourceTree = "<group>"; };
 		ACB40A88205DA03B0066A302 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpotifyMetadata.framework; path = "ios-sdk-master/SpotifyMetadata.framework"; sourceTree = SOURCE_ROOT; };
 		AFA2FE9C74B93C78CAAD7B9E /* Pods-CollabPlaylistsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CollabPlaylistsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CollabPlaylistsUITests/Pods-CollabPlaylistsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F1046B9D2158165500B059B4 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hamburger.png; path = ../../../../Desktop/hamburger.png; sourceTree = "<group>"; };
+		F1046B9F21581F8900B059B4 /* disc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disc.png; path = ../../../../Desktop/disc.png; sourceTree = "<group>"; };
+		F1046BA12158260D00B059B4 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = ../../../../Desktop/play.png; sourceTree = "<group>"; };
+		F1046BA3215827A000B059B4 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = ../../../../Desktop/pause.png; sourceTree = "<group>"; };
+		F1046BA5215CAC5500B059B4 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = next.png; path = ../../../../Desktop/next.png; sourceTree = "<group>"; };
+		F1046BA7216AC6CD00B059B4 /* ChoiceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceSelection.swift; sourceTree = "<group>"; };
+		F11406F7211365DB0058D4B3 /* SegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
+		F11B7BF52153F8DC007382E8 /* NowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlaying.swift; sourceTree = "<group>"; };
 		F11D9BE020C9DD2D00554E47 /* thinking_emoji.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = thinking_emoji.jpeg; path = ../../../../Downloads/thinking_emoji.jpeg; sourceTree = "<group>"; };
 		F11D9BE420CC52AF00554E47 /* UserPlaylistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistsTableViewController.swift; sourceTree = "<group>"; };
 		F11D9BE620CC533100554E47 /* UserPlaylistsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistsTableViewCell.swift; sourceTree = "<group>"; };
 		F11D9BE820CEE2B000554E47 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		F11E890920C39A0200C15812 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		F11E890B20C7056100C15812 /* GroupSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchViewController.swift; sourceTree = "<group>"; };
 		F11F4C3D20ED78C10018E26F /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
 		F11F4C3F20ED7AD50018E26F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		F11F4C4120ED83000018E26F /* SelectedFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedFriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,9 +161,27 @@
 		F11F4C4B20F42DED0018E26F /* CollabPlaylists.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CollabPlaylists.entitlements; sourceTree = "<group>"; };
 		F11F4C5020F571170018E26F /* GroupRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRequestTableViewCell.swift; sourceTree = "<group>"; };
 		F11F4C5420F7FC080018E26F /* CollabPlaylists.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CollabPlaylists.entitlements; sourceTree = "<group>"; };
+		F1228069210A6FB6003DCB7E /* SongLoadQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongLoadQueue.swift; sourceTree = "<group>"; };
+		F122806D21118680003DCB7E /* SegueWithCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueWithCompletion.swift; sourceTree = "<group>"; };
+		F15203AA213B65E5007EFC6C /* hamburgericon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hamburgericon.png; path = ../../../../Desktop/hamburgericon.png; sourceTree = "<group>"; };
+		F15203AC213C96AA007EFC6C /* SelectedSongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSongTableViewCell.swift; sourceTree = "<group>"; };
+		F15203AE21423922007EFC6C /* FirstTimeAlertName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeAlertName.swift; sourceTree = "<group>"; };
+		F15203B0214EDE1D007EFC6C /* FirstTimeAlertPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeAlertPhone.swift; sourceTree = "<group>"; };
+		F164C5D3220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeAlertConfirmation.swift; sourceTree = "<group>"; };
+		F170E8C921B35226009B65F1 /* icons8-waste-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-waste-32.png"; path = "../../../icons8-waste-32.png"; sourceTree = "<group>"; };
+		F170E8CB21B3528E009B65F1 /* play_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_small.png; path = ../../../../Desktop/play_small.png; sourceTree = "<group>"; };
+		F170E8CD21B361FF009B65F1 /* icons8-delete-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-delete-50.png"; path = "../../../../Downloads/icons8-delete-50.png"; sourceTree = "<group>"; };
+		F170E8CF21B362CD009B65F1 /* icons8-delete-filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-delete-filled-50.png"; path = "../../../../Downloads/icons8-delete-filled-50.png"; sourceTree = "<group>"; };
+		F170E8D121B36D69009B65F1 /* icons8-delete-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-delete-40.png"; path = "../../../../Downloads/icons8-delete-40.png"; sourceTree = "<group>"; };
+		F170E8D321B37051009B65F1 /* icons8-add-new-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-add-new-50.png"; path = "../../../../Downloads/icons8-add-new-50.png"; sourceTree = "<group>"; };
+		F170E8D521B64DD2009B65F1 /* everybody_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = everybody_icon.png; path = ../../../../Desktop/everybody_icon.png; sourceTree = "<group>"; };
+		F170E8D621B64DD2009B65F1 /* user_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_icon.png; path = ../../../../Desktop/user_icon.png; sourceTree = "<group>"; };
+		F170E8D921B64DFC009B65F1 /* icons8-people-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-people-30.png"; path = "../../../../Downloads/icons8-people-30.png"; sourceTree = "<group>"; };
+		F170E8DB21B64F07009B65F1 /* icons8-paste-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-paste-50.png"; path = "../../../../Downloads/icons8-paste-50.png"; sourceTree = "<group>"; };
 		F17AB3A720F80A7800CE0B13 /* netDJ_4_big2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = netDJ_4_big2.png; path = ../../../netDJ_4_big2.png; sourceTree = "<group>"; };
 		F17AB3AD20F8212000CE0B13 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = ../../../user.png; sourceTree = "<group>"; };
 		F1B16BC921064D7B00D25E45 /* HITS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HITS.swift; sourceTree = "<group>"; };
+		F1B16BCB210682E800D25E45 /* Kmeans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kmeans.swift; sourceTree = "<group>"; };
 		F1CF859420FBFC4B00DBBAAB /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		F1CF859620FC2D3100DBBAAB /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		F1CF859820FC3E9A00DBBAAB /* NetworkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +261,22 @@
 			isa = PBXGroup;
 			children = (
 				F1CF85A620FD466600DBBAAB /* netDJ_5_default.png */,
+				F170E8C921B35226009B65F1 /* icons8-waste-32.png */,
+				F170E8CD21B361FF009B65F1 /* icons8-delete-50.png */,
+				F170E8D521B64DD2009B65F1 /* everybody_icon.png */,
+				F170E8DB21B64F07009B65F1 /* icons8-paste-50.png */,
+				F170E8D921B64DFC009B65F1 /* icons8-people-30.png */,
+				F170E8D621B64DD2009B65F1 /* user_icon.png */,
+				F170E8D321B37051009B65F1 /* icons8-add-new-50.png */,
+				F170E8CF21B362CD009B65F1 /* icons8-delete-filled-50.png */,
+				F1046B9D2158165500B059B4 /* hamburger.png */,
+				F1046BA12158260D00B059B4 /* play.png */,
+				F170E8D121B36D69009B65F1 /* icons8-delete-40.png */,
+				F170E8CB21B3528E009B65F1 /* play_small.png */,
+				F15203AA213B65E5007EFC6C /* hamburgericon.png */,
+				F1046BA5215CAC5500B059B4 /* next.png */,
+				F1046BA3215827A000B059B4 /* pause.png */,
+				F1046B9F21581F8900B059B4 /* disc.png */,
 				F1CF85A420FD465600DBBAAB /* netDJ_5_big.png */,
 				F17AB3AD20F8212000CE0B13 /* user.png */,
 				F11F4C4B20F42DED0018E26F /* CollabPlaylists.entitlements */,
@@ -219,39 +285,48 @@
 				AC8401BA205D848D00246476 /* AppDelegate.swift */,
 				ACB40A85205D9F950066A302 /* BridgeViewController.h */,
 				F1CF85B020FE895F00DBBAAB /* SegueFromLeft.swift */,
+				F11406F7211365DB0058D4B3 /* SegueFromRight.swift */,
+				F122806D21118680003DCB7E /* SegueWithCompletion.swift */,
 				ACB40A86205D9F950066A302 /* BridgeViewController.m */,
 				AC8401BC205D848D00246476 /* ViewController.swift */,
 				F1CF859820FC3E9A00DBBAAB /* NetworkTableViewController.swift */,
+				F15203AE21423922007EFC6C /* FirstTimeAlertName.swift */,
+				F15203B0214EDE1D007EFC6C /* FirstTimeAlertPhone.swift */,
+				F164C5D3220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift */,
 				F1CF859620FC2D3100DBBAAB /* UserView.swift */,
 				F1CF85A820FD69DA00DBBAAB /* GroupRequestViewController.swift */,
 				F11F4C3D20ED78C10018E26F /* FriendSearchViewController.swift */,
-				F11E890B20C7056100C15812 /* GroupSearchViewController.swift */,
 				AC58C600207D3EC200F6AD31 /* ViewPlaylistViewController.swift */,
+				F11B7BF52153F8DC007382E8 /* NowPlaying.swift */,
 				F1CF859420FBFC4B00DBBAAB /* NetworkView.swift */,
 				F11F4C4520F2A0F90018E26F /* GroupUserTableViewController.swift */,
 				F1CF859C20FD217F00DBBAAB /* SongsViewController.swift */,
 				AC775408206074110030C006 /* SongSearchViewController.swift */,
 				F11D9BE420CC52AF00554E47 /* UserPlaylistsTableViewController.swift */,
 				F1CF85AA20FDEAD700DBBAAB /* TotalSongsViewController.swift */,
+				F1046BA7216AC6CD00B059B4 /* ChoiceSelection.swift */,
 				F1F4121220B8DB3C0042B386 /* Globals.swift */,
+				F1B16BCB210682E800D25E45 /* Kmeans.swift */,
 				F1B16BC921064D7B00D25E45 /* HITS.swift */,
 				F1CF859A20FC40DF00DBBAAB /* NetworkTableViewCell.swift */,
 				AC0CC2B6206963E20059A489 /* EventTableViewCell.swift */,
 				F11F4C3F20ED7AD50018E26F /* FriendSearchTableViewCell.swift */,
 				F11F4C4120ED83000018E26F /* SelectedFriendsTableViewCell.swift */,
 				AC58C602207D424100F6AD31 /* PlaylistSongTableViewCell.swift */,
-				F1CF85A020FD29D500DBBAAB /* SongTableViewCell.swift */,
 				AC0CC2BA20697A310059A489 /* GroupUserTableViewCell.swift */,
+				F1CF85A020FD29D500DBBAAB /* SongTableViewCell.swift */,
 				AC77540E20607BC70030C006 /* SongSearchTableViewCell.swift */,
 				F11D9BE620CC533100554E47 /* UserPlaylistsTableViewCell.swift */,
 				F11F4C5020F571170018E26F /* GroupRequestTableViewCell.swift */,
 				F1CF85AE20FDEBBF00DBBAAB /* TotalSongsTableViewCell.swift */,
+				F15203AC213C96AA007EFC6C /* SelectedSongTableViewCell.swift */,
 				F11D9BE820CEE2B000554E47 /* Playlist.swift */,
 				AC8401EA205D8C2200246476 /* Song.swift */,
 				F1F4121420BA835D0042B386 /* User.swift */,
 				AC0CC2B42069632F0059A489 /* Group.swift */,
 				F11F4C4320F0A53A0018E26F /* Friend.swift */,
 				F11E890920C39A0200C15812 /* State.swift */,
+				F1228069210A6FB6003DCB7E /* SongLoadQueue.swift */,
 				ACB40A7A205D9B370066A302 /* Frameworks */,
 				AC8401BE205D848D00246476 /* Main.storyboard */,
 				AC8401C1205D848D00246476 /* Assets.xcassets */,
@@ -327,6 +402,7 @@
 				AC8401B4205D848D00246476 /* Frameworks */,
 				AC8401B5205D848D00246476 /* Resources */,
 				DB48BC5A17C563AFD8874E3D /* [CP] Embed Pods Frameworks */,
+				F122806B2110C0C1003DCB7E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -436,14 +512,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1046BA6215CAC5500B059B4 /* next.png in Resources */,
 				F1CF85A520FD465600DBBAAB /* netDJ_5_big.png in Resources */,
+				F1046BA4215827A100B059B4 /* pause.png in Resources */,
+				F170E8D421B37051009B65F1 /* icons8-add-new-50.png in Resources */,
 				AC8401C5205D848D00246476 /* LaunchScreen.storyboard in Resources */,
+				F1046BA021581F8A00B059B4 /* disc.png in Resources */,
+				F170E8D021B362CE009B65F1 /* icons8-delete-filled-50.png in Resources */,
 				AC8401C2205D848D00246476 /* Assets.xcassets in Resources */,
 				F1CF85A720FD466600DBBAAB /* netDJ_5_default.png in Resources */,
+				F170E8D721B64DD3009B65F1 /* everybody_icon.png in Resources */,
+				F170E8CA21B35227009B65F1 /* icons8-waste-32.png in Resources */,
+				F1046BA22158260D00B059B4 /* play.png in Resources */,
+				F170E8CE21B361FF009B65F1 /* icons8-delete-50.png in Resources */,
 				F11D9BE120C9DD2E00554E47 /* thinking_emoji.jpeg in Resources */,
+				F170E8DC21B64F07009B65F1 /* icons8-paste-50.png in Resources */,
 				F17AB3AE20F8212100CE0B13 /* user.png in Resources */,
+				F170E8D821B64DD3009B65F1 /* user_icon.png in Resources */,
 				F17AB3A820F80A7800CE0B13 /* netDJ_4_big2.png in Resources */,
 				AC8401C0205D848D00246476 /* Main.storyboard in Resources */,
+				F15203AB213B65E6007EFC6C /* hamburgericon.png in Resources */,
+				F170E8D221B36D69009B65F1 /* icons8-delete-40.png in Resources */,
+				F1046B9E2158165600B059B4 /* hamburger.png in Resources */,
+				F170E8DA21B64DFC009B65F1 /* icons8-people-30.png in Resources */,
+				F170E8CC21B3528E009B65F1 /* play_small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +640,19 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F122806B2110C0C1003DCB7E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -560,7 +665,9 @@
 				F1CF85B120FE895F00DBBAAB /* SegueFromLeft.swift in Sources */,
 				F11F4C3E20ED78C10018E26F /* FriendSearchViewController.swift in Sources */,
 				F1CF859B20FC40DF00DBBAAB /* NetworkTableViewCell.swift in Sources */,
+				F122806E21118680003DCB7E /* SegueWithCompletion.swift in Sources */,
 				AC0CC2B52069632F0059A489 /* Group.swift in Sources */,
+				F122806A210A6FB6003DCB7E /* SongLoadQueue.swift in Sources */,
 				F11F4C4020ED7AD50018E26F /* FriendSearchTableViewCell.swift in Sources */,
 				F1CF85AB20FDEAD700DBBAAB /* TotalSongsViewController.swift in Sources */,
 				AC77540F20607BC70030C006 /* SongSearchTableViewCell.swift in Sources */,
@@ -570,10 +677,16 @@
 				AC8401EB205D8C2200246476 /* Song.swift in Sources */,
 				F11D9BE720CC533100554E47 /* UserPlaylistsTableViewCell.swift in Sources */,
 				F1CF85AF20FDEBBF00DBBAAB /* TotalSongsTableViewCell.swift in Sources */,
-				F11E890C20C7056100C15812 /* GroupSearchViewController.swift in Sources */,
 				F11F4C4420F0A53A0018E26F /* Friend.swift in Sources */,
+				F164C5D4220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift in Sources */,
 				F11D9BE520CC52AF00554E47 /* UserPlaylistsTableViewController.swift in Sources */,
+				F11406F8211365DB0058D4B3 /* SegueFromRight.swift in Sources */,
+				F15203B1214EDE1D007EFC6C /* FirstTimeAlertPhone.swift in Sources */,
+				F1B16BCC210682E800D25E45 /* Kmeans.swift in Sources */,
 				AC58C603207D424100F6AD31 /* PlaylistSongTableViewCell.swift in Sources */,
+				F11B7BF62153F8DC007382E8 /* NowPlaying.swift in Sources */,
+				F1046BA8216AC6CD00B059B4 /* ChoiceSelection.swift in Sources */,
+				F15203AF21423922007EFC6C /* FirstTimeAlertName.swift in Sources */,
 				AC0CC2BB20697A310059A489 /* GroupUserTableViewCell.swift in Sources */,
 				F11E890A20C39A0200C15812 /* State.swift in Sources */,
 				F1CF859520FBFC4B00DBBAAB /* NetworkView.swift in Sources */,
@@ -586,6 +699,7 @@
 				F11D9BE920CEE2B000554E47 /* Playlist.swift in Sources */,
 				F1CF859720FC2D3100DBBAAB /* UserView.swift in Sources */,
 				F1B16BCA21064D7D00D25E45 /* HITS.swift in Sources */,
+				F15203AD213C96AA007EFC6C /* SelectedSongTableViewCell.swift in Sources */,
 				F11F4C5120F571170018E26F /* GroupRequestTableViewCell.swift in Sources */,
 				F1CF859D20FD217F00DBBAAB /* SongsViewController.swift in Sources */,
 				F1CF859920FC3E9A00DBBAAB /* NetworkTableViewController.swift in Sources */,

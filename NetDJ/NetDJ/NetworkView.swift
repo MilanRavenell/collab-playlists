@@ -20,7 +20,7 @@ class NetworkView: UIView {
     var deleteLeaveBtn: UIButton!
     var inviteBtn: UIButton!
     var viewUsersBtn: UIButton!
-    var songsBtn: UIButton!
+    var searchBtn: UIButton!
     var totalSongsBtn: UIButton!
     weak var parent: ViewPlaylistViewController!
     
@@ -82,8 +82,46 @@ class NetworkView: UIView {
         nameLabelView.addSubview(nameLabel)
         nameLabelView.addSubview(nameTextField)
         
+        // Add search subview
+        let searchView = UIView(frame: CGRect(x: 0, y: nameLabelView.frame.maxY + Globals.bigOffset, width: self.frame.width, height: 50))
+        searchView.backgroundColor = UIColor.white
+        scrollView.addSubview(searchView)
+        
+        let searchImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        searchImage.image = UIImage(named: "icons8-search-filled-50.png")
+        
+        if let image = searchImage.image {
+            let maskImage = image.cgImage!
+            
+            let width = image.size.width
+            let height = image.size.height
+            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+            
+            context.clip(to: bounds, mask: maskImage)
+            context.setFillColor(Globals.getThemeColor1().cgColor)
+            context.fill(bounds)
+            
+            if let cgImage = context.makeImage() {
+                searchImage.image = UIImage(cgImage: cgImage)
+            }
+        }
+        
+        searchView.addSubview(searchImage)
+        
+        searchBtn = UIButton(type: .system)
+        searchBtn.frame = CGRect(x: 50, y: 0, width: searchView.frame.width, height: searchView.frame.height)
+        searchBtn.setTitle("Search for Songs", for: .normal)
+        searchBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
+        searchBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
+        searchBtn.contentHorizontalAlignment = .left
+        searchView.addSubview(searchBtn)
+        
         // Add total songs view
-        let totalSongsView = UIView(frame: CGRect(x: 0, y: nameLabelView.frame.maxY + Globals.bigOffset, width: self.frame.width, height: 50))
+        let totalSongsView = UIView(frame: CGRect(x: 0, y: searchView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
         totalSongsView.backgroundColor = UIColor.white
         scrollView.addSubview(totalSongsView)
         
@@ -113,52 +151,14 @@ class NetworkView: UIView {
         
         totalSongsBtn = UIButton(type: .system)
         totalSongsBtn.frame = CGRect(x: 50, y: 0, width: totalSongsView.frame.width, height: totalSongsView.frame.height)
-        totalSongsBtn.setTitle("Everybody's Songs", for: .normal)
+        totalSongsBtn.setTitle("Network Songs", for: .normal)
         totalSongsBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
         totalSongsBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
         totalSongsBtn.contentHorizontalAlignment = .left
         totalSongsView.addSubview(totalSongsBtn)
         
-        // Add my songs subview
-        let mySongsView = UIView(frame: CGRect(x: 0, y: totalSongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
-        mySongsView.backgroundColor = UIColor.white
-        scrollView.addSubview(mySongsView)
-        
-        let mySongsImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
-        mySongsImage.image = UIImage(named: "user_icon.png")
-        
-        if let image = mySongsImage.image {
-            let maskImage = image.cgImage!
-            
-            let width = image.size.width
-            let height = image.size.height
-            let bounds = CGRect(x: 0, y: 0, width: width, height: height)
-            
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
-            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
-            
-            context.clip(to: bounds, mask: maskImage)
-            context.setFillColor(Globals.getThemeColor1().cgColor)
-            context.fill(bounds)
-            
-            if let cgImage = context.makeImage() {
-                mySongsImage.image = UIImage(cgImage: cgImage)
-            }
-        }
-        
-        mySongsView.addSubview(mySongsImage)
-        
-        songsBtn = UIButton(type: .system)
-        songsBtn.frame = CGRect(x: 50, y: 0, width: mySongsView.frame.width, height: mySongsView.frame.height)
-        songsBtn.setTitle("Your Songs", for: .normal)
-        songsBtn.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
-        songsBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
-        songsBtn.contentHorizontalAlignment = .left
-        mySongsView.addSubview(songsBtn)
-        
         // Add members subview
-        let membersView = UIView(frame: CGRect(x: 0, y: mySongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
+        let membersView = UIView(frame: CGRect(x: 0, y: totalSongsView.frame.maxY + Globals.smallOffset, width: self.frame.width, height: 50))
         membersView.backgroundColor = UIColor.white
         scrollView.addSubview(membersView)
         
@@ -283,8 +283,8 @@ class NetworkView: UIView {
         if (sender == totalSongsBtn) {
             parent.performSegue(withIdentifier: "totalSongsSegue", sender: self)
         }
-        if (sender == songsBtn) {
-            parent.performSegue(withIdentifier: "mySongsSegue", sender: self)
+        if (sender == searchBtn) {
+            parent.performSegue(withIdentifier: "searchSegue", sender: self)
         }
 
         if (sender == viewUsersBtn) {

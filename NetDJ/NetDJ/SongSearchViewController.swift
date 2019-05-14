@@ -24,6 +24,14 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var selectedSongTable: UITableView!
     var selectedSongs = [Song]()
     var selectedHeaderLabel: UILabel!
+    var keyboardHeight: CGFloat = 0
+    var keyboardActive = false
+    var selectedActive = false
+    var dimView: UIView!
+    var selectedSongsLabel: UILabel!
+    var selectedIndexPath: IndexPath?
+    var playlists = [Playlist]()
+    var playlistsAsSong = [Song]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +71,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         }
         definesPresentationContext = true
+        searchController?.searchBar.tintColor = Globals.getThemeColor1()
         
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight))
         rightSwipeGesture.direction = .right
@@ -72,15 +81,24 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         activityIndicator.center = self.view.center
         self.view.addSubview(activityIndicator)
         
-        songTable.frame = CGRect(x: songTable.frame.minX, y: songTable.frame.minY, width: songTable.frame.width, height: view.frame.height - 250)
         labelView = UIView(frame: CGRect(x: 0, y: songTable.frame.maxY, width: view.frame.width, height: 50))
         labelView.backgroundColor = Globals.getThemeColor1()
+        
+        let path = UIBezierPath(roundedRect: labelView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        labelView.layer.mask = mask
+        
+        let labelGesture = UITapGestureRecognizer(target: self, action: #selector(self.selectedLabelViewTapped))
+        self.labelView.addGestureRecognizer(labelGesture)
+
         self.view.addSubview(labelView)
         
-        let selectedLabel = UILabel(frame: CGRect(x: 10, y: 0, width: labelView.frame.width, height: labelView.frame.height))
-        selectedLabel.text = "Selected :"
-        selectedLabel.textColor = UIColor.white
-        labelView.addSubview(selectedLabel)
+        selectedSongsLabel = UILabel(frame: CGRect(x: 10, y: 0, width: labelView.frame.width, height: labelView.frame.height))
+        selectedSongsLabel.text = "0 Selected"
+        selectedSongsLabel.textColor = UIColor.white
+        
+        labelView.addSubview(selectedSongsLabel)
         
         selectedSongTable.dataSource = self
         selectedSongTable.delegate = self
@@ -94,6 +112,43 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         selectedHeaderLabel.textAlignment = .center
         selectedHeaderLabel.textColor = UIColor.gray
         selectedSongTable.tableHeaderView?.addSubview(selectedHeaderLabel)
+        
+        dimView = UIView(frame: view.bounds)
+        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        dimView.alpha = 0
+        dimView.isUserInteractionEnabled = false
+        
+        self.view.addSubview(dimView)
+        
+        self.view.bringSubview(toFront: selectedSongTable)
+        self.view.bringSubview(toFront: labelView)
+        
+        self.activityIndicator.startAnimating()
+        
+        // Get user's spotify playlists
+        DispatchQueue.global().async { [weak self] in
+            if let state = self?.state {
+                self?.playlists = Globals.getUserPlaylists(userId: state.user.id, state: state) ?? [Playlist]()
+                
+                for playlist in self?.playlists ?? [Playlist]() {
+                    let song = Song(name: playlist.name, artist: "Spotify Playlist", id: "XXxxplaylistxxXX" + playlist.id, imageURL: playlist.imageURL, state: state, loadNow: false)
+                    song?.getPic()
+                    if let song = song {
+                        self?.playlistsAsSong.append(song)
+                    }
+                    
+                }
+                
+                if self?.searchController?.searchBar.text == "" {
+                    self?.songs = self?.playlistsAsSong ?? [Song]()
+                    
+                    DispatchQueue.main.async {
+                        self?.activityIndicator.stopAnimating()
+                        self?.songTable.reloadData()
+                    }
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +161,34 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         DispatchQueue.main.async { [weak self] in
             self?.searchController?.searchBar.becomeFirstResponder()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
+    }
+    
+    @objc func keyboardWillAppear(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            keyboardHeight = keyboardFrame.cgRectValue.height
+        }
+        keyboardActive = true
+        animateSelectedSong(show: false)
+        songTable.frame = CGRect(x: songTable.frame.minX, y: songTable.frame.minY, width: songTable.frame.width, height: self.view.frame.height - 250)
+    }
+    
+    @objc func keyboardWillDisappear(_ notification: Notification) {
+        keyboardActive = false
+        if !selectedActive {
+            animateSelectedSong(show: false)
+        }
+        songTable.frame = CGRect(x: songTable.frame.minX, y: songTable.frame.minY, width: songTable.frame.width, height: self.view.frame.height)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -141,8 +224,34 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.songName.text = song.name
                 cell.songArtist.text = song.artist
                 cell.songArtist.font = cell.songArtist.font.withSize(15)
+                
+                // Make song text green if currently selected
+                var indx = self.selectedSongs.index(where: { (item) -> Bool in
+                    item.id == song.id
+                })
+                if indx != nil {
+                    cell.songName.textColor = Globals.getThemeColor1()
+                    cell.songArtist.textColor = Globals.getThemeColor1()
+                } else {
+                    cell.songName.textColor = UIColor.black
+                    cell.songArtist.textColor = UIColor.black
+                }
+                
+                // Make playlist text green if currently in network
+                if let id = self.state!.group?.id {
+                    indx = self.state!.user.selectedPlaylists[id]?.index(where: { (item) -> Bool in
+                        item == song.id.suffix(16)
+                    })
+                    if indx != nil {
+                        cell.songName.textColor = Globals.getThemeColor1()
+                        cell.songArtist.textColor = Globals.getThemeColor1()
+                    } else {
+                        cell.songName.textColor = UIColor.black
+                        cell.songArtist.textColor = UIColor.black
+                    }
+                }
             }
-            
+
             return cell
         } else {
             let cellIdentifier = "SelectedSongTableViewCell"
@@ -165,14 +274,6 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.songArtist.font = cell.songArtist.font.withSize(15)
             }
             
-            let delete_Button = UIButton(type: .system)
-            delete_Button.setTitle("Delete", for: .normal)
-            delete_Button.setTitleColor(UIColor.red, for: .normal)
-            delete_Button.frame = CGRect(x: self.view.frame.size.width-100, y: 0, width: 100, height: cell.frame.height)
-            delete_Button.addTarget(self, action: #selector(deleteBtnPressed), for: .touchUpInside)
-            delete_Button.tag = indexPath.row
-            cell.addSubview(delete_Button)
-            
             cell.layoutIfNeeded()
             
             return cell
@@ -180,35 +281,175 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        selectedSong = songs[indexPath.row]
+        self.searchController?.searchBar.resignFirstResponder()
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 80, height: 80))
+        selectedSong?.assignPicToView(imageView: imageView)
+        let name = UILabel(frame: CGRect(x: 100, y: 25, width: view.frame.width - 100, height: 50))
+        name.textColor = UIColor.white
+        name.text = selectedSong?.name
+        name.font = name.font.withSize(25)
+        let artist = UILabel(frame: CGRect(x: 100, y: 53, width: view.frame.width - 100, height: 50))
+        artist.textColor = UIColor.white
+        artist.text = selectedSong?.artist
+        artist.font = artist.font.withSize(15)
+        titleView.addSubview(imageView)
+        titleView.addSubview(name)
+        titleView.addSubview(artist)
+        
+        var choices = [(String, String, (() -> Void)?)]()
+//        choices = [("Play Now", "play_small.png", playNow), ("Add to Up Next", "hamburger.png", addToQueue)]
+        
         if tableView == songTable {
-            selectedSong = songs[indexPath.row]
             if let id = self.state!.group?.id {
-                var indx = self.state!.user.songs[id]?.index(where: { [weak self] (item) -> Bool in
-                    item.id == self?.selectedSong?.id
-                })
-                if indx == nil {
-                    indx = self.selectedSongs.index(where: { [weak self] (item) -> Bool in
+                // If selected a playlist
+                if selectedSong?.id.contains("XXxxplaylistxxXX") ?? false {
+                    let indx = self.state!.user.selectedPlaylists[id]?.index(where: { (item) -> Bool in
+                        item == selectedSong?.id.suffix(16) ?? ""
+                    })
+                    if indx == nil {
+                        choices.append(("Add Playlist to Network", "icons8-waste-32.png", selectPlaylist))
+                    } else {
+                        choices.append(("Remove Playlist to Network", "icons8-waste-32.png", removePlaylist))
+                    }
+                    
+                } else {
+                    var indx = self.state!.user.songs[id]?.index(where: { [weak self] (item) -> Bool in
                         item.id == self?.selectedSong?.id
                     })
                     if indx == nil {
-                        self.selectedSongs.append(selectedSong!)
-                        selectedSongTable.reloadData()
-                        selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
-                        view.endEditing(true)
-                        self.searchController?.searchBar.resignFirstResponder()
-                        self.searchController?.isActive = false
-                        tableView.deselectRow(at: indexPath, animated: true)
-                        return
+                        indx = self.selectedSongs.index(where: { [weak self] (item) -> Bool in
+                            item.id == self?.selectedSong?.id
+                        })
+                        if indx == nil {
+                            choices.append(("Add to Network", "icons8-waste-32.png", selectSong))
+                        } else {
+                            choices.append(("Remove Song", "icons8-waste-32.png", removeSong))
+                        }
+                    }
+                    
+                    choices.append(("Play Now", "play_small.png", playNow))
+                    choices.append(("Add to Up Next", "hamburger.png", addToQueue))
+                }
+            }
+        } else {
+            choices.append(("Remove", "icons8-waste-32.png", removeSong))
+        }
+        
+        choices.append(("Cancel", "icons8-delete-40.png", nil))
+        
+        let choiceSelection = ChoiceSelection(titleView: titleView, choices: choices, view: view)
+        choiceSelection.present(show: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+        
+    func playNow() {
+        self.state!.viewPlaylistVC?.playSong(player: self.state!.player!, song: selectedSong!)
+        self.selectedSong?.loadPic()
+        self.state!.group?.songs?.insert(self.selectedSong!, at: 0)
+        self.state?.curActiveId = self.state!.group?.id ?? self.state?.curActiveId
+        self.state!.currentActiveGroup = nil
+        DispatchQueue.global().async { [weak self] in
+            if let state = self?.state {
+                if let id = state.group?.id {
+                    Globals.addPlaylistSongs(songs: state.group?.songs ?? [Song](), groupId: id, userId: state.user.id)
+                }
+            }
+        }
+        self.songTable.reloadData()
+        self.searchController?.searchBar.becomeFirstResponder()
+    }
+    
+    func addToQueue() {
+        self.selectedSong?.loadPic()
+        if let _ = self.state!.group?.songs {
+            self.state!.group!.songs!.append(self.selectedSong!)
+        }
+        self.state!.viewPlaylistVC?.songs = self.state!.group?.songs ?? [Song]()
+        
+        if let id = self.state!.group?.id {
+            Globals.addPlaylistSongs(songs: self.state!.group?.songs ?? [Song](), groupId: id, userId: self.state!.user.id)
+        }
+        
+        Globals.showAlert(text: "Added to Up Next", view: self.view)
+        self.searchController?.searchBar.becomeFirstResponder()
+    }
+    
+    func selectSong() {
+        if let selectedSong = self.selectedSong {
+            if let selectedIndexPath = self.selectedIndexPath {
+                self.songTable.deselectRow(at: selectedIndexPath, animated: true)
+            }
+            self.selectedSongs.append(selectedSong)
+            selectedSongTable.reloadData()
+            selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
+            selectedSongsLabel.text = String(self.selectedSongs.count) + " Selected"
+            songTable.reloadData()
+            self.searchController?.searchBar.becomeFirstResponder()
+        }
+    }
+    
+    func removeSong() {
+        if let selectedIndexPath = self.selectedIndexPath {
+            self.selectedSongs.remove(at: selectedIndexPath.row)
+        }
+        
+        selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
+        selectedSongsLabel.text = String(self.selectedSongs.count) + " Selected"
+        songTable.reloadData()
+        selectedSongTable.reloadData()
+        if selectedSongs.count == 0 {
+            self.searchController?.searchBar.becomeFirstResponder()
+        }
+    }
+    
+    func selectPlaylist() {
+        if let selectedPlaylist = self.selectedSong {
+            if let id = self.state!.group?.id {
+                self.state!.user.selectedPlaylists[id]?.append(String(selectedPlaylist.id.suffix(16)))
+                
+                let indx = self.playlists.index(where: { (item) -> Bool in
+                    item.id == selectedPlaylist.id.suffix(16)
+                })
+                if (indx != nil) {
+                    let playlist = self.playlists[indx!]
+                    DispatchQueue.global().async {
+                        Globals.addUserPlaylist(playlist: playlist, userId: self.state!.user.id, groupId: id)
+                        Globals.addUserSongs(songs: playlist.getSongs(), userId: self.state!.user.id, groupId: id, fromPlaylist: 1)
                     }
                 }
-                view.endEditing(true)
-                self.searchController?.searchBar.resignFirstResponder()
-                self.searchController?.isActive = false
-                tableView.deselectRow(at: indexPath, animated: true)
-                Globals.showAlert(text: "You've already selected this song", view: self.view)
             }
-            
-            
+            songTable.reloadData()
+        }
+    }
+    
+    func removePlaylist() {
+        if let selectedPlaylist = self.selectedSong {
+            if let id = self.state!.group?.id {
+               
+                // Remove from user selected playlists
+                var indx = self.state!.user.selectedPlaylists[id]?.index(where: { (item) -> Bool in
+                    item == selectedPlaylist.id.suffix(16)
+                })
+                if indx != nil {
+                    self.state!.user.selectedPlaylists[id]?.remove(at: indx!)
+                }
+                
+                indx = self.playlists.index(where: { (item) -> Bool in
+                    item.id == selectedPlaylist.id.suffix(16)
+                })
+                if (indx != nil) {
+                    let playlist = self.playlists[indx!]
+                    DispatchQueue.global().async {
+                        Globals.deleteUserPlaylist(id: playlist.id, userId: self.state!.user.id, groupId: id)
+                        Globals.deleteUserSongs(songs: playlist.getSongs(), userId: self.state!.user.id, groupId: id)
+                    }
+                }
+            }
+            songTable.reloadData()
         }
     }
 
@@ -282,6 +523,12 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
                         self?.activityIndicator.stopAnimating()
                         print("searched!!")
                     }
+                    
+                    let searchedPlaylists = self?.playlistsAsSong.filter({(playlist : Song) -> Bool in
+                        return playlist.name.lowercased().contains(query.lowercased())
+                    })
+                    
+                    self?.songs.insert(contentsOf: searchedPlaylists ?? [Song](), at: 0)
                 }
             } catch {
                 print("\(error)")
@@ -292,40 +539,55 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func didSwipeRight() {
-        self.songsVC.songSearchVC = self
+        if prevController != "ViewPlaylist" {
+            self.songsVC.songSearchVC = self
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
-    func animateSelectedSong(present: Bool) {
-        if (present) {
+    // stage 0: top of screen
+    // stage 1: top of keyboard
+    // stage 2: bottom of screen
+    func animateSelectedSong(show: Bool) {
+        if show {
+            selectedActive = true
             songTable.allowsSelection = false
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
                 if let vc = self {
-                    vc.labelView.frame = CGRect(x: 0, y: vc.view.frame.height-500, width: vc.view.frame.width, height: 50)
-                    vc.selectedSongTable.frame = CGRect(x: 0, y: vc.labelView.frame.maxY, width: vc.view.frame.width, height: vc.view.frame.height - vc.labelView.frame.maxY)
+                    vc.labelView.frame = CGRect(x: 0, y: 130, width: vc.view.frame.width, height: 50)
+                    vc.selectedSongTable?.frame = CGRect(x: 0, y: vc.labelView.frame.maxY, width: vc.view.frame.width, height: vc.view.frame.height - vc.labelView.frame.maxY)
+                    vc.dimView?.alpha = 1
                 }
                 }, completion: { (finished) in
                     return
             })
         } else {
             songTable.allowsSelection = true
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
-                if let vc = self {
-                    vc.labelView.frame = CGRect(x: 0, y: vc.view.frame.height-50, width: vc.view.frame.width, height: 50)
-                    vc.selectedSongTable.frame = CGRect(x: 0, y: vc.labelView.frame.maxY, width: vc.view.frame.width, height: vc.view.frame.height - vc.labelView.frame.maxY)
-                }
-                }, completion: { (finished) in
-                    return
-            })
+            selectedActive = false
+            if keyboardActive {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
+                    if let vc = self {
+                        vc.labelView?.frame = CGRect(x: 0, y: vc.view.frame.height - vc.keyboardHeight - 50, width: vc.view.frame.width, height: 50)
+                        if let selectedSongTable = vc.selectedSongTable {
+                            selectedSongTable.frame = CGRect(x: 0, y: vc.labelView.frame.maxY, width: vc.view.frame.width, height: vc.view.frame.height - vc.labelView.frame.maxY)
+                        }
+                        vc.dimView?.alpha = 0
+                    }
+                    }, completion: { (finished) in
+                        return
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
+                    if let vc = self {
+                        vc.labelView.frame = CGRect(x: 0, y: vc.view.frame.height-50, width: vc.view.frame.width, height: 50)
+                        vc.selectedSongTable?.frame = CGRect(x: 0, y: vc.labelView.frame.maxY, width: vc.view.frame.width, height: vc.view.frame.height - vc.labelView.frame.maxY)
+                        vc.dimView?.alpha = 0
+                    }
+                    }, completion: { (finished) in
+                        return
+                })
+            }
         }
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        animateSelectedSong(present: false)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        animateSelectedSong(present: true)
     }
     
     func deleteBtnPressed(sender: UIButton!) {
@@ -333,6 +595,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             self.selectedSongs.remove(at: sender.tag)
             self.selectedSongTable.reloadData()
             selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
+            selectedSongsLabel.text = String(self.selectedSongs.count) + " Selected"
         }
     }
     
@@ -341,40 +604,19 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         self.state!.group?.network = [[Int]]()
         self.state!.group?.totalSongs = [Song]()
         self.state!.group?.totalSongsFinishedLoading = false
+        
         if let id = self.state!.group?.id {
-            self.state!.user.songs[id]?.append(contentsOf: selectedSongs)
-            Globals.addUserSongs(songs: selectedSongs, userId: self.state!.user.id, groupId: id, fromPlaylist: 0)
+            self.state!.user.songs[id]?.append(contentsOf: self.selectedSongs)
+            Globals.addUserSongs(songs: self.selectedSongs, userId: self.state!.user.id, groupId: id, fromPlaylist: 0)
         }
         
-        
-        if (self.state!.group?.id != -1) {
-            
-            let songsVC = self.songsVC
-            let songsTable = self.songsVC.songsTable
-            let emptyLabel = self.songsVC.emptyLabel
-            let activityIndicator = self.songsVC.activityIndicator
-            
-            songsTable?.isHidden = true
-            emptyLabel?.isHidden = true
-            activityIndicator?.startAnimating()
-            
-            
-            if let state = self.state {
-                DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
-                    Globals.updateNetwork(group: state.group, state: state)
-                    DispatchQueue.main.async {
-                        songsVC?.mySongsDidFinishLoading()
-                    }
-                }
-            }
-        }
-        
-        self.songsVC.songSearchVC = self
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func cancel(_ sender: Any) {
-        self.songsVC.songSearchVC = self
+        if prevController != "ViewPlaylist" {
+            self.songsVC.songSearchVC = self
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -384,5 +626,13 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+    }
+    
+    func selectedLabelViewTapped() {
+        if selectedActive {
+            animateSelectedSong(show: false)
+        } else {
+            animateSelectedSong(show: true)
+        }
     }
 }

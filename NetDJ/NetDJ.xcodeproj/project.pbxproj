@@ -57,6 +57,8 @@
 		F15203AF21423922007EFC6C /* FirstTimeAlertName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15203AE21423922007EFC6C /* FirstTimeAlertName.swift */; };
 		F15203B1214EDE1D007EFC6C /* FirstTimeAlertPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15203B0214EDE1D007EFC6C /* FirstTimeAlertPhone.swift */; };
 		F164C5D4220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F164C5D3220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift */; };
+		F164C5D6221A195B0009E0A9 /* icons8-search-filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F164C5D5221A195B0009E0A9 /* icons8-search-filled-50.png */; };
+		F164C5D8221A41270009E0A9 /* icons8-menu-vertical-filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F164C5D7221A41270009E0A9 /* icons8-menu-vertical-filled-50.png */; };
 		F170E8CA21B35227009B65F1 /* icons8-waste-32.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8C921B35226009B65F1 /* icons8-waste-32.png */; };
 		F170E8CC21B3528E009B65F1 /* play_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8CB21B3528E009B65F1 /* play_small.png */; };
 		F170E8CE21B361FF009B65F1 /* icons8-delete-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F170E8CD21B361FF009B65F1 /* icons8-delete-50.png */; };
@@ -168,6 +170,8 @@
 		F15203AE21423922007EFC6C /* FirstTimeAlertName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeAlertName.swift; sourceTree = "<group>"; };
 		F15203B0214EDE1D007EFC6C /* FirstTimeAlertPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeAlertPhone.swift; sourceTree = "<group>"; };
 		F164C5D3220F96F40009E0A9 /* FirstTimeAlertConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeAlertConfirmation.swift; sourceTree = "<group>"; };
+		F164C5D5221A195B0009E0A9 /* icons8-search-filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-search-filled-50.png"; path = "../../../../Desktop/icons8-search-filled-50.png"; sourceTree = "<group>"; };
+		F164C5D7221A41270009E0A9 /* icons8-menu-vertical-filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-menu-vertical-filled-50.png"; path = "../../../../Desktop/icons8-menu-vertical-filled-50.png"; sourceTree = "<group>"; };
 		F170E8C921B35226009B65F1 /* icons8-waste-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-waste-32.png"; path = "../../../icons8-waste-32.png"; sourceTree = "<group>"; };
 		F170E8CB21B3528E009B65F1 /* play_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_small.png; path = ../../../../Desktop/play_small.png; sourceTree = "<group>"; };
 		F170E8CD21B361FF009B65F1 /* icons8-delete-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-delete-50.png"; path = "../../../../Downloads/icons8-delete-50.png"; sourceTree = "<group>"; };
@@ -262,6 +266,7 @@
 			children = (
 				F1CF85A620FD466600DBBAAB /* netDJ_5_default.png */,
 				F170E8C921B35226009B65F1 /* icons8-waste-32.png */,
+				F164C5D7221A41270009E0A9 /* icons8-menu-vertical-filled-50.png */,
 				F170E8CD21B361FF009B65F1 /* icons8-delete-50.png */,
 				F170E8D521B64DD2009B65F1 /* everybody_icon.png */,
 				F170E8DB21B64F07009B65F1 /* icons8-paste-50.png */,
@@ -275,6 +280,7 @@
 				F170E8CB21B3528E009B65F1 /* play_small.png */,
 				F15203AA213B65E5007EFC6C /* hamburgericon.png */,
 				F1046BA5215CAC5500B059B4 /* next.png */,
+				F164C5D5221A195B0009E0A9 /* icons8-search-filled-50.png */,
 				F1046BA3215827A000B059B4 /* pause.png */,
 				F1046B9F21581F8900B059B4 /* disc.png */,
 				F1CF85A420FD465600DBBAAB /* netDJ_5_big.png */,
@@ -489,7 +495,7 @@
 			};
 			buildConfigurationList = AC8401B2205D848D00246476 /* Build configuration list for PBXProject "NetDJ" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -527,11 +533,13 @@
 				F170E8CE21B361FF009B65F1 /* icons8-delete-50.png in Resources */,
 				F11D9BE120C9DD2E00554E47 /* thinking_emoji.jpeg in Resources */,
 				F170E8DC21B64F07009B65F1 /* icons8-paste-50.png in Resources */,
+				F164C5D6221A195B0009E0A9 /* icons8-search-filled-50.png in Resources */,
 				F17AB3AE20F8212100CE0B13 /* user.png in Resources */,
 				F170E8D821B64DD3009B65F1 /* user_icon.png in Resources */,
 				F17AB3A820F80A7800CE0B13 /* netDJ_4_big2.png in Resources */,
 				AC8401C0205D848D00246476 /* Main.storyboard in Resources */,
 				F15203AB213B65E6007EFC6C /* hamburgericon.png in Resources */,
+				F164C5D8221A41270009E0A9 /* icons8-menu-vertical-filled-50.png in Resources */,
 				F170E8D221B36D69009B65F1 /* icons8-delete-40.png in Resources */,
 				F1046B9E2158165600B059B4 /* hamburger.png in Resources */,
 				F170E8DA21B64DFC009B65F1 /* icons8-people-30.png in Resources */,

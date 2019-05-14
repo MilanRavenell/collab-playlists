@@ -16,8 +16,8 @@ class SelectedSongTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        songName = UILabel(frame: CGRect(x: 90, y: contentView.bounds.minY, width: contentView.bounds.width - 90, height: 21))
-        songArtist = UILabel(frame: CGRect(x: 90, y: contentView.bounds.minY + 29, width: contentView.bounds.width - 90, height: 21))
+        songName = UILabel(frame: CGRect(x: 90, y: contentView.bounds.minY, width: contentView.bounds.width, height: 21))
+        songArtist = UILabel(frame: CGRect(x: 90, y: contentView.bounds.minY + 29, width: contentView.bounds.width, height: 21))
         contentView.addSubview(songName)
         contentView.addSubview(songArtist)
     }

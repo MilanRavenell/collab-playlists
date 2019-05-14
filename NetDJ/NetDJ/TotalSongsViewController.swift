@@ -22,6 +22,11 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
     weak var viewPlaylistView: ViewPlaylistViewController?
     @IBOutlet weak var backBtn: UIBarButtonItem!
     var emptyLabel: UILabel!
+    var filterSongView: UIView!
+    var dimView: UIView!
+    var filterSongSwitch: UISwitch!
+    var filterPresented = false
+    var selectedIndx: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +91,43 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight))
         rightSwipeGesture.direction = .right
         self.songTable.addGestureRecognizer(rightSwipeGesture)
+        
+        dimView = UIView(frame: view.bounds)
+        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        dimView.alpha = 0
+        
+        let dismiss = UITapGestureRecognizer(target: self, action: #selector(self.triggerDismiss))
+        dimView.addGestureRecognizer(dismiss)
+        
+        self.view.addSubview(dimView)
+        
+        filterSongView = UIView(frame: CGRect(x: 0, y: -50, width: self.view.frame.width, height: 50))
+        filterSongView.backgroundColor = Globals.getThemeColor1()
+        
+        let path = UIBezierPath(roundedRect: filterSongView.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        filterSongView.layer.mask = mask
+        
+        self.view.addSubview(filterSongView)
+        
+        filterSongSwitch = UISwitch(frame: CGRect(x: filterSongView.frame.width - 70, y: 15, width: 70, height: filterSongView.frame.height))
+        filterSongSwitch.addTarget(self, action: #selector(toggleFilterSongSwitch), for: .valueChanged)
+        filterSongSwitch.onTintColor = Globals.getThemeColor2()
+        filterSongSwitch.tintColor = UIColor.white
+        
+        let totalSongsDidFinish = self.state!.group?.totalSongsFinishedLoading ?? false
+        let usersLoaded = self.state!.group?.usersLoaded ?? false
+        if !totalSongsDidFinish || !usersLoaded {
+            filterSongSwitch.isEnabled = false
+        }
+        
+        filterSongView.addSubview(filterSongSwitch)
+        
+        let filterSongLabel = UILabel(frame: CGRect(x: filterSongView.frame.width - 250, y: 5, width: 250, height: filterSongView.frame.height))
+        filterSongLabel.text = "Only songs you added:"
+        filterSongLabel.textColor = UIColor.white
+        filterSongView.addSubview(filterSongLabel)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -152,6 +194,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedSong = self.songs[indexPath.row].copy() as? Song
+        selectedIndx = indexPath.row
         
         selectedSong?.loadPic()
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 100))
@@ -175,6 +218,17 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
         if (!self.state!.user.savedSongs.contains(selectedSong!.id)) {
             choices.append(("Save to Spotify Library", "icons8-add-new-50.png", saveSong))
         }
+        if let id = self.state!.group!.id {
+            if let userSongs = self.state!.user.songs[id] {
+                let indx = userSongs.index(where: { (item) -> Bool in
+                    item.id == selectedSong?.id
+                })
+                if indx != nil {
+                    choices.append(("Delete", "icons8-waste-32.png", deleteBtnPressed))
+                }
+            }
+        }
+        
         choices.append(("Cancel", "icons8-delete-40.png", nil))
         
         let choiceSelection = ChoiceSelection(titleView: titleView, choices: choices, view: view)
@@ -246,24 +300,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func refresh(_ sender: Any) {
-        self.songs = []
-        self.songTable.reloadData()
-        self.songsCountLabel.text = ""
-        self.activityIndicator?.startAnimating()
-        DispatchQueue.global().async { [weak self] in
-            if let state = self?.state {
-                Globals.updateNetwork(group: state.group, state: state)
-                DispatchQueue.main.async {
-                    self?.songs = state.group?.totalSongs ?? [Song]()
-                    self?.songTable.reloadData()
-                    self?.songTable.isHidden = false
-                    self?.activityIndicator?.stopAnimating()
-                    if let songs = self?.songs {
-                        self?.songsCountLabel.text = String(songs.count) + " Songs"
-                    }
-                }
-            }
-        }
+        presentFilter()
     }
     
     // MARK: - Navigation
@@ -284,13 +321,90 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func totalSongsDidFinishLoading() {
-        self.songs = self.state!.group?.totalSongs ?? [Song]()
+        if self.filterSongSwitch.isOn {
+            if let id = self.state!.group?.id {
+                self.songs = self.state!.user.songs[id] ?? [Song]()
+            }
+        } else {
+            self.songs = self.state!.group?.totalSongs ?? [Song]()
+        }
+        
         
         DispatchQueue.main.async { [weak self] in
             self?.songTable.reloadData()
             self?.activityIndicator?.stopAnimating()
             if let songs = self?.songs {
                 self?.songsCountLabel?.text = String(songs.count) + " Songs"
+            }
+            self?.filterSongSwitch.isEnabled = true
+        }
+    }
+    
+    func toggleFilterSongSwitch(filterSwitch: UISwitch) {
+        if filterSwitch.isOn {
+            if let id = self.state?.group?.id {
+                if let usersLoaded = self.state!.group?.usersLoaded, usersLoaded {
+                    self.songs = self.state?.user.songs[id] ?? [Song]()
+                } else {
+                    self.songs = [Song]()
+                    activityIndicator?.startAnimating()
+                }
+            }
+        } else {
+            if let totalSongsFinshedLoading = self.state!.group?.totalSongsFinishedLoading, totalSongsFinshedLoading {
+                self.songs = self.state!.group?.totalSongs ?? [Song]()
+                songsCountLabel?.text = String(self.songs.count) + " Songs"
+            } else {
+                self.songs = [Song]()
+                activityIndicator?.startAnimating()
+            }
+        }
+        self.songTable.reloadData()
+    }
+    
+    func presentFilter() {
+        if filterPresented {
+            filterPresented = false
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: { [unowned self] in
+                self.filterSongView.frame = CGRect(x: 0, y: -50, width: self.view.frame.width, height: 50)
+                self.dimView.alpha = 0
+            })
+        } else {
+            filterPresented = true
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: { [unowned self] in
+                self.filterSongView.frame = CGRect(x: 0, y: self.searchController!.searchBar.frame.maxY, width: self.view.frame.width, height: 50)
+                self.dimView.alpha = 1
+            })
+        }
+    }
+    
+    func triggerDismiss() {
+        presentFilter()
+    }
+    
+    func deleteBtnPressed() {
+        if selectedIndx >= songs.count {
+            return
+        }
+        let song = songs[selectedIndx]
+        songs.remove(at: selectedIndx)
+        if let id = self.state!.group?.id {
+            self.songTable.beginUpdates()
+            self.songTable.deleteRows(at: [IndexPath(row: selectedIndx, section: 0)], with: .automatic)
+            self.songTable.endUpdates()
+            
+            Globals.deleteUserSongs(songs: [song], userId: self.state!.user.id, groupId: id)
+            
+            DispatchQueue.global().async {
+                Globals.updateNetwork(group: self.state!.group, state: self.state!)
+            }
+            
+            if (self.state!.user.songs[id]!.count == 0) {
+                self.songTable.reloadData()
+                emptyLabel?.text = "Add songs you want to influence the network"
+                emptyLabel?.textColor = UIColor.gray
+                emptyLabel?.textAlignment = .center
+                emptyLabel?.isHidden = false
             }
         }
     }

@@ -291,8 +291,8 @@
                         <outlet property="songsTable" destination="jjx-35-7cw" id="Ncz-Zw-OnV"/>
                         <segue destination="jtt-Sj-ICk" kind="show" identifier="totalSongsSegue" id="XUl-Mb-o7P"/>
                         <segue destination="48D-8Y-gwz" kind="show" identifier="viewUsersSegue" id="2ct-Q9-mzb"/>
-                        <segue destination="d7Y-fO-aeC" kind="show" identifier="mySongsSegue" id="Yf4-jw-cXu"/>
                         <segue destination="g4r-He-t7p" kind="unwind" identifier="unwindToNetworkTableFromPlaylist" unwindAction="unwindToNetworkTableWithSender:" id="Kqf-WJ-fw2"/>
+                        <segue destination="bUm-D6-l1h" kind="show" identifier="searchSegue" id="zGC-yo-i9n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IeY-Dj-uXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -348,15 +348,15 @@
                                 </prototypes>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jgq-Bl-S7g">
-                                <rect key="frame" x="81" y="87" width="240" height="128"/>
+                                <rect key="frame" x="16" y="269" width="343" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectedSongTableViewCell" rowHeight="80" id="Ghf-ea-ykA" customClass="SelectedSongTableViewCell" customModule="CollabPlaylists" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="240" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ghf-ea-ykA" id="tRF-dD-OgK">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -495,7 +495,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ar5-aD-Gve">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="MxV-iP-Y4m">
+                        <barButtonItem key="rightBarButtonItem" image="icons8-menu-vertical-filled-50.png" id="MxV-iP-Y4m">
                             <connections>
                                 <action selector="refresh:" destination="jtt-Sj-ICk" id="nbN-5k-6v4"/>
                             </connections>
@@ -683,12 +683,14 @@
     </scenes>
     <resources>
         <image name="hamburgericon.png" width="25" height="25"/>
+        <image name="icons8-menu-vertical-filled-50.png" width="25" height="25"/>
         <image name="netDJ_5_big.png" width="748" height="1328"/>
         <image name="user.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="aq9-DB-zvg"/>
+        <segue reference="4zX-1W-dEW"/>
         <segue reference="Cvj-F0-CLF"/>
-        <segue reference="Yf4-jw-cXu"/>
+        <segue reference="mDu-iU-77N"/>
     </inferredMetricsTieBreakers>
 </document>

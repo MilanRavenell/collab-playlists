@@ -553,10 +553,9 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        if (segue.identifier == "mySongsSegue") {
-            let destinationVC = segue.destination as! SongsViewController
+        if (segue.identifier == "searchSegue") {
+            let destinationVC = segue.destination as! SongSearchViewController
             destinationVC.prevController = "ViewPlaylist"
-            destinationVC.viewPlaylistView = self
             destinationVC.state = state
         }
         
@@ -870,8 +869,8 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             self.reloadSongsTable()
             self.activityIndicator?.stopAnimating()
             
-            self.networkView.songsBtn.isEnabled = true
-            self.networkView.songsBtn.alpha = 1
+            self.networkView.searchBtn.isEnabled = true
+            self.networkView.searchBtn.alpha = 1
             self.networkView.totalSongsBtn.isEnabled = true
             self.networkView.totalSongsBtn.alpha = 1
             self.networkView.viewUsersBtn.isEnabled = true

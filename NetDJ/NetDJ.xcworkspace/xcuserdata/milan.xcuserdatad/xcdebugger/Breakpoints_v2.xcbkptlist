@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.95399"
+            timestampString = "573268753.608773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.82824"
+            timestampString = "574478204.009909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "572"
-            endingLineNumber = "572"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
             landmarkName = "getSpotifyIdsFromFB(friends:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.752705"
+            timestampString = "573268753.621003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1065"
-            endingLineNumber = "1065"
+            startingLineNumber = "1064"
+            endingLineNumber = "1064"
             landmarkName = "updateIsPlaying(update:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.833043"
+            timestampString = "574478204.010443"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "deleteBtnPressed(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.801519"
+            timestampString = "574483034.483817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.757762"
+            timestampString = "573268753.632701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1114"
-            endingLineNumber = "1114"
+            startingLineNumber = "1113"
+            endingLineNumber = "1113"
             landmarkName = "presentNetworkView(present:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.758108"
+            timestampString = "573268753.634656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "773"
-            endingLineNumber = "773"
+            startingLineNumber = "772"
+            endingLineNumber = "772"
             landmarkName = "sliderValueChanged(sender:event:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.834404"
+            timestampString = "574478204.010657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.835673"
+            timestampString = "574478204.010738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "tableTapped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.061331"
+            timestampString = "572241825.57831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
@@ -250,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.955103"
+            timestampString = "573268753.639676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "357"
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.836973"
+            timestampString = "574478204.0109071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.838115"
+            timestampString = "574478204.010996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "524"
-            endingLineNumber = "524"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
             landmarkName = "filterFriends(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.069404"
+            timestampString = "573268753.6435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.75863"
+            timestampString = "573268753.645633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
             landmarkName = "audioStreaming(_:didChangePlaybackStatus:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.955477"
+            timestampString = "573268753.64692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -346,7 +346,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.775403"
+            timestampString = "573268753.6487091"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "836"
+            endingLineNumber = "836"
+            landmarkName = "handleInterruption(notification:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/ViewPlaylistViewController.swift"
+            timestampString = "573268753.650077"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "847"
+            endingLineNumber = "847"
+            landmarkName = "load()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/ViewPlaylistViewController.swift"
+            timestampString = "573268753.6515059"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "837"
@@ -361,44 +393,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.775685"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "848"
-            endingLineNumber = "848"
-            landmarkName = "load()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.775862"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "838"
-            endingLineNumber = "838"
-            landmarkName = "handleInterruption(notification:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.070964"
+            timestampString = "573268753.652917"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "playNow()"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,7 +410,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.964702"
+            timestampString = "573268753.654927"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "509"
@@ -426,7 +426,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.9657201"
+            timestampString = "573268753.656453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
@@ -442,7 +442,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.966538"
+            timestampString = "573268753.6622649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
@@ -458,7 +458,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.967345"
+            timestampString = "573268753.664016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "530"
@@ -474,7 +474,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.968125"
+            timestampString = "573268753.665724"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
@@ -490,7 +490,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.968293"
+            timestampString = "573268753.667021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -538,7 +538,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.968428"
+            timestampString = "573268753.668377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -554,7 +554,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.968592"
+            timestampString = "573268753.669726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
@@ -570,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.815991"
+            timestampString = "574483034.489007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1163"
-            endingLineNumber = "1163"
+            startingLineNumber = "1169"
+            endingLineNumber = "1169"
             landmarkName = "sendRequest(request:postParameters:method:completion:isAsync:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -586,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.8163331"
+            timestampString = "574483034.489212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "908"
-            endingLineNumber = "908"
+            startingLineNumber = "910"
+            endingLineNumber = "910"
             landmarkName = "getUsersName(id:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,11 +602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.8164949"
+            timestampString = "574483034.489345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1180"
-            endingLineNumber = "1180"
+            startingLineNumber = "1186"
+            endingLineNumber = "1186"
             landmarkName = "sendRequest(request:postParameters:method:completion:isAsync:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -618,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.8167"
+            timestampString = "574483034.489459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1167"
-            endingLineNumber = "1167"
+            startingLineNumber = "1173"
+            endingLineNumber = "1173"
             landmarkName = "sendRequest(request:postParameters:method:completion:isAsync:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -634,11 +634,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.816897"
+            timestampString = "574483034.489596"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1198"
-            endingLineNumber = "1198"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
             landmarkName = "sendRequest(request:postParameters:method:completion:isAsync:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -650,11 +650,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.076225"
+            timestampString = "573268753.676198"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -666,11 +666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.076931"
+            timestampString = "573268753.6775841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -682,7 +682,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.780368"
+            timestampString = "573268753.678871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "296"
@@ -698,11 +698,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.81714"
+            timestampString = "574483034.489857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "991"
-            endingLineNumber = "991"
+            startingLineNumber = "993"
+            endingLineNumber = "993"
             landmarkName = "getSongsFromPlaylist(userId:id:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -714,7 +714,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7806441"
+            timestampString = "573268753.680591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "353"
@@ -730,11 +730,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.078409"
+            timestampString = "573268753.681505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "saveSong()"
             landmarkType = "7">
          </BreakpointContent>
@@ -746,11 +746,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.078833"
+            timestampString = "573268753.682667"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -762,7 +762,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.817458"
+            timestampString = "574483034.490109"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "456"
@@ -778,7 +778,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.969275"
+            timestampString = "573268753.684759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "147"
@@ -794,7 +794,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.969439"
+            timestampString = "573268753.685781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -810,7 +810,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.969615"
+            timestampString = "573268753.6865799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "175"
@@ -826,7 +826,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.969769"
+            timestampString = "573268753.687344"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "179"
@@ -842,7 +842,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.969914"
+            timestampString = "573268753.688112"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "178"
@@ -874,7 +874,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/HITS.swift"
-            timestampString = "555902671.3635989"
+            timestampString = "572242772.66776"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -890,7 +890,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.818235"
+            timestampString = "574483034.490545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "117"
@@ -906,7 +906,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/HITS.swift"
-            timestampString = "555902671.392333"
+            timestampString = "572242772.6681499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
@@ -1018,11 +1018,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.0838"
+            timestampString = "573268753.696478"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1034,11 +1034,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.0841579"
+            timestampString = "573268753.6979361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1050,11 +1050,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.084519"
+            timestampString = "573268753.699384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1066,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.084775"
+            timestampString = "573268753.700642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1082,11 +1082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.085026"
+            timestampString = "573268753.702113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "updateSearchResults(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1098,11 +1098,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.085354"
+            timestampString = "573268753.703406"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "filterSongs(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1114,11 +1114,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.782873"
+            timestampString = "573268753.704654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "854"
-            endingLineNumber = "854"
+            startingLineNumber = "853"
+            endingLineNumber = "853"
             landmarkName = "load()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1130,7 +1130,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.8248169"
+            timestampString = "574483034.491308"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -1146,11 +1146,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.825161"
+            timestampString = "574483034.491421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1200"
-            endingLineNumber = "1200"
+            startingLineNumber = "1206"
+            endingLineNumber = "1206"
             landmarkName = "sendRequest(request:postParameters:method:completion:isAsync:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1162,11 +1162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.825485"
+            timestampString = "574483034.4915349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1174"
-            endingLineNumber = "1174"
+            startingLineNumber = "1180"
+            endingLineNumber = "1180"
             landmarkName = "sendRequest(request:postParameters:method:completion:isAsync:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1178,7 +1178,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/HITS.swift"
-            timestampString = "555902671.768346"
+            timestampString = "572242772.670592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "122"
@@ -1210,7 +1210,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/GroupUserTableViewCell.swift"
-            timestampString = "570839830.3510261"
+            timestampString = "572138865.500158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
@@ -1226,7 +1226,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkView.swift"
-            timestampString = "566084521.834868"
+            timestampString = "573268753.708566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "413"
@@ -1242,7 +1242,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.78643"
+            timestampString = "573268753.709576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -1354,11 +1354,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.087515"
+            timestampString = "573268753.711087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1418,7 +1418,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.826514"
+            timestampString = "574483034.492178"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -1434,7 +1434,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.088648"
+            timestampString = "572241825.591607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
@@ -1450,11 +1450,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7877899"
+            timestampString = "573268753.7134399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1040"
-            endingLineNumber = "1040"
+            startingLineNumber = "1039"
+            endingLineNumber = "1039"
             landmarkName = "playSong(player:song:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1466,7 +1466,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7881629"
+            timestampString = "573268753.714401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "484"
@@ -1482,11 +1482,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.82731"
+            timestampString = "574483034.492457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1093"
-            endingLineNumber = "1093"
+            startingLineNumber = "1099"
+            endingLineNumber = "1099"
             landmarkName = "addUserDefaults(user:group:state:)"
             landmarkType = "7">
             <Locations>
@@ -1530,11 +1530,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.089453"
+            timestampString = "573268753.7161649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1546,7 +1546,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.089694"
+            timestampString = "572241825.592628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
@@ -1562,11 +1562,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.8279459"
+            timestampString = "574483034.492689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1098"
-            endingLineNumber = "1098"
+            startingLineNumber = "1104"
+            endingLineNumber = "1104"
             landmarkName = "createGroupRequests(userIds:groupId:inviter:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1578,11 +1578,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.828328"
+            timestampString = "574483034.492817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1068"
-            endingLineNumber = "1068"
+            startingLineNumber = "1074"
+            endingLineNumber = "1074"
             landmarkName = "addUserDefaults(user:group:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1594,7 +1594,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.828616"
+            timestampString = "574483034.49296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "734"
@@ -1610,7 +1610,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.828864"
+            timestampString = "574483034.493075"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "735"
@@ -1626,7 +1626,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.829167"
+            timestampString = "574483034.493192"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "750"
@@ -1642,7 +1642,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.091864"
+            timestampString = "573268753.727067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "12"
@@ -1735,7 +1735,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.971626"
+            timestampString = "573268753.728429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "352"
@@ -1751,7 +1751,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7901191"
+            timestampString = "573268753.729712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
@@ -1767,7 +1767,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7903889"
+            timestampString = "573268753.730737"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
@@ -1783,11 +1783,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.790658"
+            timestampString = "573268753.731653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
+            startingLineNumber = "768"
+            endingLineNumber = "768"
             landmarkName = "didSwipeRight()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1799,11 +1799,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.790848"
+            timestampString = "573268753.732738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "778"
-            endingLineNumber = "778"
+            startingLineNumber = "777"
+            endingLineNumber = "777"
             landmarkName = "sliderValueChanged(sender:event:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1815,11 +1815,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.79103"
+            timestampString = "573268753.7335989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "757"
-            endingLineNumber = "757"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
             landmarkName = "viewNetworkBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1831,7 +1831,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.9725029"
+            timestampString = "573268753.7344559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "366"
@@ -1847,7 +1847,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.831306"
+            timestampString = "574483034.493755"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -1863,7 +1863,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.973213"
+            timestampString = "573268753.7365561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "357"
@@ -1879,7 +1879,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.851319"
+            timestampString = "574483034.493957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
@@ -1895,7 +1895,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.851547"
+            timestampString = "574483034.494071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -1911,11 +1911,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.093449"
+            timestampString = "573268753.7380871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "playNow()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1927,11 +1927,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.793147"
+            timestampString = "573268753.739362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1034"
-            endingLineNumber = "1034"
+            startingLineNumber = "1033"
+            endingLineNumber = "1033"
             landmarkName = "playSong(player:song:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1943,7 +1943,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.974308"
+            timestampString = "573268753.7404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
@@ -1959,7 +1959,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.975058"
+            timestampString = "573268753.741559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "176"
@@ -1975,7 +1975,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7941231"
+            timestampString = "573268753.7423331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
@@ -2103,7 +2103,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.975448"
+            timestampString = "573268753.7439229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "385"
@@ -2151,11 +2151,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.796132"
+            timestampString = "573268753.745524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2167,11 +2167,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.796466"
+            timestampString = "573268753.750856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "631"
-            endingLineNumber = "631"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2183,11 +2183,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.796828"
+            timestampString = "573268753.75227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
             landmarkName = "playPauseBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2199,11 +2199,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.797147"
+            timestampString = "573268753.75343"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "828"
-            endingLineNumber = "828"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
             landmarkName = "handleInterruption(notification:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2215,11 +2215,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.797381"
+            timestampString = "573268753.754778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "813"
-            endingLineNumber = "813"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
             landmarkName = "audioStreaming(_:didChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2231,11 +2231,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7976739"
+            timestampString = "573268753.756122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "809"
-            endingLineNumber = "809"
+            startingLineNumber = "808"
+            endingLineNumber = "808"
             landmarkName = "audioStreaming(_:didChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2247,11 +2247,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.797927"
+            timestampString = "573268753.757192"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "801"
-            endingLineNumber = "801"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
             landmarkName = "audioStreaming(_:didStopPlayingTrack:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2263,11 +2263,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7982039"
+            timestampString = "573268753.758057"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1041"
-            endingLineNumber = "1041"
+            startingLineNumber = "1040"
+            endingLineNumber = "1040"
             landmarkName = "playSong(player:song:)"
             landmarkType = "7">
             <Locations>
@@ -2311,11 +2311,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.7984"
+            timestampString = "573268753.758997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1083"
-            endingLineNumber = "1083"
+            startingLineNumber = "1082"
+            endingLineNumber = "1082"
             landmarkName = "deactivateAudioSession()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2327,11 +2327,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.79865"
+            timestampString = "573268753.759795"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1090"
-            endingLineNumber = "1090"
+            startingLineNumber = "1089"
+            endingLineNumber = "1089"
             landmarkName = "presentNetworkView(present:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2343,11 +2343,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.79898"
+            timestampString = "573268753.760568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1042"
-            endingLineNumber = "1042"
+            startingLineNumber = "1041"
+            endingLineNumber = "1041"
             landmarkName = "playSong(player:song:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2359,11 +2359,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.799258"
+            timestampString = "573268753.761425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1071"
-            endingLineNumber = "1071"
+            startingLineNumber = "1070"
+            endingLineNumber = "1070"
             landmarkName = "updateIsPlaying(update:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2375,11 +2375,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.834347"
+            timestampString = "574483034.495288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "885"
-            endingLineNumber = "885"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "deleteGroup(group:)"
             landmarkType = "7">
             <Locations>
@@ -2423,11 +2423,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.799577"
+            timestampString = "573268753.763087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1160"
-            endingLineNumber = "1160"
+            startingLineNumber = "1159"
+            endingLineNumber = "1159"
             landmarkName = "reloadSongsTable()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2455,7 +2455,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.83481"
+            timestampString = "574483034.495544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "481"
@@ -2471,7 +2471,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.835081"
+            timestampString = "574483034.495669"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "480"
@@ -2551,28 +2551,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.800509"
+            timestampString = "573268753.766974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "873"
-            endingLineNumber = "873"
+            startingLineNumber = "872"
+            endingLineNumber = "872"
             landmarkName = "enableActions()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.800877"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "559"
-            endingLineNumber = "559"
-            landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2631,7 +2615,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.977181"
+            timestampString = "573268753.768113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "367"
@@ -2647,7 +2631,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.098379"
+            timestampString = "572241825.6026241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
@@ -2663,11 +2647,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.802675"
+            timestampString = "573268753.769536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
+            startingLineNumber = "642"
+            endingLineNumber = "642"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2679,11 +2663,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.802917"
+            timestampString = "573268753.7701809"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
+            startingLineNumber = "633"
+            endingLineNumber = "633"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2695,11 +2679,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.8031"
+            timestampString = "573268753.7710789"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "646"
-            endingLineNumber = "646"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2711,7 +2695,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.9780689"
+            timestampString = "573268753.771904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "374"
@@ -2727,11 +2711,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.837397"
+            timestampString = "574483034.496291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "880"
-            endingLineNumber = "880"
+            startingLineNumber = "882"
+            endingLineNumber = "882"
             landmarkName = "deleteGroup(group:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2743,7 +2727,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkView.swift"
-            timestampString = "566084521.872112"
+            timestampString = "573268753.773774"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "365"
@@ -2759,7 +2743,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.837634"
+            timestampString = "574483034.496439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "628"
@@ -2807,11 +2791,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.804161"
+            timestampString = "573268753.775303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "895"
-            endingLineNumber = "895"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
             landmarkName = "networkSetup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2951,27 +2935,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.100401"
+            timestampString = "573268753.776839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
-            landmarkName = "refresh(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/TotalSongsViewController.swift"
-            timestampString = "570843278.100716"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "refresh(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2983,11 +2951,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.847326"
+            timestampString = "574478204.018715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "getResults()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2999,7 +2967,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/HITS.swift"
-            timestampString = "555902674.35256"
+            timestampString = "572242772.683708"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
@@ -3015,7 +2983,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/HITS.swift"
-            timestampString = "555902674.356626"
+            timestampString = "572242772.684049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
@@ -3031,11 +2999,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.8047971"
+            timestampString = "573268753.783655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "912"
-            endingLineNumber = "912"
+            startingLineNumber = "911"
+            endingLineNumber = "911"
             landmarkName = "networkSetup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3047,11 +3015,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.80512"
+            timestampString = "573268753.7850209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "920"
-            endingLineNumber = "920"
+            startingLineNumber = "919"
+            endingLineNumber = "919"
             landmarkName = "networkSetup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3063,7 +3031,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.805396"
+            timestampString = "573268753.7862591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
@@ -3079,11 +3047,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.805601"
+            timestampString = "573268753.787214"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "909"
-            endingLineNumber = "909"
+            startingLineNumber = "908"
+            endingLineNumber = "908"
             landmarkName = "networkSetup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3095,11 +3063,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.80583"
+            timestampString = "573268753.787973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
+            startingLineNumber = "628"
+            endingLineNumber = "628"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3111,11 +3079,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.80607"
+            timestampString = "573268753.788735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "632"
-            endingLineNumber = "632"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
             <Locations>
@@ -3159,11 +3127,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.806293"
+            timestampString = "573268753.789408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "653"
-            endingLineNumber = "653"
+            startingLineNumber = "652"
+            endingLineNumber = "652"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3175,11 +3143,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.80655"
+            timestampString = "573268753.7901649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "659"
-            endingLineNumber = "659"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3191,11 +3159,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.806754"
+            timestampString = "573268753.791155"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "628"
-            endingLineNumber = "628"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
             <Locations>
@@ -3239,11 +3207,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.806957"
+            timestampString = "573268753.7919821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "656"
-            endingLineNumber = "656"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
             <Locations>
@@ -3287,11 +3255,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.807174"
+            timestampString = "573268753.792835"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3303,11 +3271,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.8073421"
+            timestampString = "573268753.7935261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "655"
-            endingLineNumber = "655"
+            startingLineNumber = "654"
+            endingLineNumber = "654"
             landmarkName = "nextBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3319,11 +3287,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.849418"
+            timestampString = "574478204.019406"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3335,7 +3303,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.882874"
+            timestampString = "574483034.498113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
@@ -3351,7 +3319,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.88315"
+            timestampString = "574483034.498314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "220"
@@ -3367,7 +3335,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.883527"
+            timestampString = "574483034.498475"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"
@@ -3383,11 +3351,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.838948"
+            timestampString = "574483034.498639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "957"
-            endingLineNumber = "957"
+            startingLineNumber = "959"
+            endingLineNumber = "959"
             landmarkName = "getUserSelectedPlaylists(user:groupId:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3399,11 +3367,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.83915"
+            timestampString = "574483034.498798"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "956"
-            endingLineNumber = "956"
+            startingLineNumber = "958"
+            endingLineNumber = "958"
             landmarkName = "getUserSelectedPlaylists(user:groupId:state:)"
             landmarkType = "7">
             <Locations>
@@ -3447,11 +3415,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.839377"
+            timestampString = "574483034.49901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "941"
-            endingLineNumber = "941"
+            startingLineNumber = "943"
+            endingLineNumber = "943"
             landmarkName = "getUserSelectedPlaylists(user:groupId:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3463,7 +3431,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.8866431"
+            timestampString = "574483034.499221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "227"
@@ -3479,7 +3447,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.887115"
+            timestampString = "574483034.499396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "229"
@@ -3495,7 +3463,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.88744"
+            timestampString = "574483034.4995641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "231"
@@ -3511,11 +3479,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.807795"
+            timestampString = "573268753.797824"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "677"
-            endingLineNumber = "677"
+            startingLineNumber = "676"
+            endingLineNumber = "676"
             landmarkName = "randomBtnPressed(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3527,7 +3495,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.97989"
+            timestampString = "573268753.798645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "553"
@@ -3543,7 +3511,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.980943"
+            timestampString = "573268753.79978"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "311"
@@ -3559,7 +3527,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.9811701"
+            timestampString = "573268753.800442"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "269"
@@ -3575,7 +3543,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserView.swift"
-            timestampString = "571616919.981355"
+            timestampString = "573268753.801054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "312"
@@ -3591,7 +3559,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.109814"
+            timestampString = "572241825.609151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "385"
@@ -3607,11 +3575,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.84087"
+            timestampString = "574483034.500201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1051"
-            endingLineNumber = "1051"
+            startingLineNumber = "1053"
+            endingLineNumber = "1053"
             landmarkName = "getUserSongs(user:groupId:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3623,7 +3591,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.110605"
+            timestampString = "572241825.609601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "387"
@@ -3687,11 +3655,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.85127"
+            timestampString = "574478204.020588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "627"
-            endingLineNumber = "627"
+            startingLineNumber = "629"
+            endingLineNumber = "629"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3703,71 +3671,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.852288"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
-            landmarkName = "getUsersByPhoneNumber(numbers:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.853086"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "searchContacts(query:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.853943"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "457"
-            endingLineNumber = "457"
-            landmarkName = "searchContacts(query:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.854936"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
-            landmarkName = "getUsersByPhoneNumber(numbers:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.85602"
+            timestampString = "574478204.02068"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "638"
@@ -3782,12 +3686,76 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.810169"
+            filePath = "NetDJ/FriendSearchViewController.swift"
+            timestampString = "574478204.020766"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "876"
-            endingLineNumber = "876"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
+            landmarkName = "searchContacts(query:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/FriendSearchViewController.swift"
+            timestampString = "574478204.020885"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
+            landmarkName = "searchContacts(query:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/FriendSearchViewController.swift"
+            timestampString = "574478204.02097"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
+            landmarkName = "getUsersByPhoneNumber(numbers:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/FriendSearchViewController.swift"
+            timestampString = "574478204.0210479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "640"
+            endingLineNumber = "640"
+            landmarkName = "getUsersByPhoneNumber(numbers:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/ViewPlaylistViewController.swift"
+            timestampString = "573268753.808082"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
             landmarkName = "enableActions()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3799,11 +3767,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.810626"
+            timestampString = "573268753.810469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1167"
-            endingLineNumber = "1167"
+            startingLineNumber = "1166"
+            endingLineNumber = "1166"
             landmarkName = "reloadSongsTable()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3815,7 +3783,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.127618"
+            timestampString = "572241825.611711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
@@ -3831,11 +3799,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.857163"
+            timestampString = "574478204.0212539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "659"
-            endingLineNumber = "659"
+            startingLineNumber = "661"
+            endingLineNumber = "661"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
             <Locations>
@@ -3879,11 +3847,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.858312"
+            timestampString = "574478204.02134"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3895,11 +3863,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.859355"
+            timestampString = "574478204.021426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "645"
-            endingLineNumber = "645"
+            startingLineNumber = "647"
+            endingLineNumber = "647"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3911,11 +3879,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.860272"
+            timestampString = "574478204.02151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "646"
-            endingLineNumber = "646"
+            startingLineNumber = "648"
+            endingLineNumber = "648"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3927,11 +3895,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.8613321"
+            timestampString = "574478204.021596"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "658"
-            endingLineNumber = "658"
+            startingLineNumber = "660"
+            endingLineNumber = "660"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
             <Locations>
@@ -3975,11 +3943,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.862184"
+            timestampString = "574478204.021691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "653"
-            endingLineNumber = "653"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3991,11 +3959,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.863052"
+            timestampString = "574478204.021777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "652"
-            endingLineNumber = "652"
+            startingLineNumber = "654"
+            endingLineNumber = "654"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4007,11 +3975,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.8638951"
+            timestampString = "574478204.021852"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
             landmarkName = "getUsersByPhoneNumber(numbers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4023,13 +3991,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongSearchViewController.swift"
-            timestampString = "566084521.897356"
+            timestampString = "574483034.501732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4039,13 +4007,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongSearchViewController.swift"
-            timestampString = "566084521.897527"
+            timestampString = "574483034.5216841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4055,7 +4023,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.81191"
+            timestampString = "573268753.849357"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
@@ -4071,7 +4039,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FirstTimeAlertName.swift"
-            timestampString = "571616919.982321"
+            timestampString = "573268753.850432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
@@ -4103,7 +4071,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.812356"
+            timestampString = "573268753.852204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "441"
@@ -4119,11 +4087,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Playlist.swift"
-            timestampString = "561533172.051766"
+            timestampString = "574483034.522663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "getSongs()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4135,11 +4103,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.8419549"
+            timestampString = "574483034.522812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
+            startingLineNumber = "770"
+            endingLineNumber = "770"
             landmarkName = "updatePlaylist(group:playlists:startingPlaylists:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4151,11 +4119,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewPlaylistViewController.swift"
-            timestampString = "571452366.812678"
+            timestampString = "573268753.853665"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "930"
-            endingLineNumber = "930"
+            startingLineNumber = "929"
+            endingLineNumber = "929"
             landmarkName = "networkSetup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4167,7 +4135,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.148829"
+            timestampString = "572241825.622061"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "344"
@@ -4183,7 +4151,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.901507"
+            timestampString = "574483034.523038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
@@ -4199,7 +4167,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.901824"
+            timestampString = "574483034.523157"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "178"
@@ -4215,7 +4183,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.149392"
+            timestampString = "572241825.622345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "373"
@@ -4231,7 +4199,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.149763"
+            timestampString = "572241825.622504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "374"
@@ -4247,7 +4215,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.150027"
+            timestampString = "572241825.622705"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "362"
@@ -4263,7 +4231,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.150408"
+            timestampString = "572241825.622943"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "394"
@@ -4279,7 +4247,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.150797"
+            timestampString = "572241825.623125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
@@ -4295,7 +4263,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/UserPlaylistsTableViewController.swift"
-            timestampString = "566084521.9068069"
+            timestampString = "574483034.523501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "174"
@@ -4311,7 +4279,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.151204"
+            timestampString = "572241825.623366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "378"
@@ -4327,7 +4295,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.1514961"
+            timestampString = "572241825.623587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
@@ -4343,7 +4311,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.151831"
+            timestampString = "572241825.623835"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -4359,7 +4327,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.152052"
+            timestampString = "572241825.6240309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -4375,7 +4343,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.152373"
+            timestampString = "572241825.624229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "418"
@@ -4391,11 +4359,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.842527"
+            timestampString = "574483034.5238169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1022"
-            endingLineNumber = "1022"
+            startingLineNumber = "1024"
+            endingLineNumber = "1024"
             landmarkName = "getUserSongs(user:groupId:state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4407,7 +4375,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.153074"
+            timestampString = "572241825.62458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -4423,7 +4391,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.153464"
+            timestampString = "572241825.624722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -4439,7 +4407,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.15373"
+            timestampString = "572241825.624967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
@@ -4455,7 +4423,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/SongsViewController.swift"
-            timestampString = "570843278.154035"
+            timestampString = "572241825.625145"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -4471,7 +4439,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.983327"
+            timestampString = "573268753.857424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -4487,7 +4455,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/NetworkTableViewController.swift"
-            timestampString = "571616919.983487"
+            timestampString = "573268753.8579839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "151"
@@ -4503,11 +4471,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.866439"
+            timestampString = "574478204.024892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "586"
-            endingLineNumber = "586"
+            startingLineNumber = "588"
+            endingLineNumber = "588"
             landmarkName = "animateSelectedUser(show:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4519,11 +4487,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.867491"
+            timestampString = "574478204.024991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4535,11 +4503,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.868372"
+            timestampString = "574478204.0250961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -4583,11 +4551,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/FriendSearchViewController.swift"
-            timestampString = "570932932.86941"
+            timestampString = "574478204.0251909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4599,7 +4567,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/ViewController.swift"
-            timestampString = "571616919.985623"
+            timestampString = "573268753.868659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "171"
@@ -4615,7 +4583,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.845472"
+            timestampString = "574483034.5244991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "209"
@@ -4631,13 +4599,283 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetDJ/Globals.swift"
-            timestampString = "571450098.845685"
+            timestampString = "574483034.524634"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "211"
             endingLineNumber = "211"
             landmarkName = "renewSession(session:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/TotalSongsViewController.swift"
+            timestampString = "573268753.871501"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "totalSongsDidFinishLoading()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/TotalSongsViewController.swift"
+            timestampString = "573268753.872208"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/Globals.swift"
+            timestampString = "574483034.52483"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "renewSession(session:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.524976"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.525614"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.526294"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.52696"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollabPlaylists.SongSearchViewController.selectedSongTable.getter : weak Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "CollabPlaylists"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/milan/Documents/collab-playlists/NetDJ/NetDJ/SongSearchViewController.swift"
+                  timestampString = "573265024.91831"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollabPlaylists.SongSearchViewController.selectedSongTable.setter : weak Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "CollabPlaylists"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/milan/Documents/collab-playlists/NetDJ/NetDJ/SongSearchViewController.swift"
+                  timestampString = "573265024.923038"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollabPlaylists.SongSearchViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; CollabPlaylists.SongSearchViewController"
+                  moduleName = "CollabPlaylists"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/milan/Documents/collab-playlists/NetDJ/NetDJ/SongSearchViewController.swift"
+                  timestampString = "573265024.926825"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "816">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollabPlaylists.SongSearchViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;CollabPlaylists.SongSearchViewController&gt;"
+                  moduleName = "CollabPlaylists"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/milan/Documents/collab-playlists/NetDJ/NetDJ/SongSearchViewController.swift"
+                  timestampString = "573265024.931663"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "792">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.527662"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.528267"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollabPlaylists.SongSearchViewController.viewDidAppear(Swift.Bool) -&gt; ()"
+                  moduleName = "CollabPlaylists"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/milan/Documents/collab-playlists/NetDJ/NetDJ/SongSearchViewController.swift"
+                  timestampString = "573265230.235057"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in CollabPlaylists.SongSearchViewController.viewDidAppear(Swift.Bool) -&gt; ()"
+                  moduleName = "CollabPlaylists"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/milan/Documents/collab-playlists/NetDJ/NetDJ/SongSearchViewController.swift"
+                  timestampString = "573265230.24354"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.529047"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NetDJ/SongSearchViewController.swift"
+            timestampString = "574483034.531588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -756,9 +756,11 @@ class Globals {
         for playlist in responsePlaylists! {
             let id = playlist["id"] as! String
             let name = playlist["name"] as! String
+            let pictures = playlist["images"] as? [[String: AnyObject]]
+            let albumCover = pictures?[0]["url"] as? String
             
             var newPlaylist: Playlist?
-            newPlaylist = Playlist(name: name, id: id, selected: false, userId: userId, state: state)
+            newPlaylist = Playlist(name: name, id: id, selected: false, userId: userId, imageURL: albumCover, state: state)
             playlists.append(newPlaylist!)
         }
         
@@ -1063,6 +1065,10 @@ class Globals {
         }
         
         user.songs[groupId] = songs
+        
+        if let totalSongsVC = state.totalSongsVC {
+            totalSongsVC.totalSongsDidFinishLoading()
+        }
     }
     
     static func addUserDefaults(user: User, group: Group, state: State) {

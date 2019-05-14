@@ -41,9 +41,11 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
 
         if prevController == "NetworkTable" {
             self.title = "New Network"
+            self.navigationController?.navigationItem.rightBarButtonItem?.title = "Create"
         }
         else {
             self.title = "Add Members"
+            self.navigationController?.navigationItem.rightBarButtonItem?.title = "Add"
         }
         
         // Do any additional setup after loading the view.

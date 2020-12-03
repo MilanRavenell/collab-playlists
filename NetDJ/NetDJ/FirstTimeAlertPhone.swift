@@ -84,14 +84,14 @@ class FirstTimeAlertPhone: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func submitPressed(sender: UIButton!) {
+    @objc func submitPressed(sender: UIButton!) {
         if let number = phoneNumber.text {
             parent.firstTimeAlertConfirmationVC.textConfirmationCode(phoneNumber: number)
         }
         parent.firstTimeAlertPhoneSubmit()
     }
     
-    func backPressed(sender: UIButton!) {
+    @objc func backPressed(sender: UIButton!) {
         if isUpdate {
             phoneNumber.resignFirstResponder()
             parent.firstTimeAlertPhoneCancel()
@@ -101,7 +101,7 @@ class FirstTimeAlertPhone: UIView {
         
     }
     
-    func textChanged(_ sender: UITextField) {
+    @objc func textChanged(_ sender: UITextField) {
         if sender.text!.count > 0 {
             submit.isEnabled  = true
             submit.alpha = 1

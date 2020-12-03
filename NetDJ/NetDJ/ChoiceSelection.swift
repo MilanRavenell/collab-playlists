@@ -98,7 +98,7 @@ class ChoiceSelection: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func btnClicked(_ button: UIButton!) {
+    @objc func btnClicked(_ button: UIButton!) {
         if let handler = choices[button.tag].2 {
             handler()
         }
@@ -125,7 +125,7 @@ class ChoiceSelection: UIView {
         }
     }
     
-    func triggerDismiss() {
+    @objc func triggerDismiss() {
         present(show: false)
     }
 }

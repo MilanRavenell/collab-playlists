@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SPTAudioStreamingPlaybackDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SPTAudioStreamingDelegate {
+class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SPTAppRemotePlayerStateDelegate {
     
     //MARK: - Properties
     var songs = [Song]()
@@ -51,6 +51,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     var timeOutLabel: UILabel!
     var nowPlayingView: NowPlaying!
     var selectedIndex: Int!
+    var curTrackPosition = 0
     
     override var canBecomeFirstResponder: Bool {
         return true
@@ -75,7 +76,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         
         self.view.backgroundColor = Globals.getThemeColor2()
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator?.center = self.view.center
         activityIndicator?.startAnimating()
         self.view.addSubview(activityIndicator!)
@@ -85,7 +86,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         // Handle Audio Interruptions
-        NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(notification:)), name: NSNotification.Name.AVAudioSessionInterruption, object: audioSession)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(notification:)), name: AVAudioSession.interruptionNotification, object: audioSession)
         
         // Add group name sub view
         groupNameView = UIView(frame: CGRect(x: 0, y: 65, width: self.view.frame.width, height: 50))
@@ -166,7 +167,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         playPauseBtn?.addTarget(self, action: #selector(playPauseBtnPressed), for: .touchUpInside)
         playPauseBtn?.tintColor = Globals.getThemeColor1()
         playPauseBtn?.setTitleColor(Globals.getThemeColor1(), for: .normal)
-        if (self.state!.player!.playbackState != nil && self.state!.player!.playbackState.isPlaying && self.state?.group?.id == self.state!.curActiveId) {
+        if let playerState = self.state!.playerState, playerState.isPaused && self.state?.group?.id == self.state!.curActiveId {
             if let image = UIImage(named: "pause.png") {
                 playPauseBtn?.setImage(image, for: .normal)
             }
@@ -234,8 +235,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         
         if (otherUser == nil) {
             self.state!.viewPlaylistVC = self
-            self.state!.player!.playbackDelegate = self
-            self.state!.player!.delegate = self
+            self.state!.appRemote?.playerAPI?.delegate = self
             
             nextBtn?.isEnabled = true
             nextBtn?.alpha = 1
@@ -244,15 +244,11 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             randomBtn?.isEnabled = true
             randomBtn?.alpha = 0
             
-            if (self.state!.metadata != nil && self.state!.group?.id == self.state!.curActiveId) {
-                if (self.state!.metadata!.currentTrack != nil){
-                    slider!.maximumValue = Float(self.state!.metadata!.currentTrack!.duration)
-                    songLength.text = intervalToString(time: self.state!.metadata!.currentTrack!.duration)
-                }
-            }
-            
-            if (self.state!.player?.playbackState != nil && self.state!.group?.id == self.state!.curActiveId) {
-                curPosition.text = intervalToString(time: self.state!.player!.playbackState.position)
+            if let playerState = self.state!.playerState, self.state!.group?.id == self.state!.curActiveId {
+                let track = playerState.track
+                slider?.maximumValue = Float(track.duration)
+                songLength.text = intervalToString(time: TimeInterval(track.duration))
+                curPosition.text = intervalToString(time: TimeInterval(playerState.playbackPosition))
             }
             
             let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(didLeftSwipe))
@@ -278,7 +274,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             slider?.isHidden = true
             songLength?.isHidden = true
             if (self.otherUser != nil) {
-                let otherUserName = Globals.getUsersName(id: self.otherUser!, state: self.state!) ?? "Notwork Error"
+                let otherUserName = Globals.getUsersName(id: self.otherUser!, state: self.state!) ?? "Network Error"
                 self.title = otherUserName + "'s Queue"
             }
         }
@@ -403,7 +399,10 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         self.updatePlayPauseBtn(isPlaying: true)
         self.state?.curActiveId = self.state!.group?.id ?? self.state?.curActiveId
         self.state!.currentActiveGroup = nil
-        playSong(player: self.state!.player!, song: self.songs[0])
+        
+        if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+            playSong(playerAPI: playerAPI, song: self.songs[0])
+        }
         
         DispatchQueue.global().async { [unowned self] in
             self.state!.group?.songs = self.songs
@@ -476,7 +475,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     
@@ -502,9 +501,9 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         return true
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        let image = info[UIImagePickerController.InfoKey.editedImage.rawValue] as! UIImage
         
         self.state!.group?.pic = image
         self.networkView.groupPicView?.image = image
@@ -518,7 +517,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         let boundary = "Boundary-\(NSUUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let imageData = UIImageJPEGRepresentation(image, 1)
+        let imageData = image.jpegData(compressionQuality: 1)
         if (imageData == nil) {
             print("UIImageJPEGRepresentation return nil")
             return
@@ -579,14 +578,14 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     //MARK: - Actions
-    func playPauseBtnPressed(_ sender: Any) {
-        if self.state!.player!.playbackState != nil && (self.state!.group == nil || self.state!.group?.id == self.state!.curActiveId) {
-            if (self.state!.player!.playbackState.isPlaying) {
+    @objc func playPauseBtnPressed(_ sender: Any) {
+        if let playerState = self.state!.playerState, (self.state!.group == nil || self.state!.group?.id == self.state!.curActiveId) {
+            // player is paused if we are currently playing silent track
+            if (playerState.track.uri != Globals.silentTrack) {
+                print(playerState.track.uri)
                 updateIsPlaying(update: false)
-                
                 self.songInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
-            }
-            else {
+            } else {
                 updateIsPlaying(update: true)
                 self.songInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
             }
@@ -594,14 +593,17 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             if (self.songs.count > 0) {
                 self.state?.curActiveId = self.state!.group?.id ?? self.state?.curActiveId
                 self.state!.currentActiveGroup = nil
-                playSong(player: self.state!.player!, song: self.songs[0])
+                
+                if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+                    playSong(playerAPI: playerAPI, song: self.songs[0])
+                }
+            
                 self.reloadSongsTable()
             }
-            
         }
     }
     
-    func nextBtnPressed(_ sender: Any) {
+    @objc func nextBtnPressed(_ sender: Any) {
         var group: Group!
         
         if let _ = sender as? UIButton {
@@ -622,7 +624,10 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
             curSongs.removeFirst()
             
             if let first = curSongs.first {
-                playSong(player: self.state!.player!, song: first)
+                if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+                    playSong(playerAPI: playerAPI, song: first)
+                }
+                
             }
             
             group.songs = curSongs
@@ -672,7 +677,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     
-    func randomBtnPressed(sender: UIButton!) {
+    @objc func randomBtnPressed(sender: UIButton!) {
         let initialCount = self.songs.count
         randomBtn.isEnabled = false
         DispatchQueue.global().async { [unowned self] in
@@ -716,7 +721,7 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func upNextBtnPressed(sender: UIButton!) {
+    @objc func upNextBtnPressed(sender: UIButton!) {
         if (nowPlayingView.active) {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
                 self?.nowPlayingView.alpha = 0
@@ -756,78 +761,69 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         presentNetworkView(present: !self.networkShown)
     }
     
-    func triggerDismiss() {
+    @objc func triggerDismiss() {
         presentNetworkView(present: false)
         networkView.saveName()
     }
     
-    func didLeftSwipe() {
+    @objc func didLeftSwipe() {
         presentNetworkView(present: true)
     }
     
-    func didSwipeRight() {
-        backBtnPressed(sender: self)
+    @objc func didSwipeRight() {
+        backBtnPressed(self)
     }
     
-    func sliderValueChanged(sender: UISlider, event: UIEvent) {
+    @objc func sliderValueChanged(sender: UISlider, event: UIEvent) {
         if let touchEvent = event.allTouches?.first {
             if (touchEvent.phase == .ended) {
-                if (self.state!.player!.playbackState == nil ) {
-                    playSong(player: self.state!.player!, song: self.songs[0])
-                }
-                self.state!.player!.seek(to: Double(sender.value), callback: { (error) in
-                    if (error == nil) {
-                        print("changed!")
+                if (self.state!.playerState == nil) {
+                    if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+                        playSong(playerAPI: playerAPI, song: self.songs[0])
                     }
-                })
+                }
+                self.state!.appRemote?.playerAPI?.seek(toPosition: Int(sender.value), callback: nil)
             }
         }
         curPosition.text = intervalToString(time: Double(sender.value))
         self.songInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Double(sender.value)
     }
     
-    // MARK: - SPTAudioStreamingPlaybackDelegate Methods
+    // MARK: - SPTAppRemotePlayerAPIDelegate
     
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-        if (isPlaying) {
-            self.activateAudioSession()
-        } else {
-            self.deactivateAudioSession()
-        }
-    }
-    
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
-        nextBtnPressed(self)
-    }
-    
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-        self.state!.metadata = metadata
+    func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+        let curPlayerState = self.state!.playerState
         
-        if (metadata.currentTrack != nil) {
-            songInfo[MPMediaItemPropertyPlaybackDuration] = metadata.currentTrack!.duration
+        if (curPlayerState == nil || playerState.isPaused != curPlayerState!.isPaused) {
+            if (playerState.isPaused) {
+                self.deactivateAudioSession()
+            } else {
+                self.activateAudioSession()
+            }
+        }
+        
+        if (curPlayerState == nil || playerState.track.uri != curPlayerState!.track.uri) {
+            songInfo[MPMediaItemPropertyPlaybackDuration] = playerState.track.duration
             MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
             
             if (self.state!.group?.id == self.state!.curActiveId) {
-                self.songLength.text = intervalToString(time: metadata.currentTrack!.duration)
+                self.songLength.text = intervalToString(time: TimeInterval(playerState.track.duration))
                 self.curPosition.text = "0:00"
-                self.slider!.maximumValue = Float(metadata.currentTrack!.duration)
+                self.slider!.maximumValue = Float(playerState.track.duration)
             }
         }
-    }
-    
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
-        if (self.slider != nil && !self.slider!.isTouchInside && self.state!.group?.id == self.state!.curActiveId) {
-            self.slider!.setValue(Float(position), animated: true)
-            self.curPosition.text = intervalToString(time: position)
-        }
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
+        
+        self.slider?.setValue(Float(playerState.playbackPosition), animated: true)
+        self.curPosition.text = intervalToString(time: TimeInterval(playerState.playbackPosition))
+        
+        self.state!.playerState = playerState
     }
     
     // Handle Audio Interruption
-    func handleInterruption(notification: NSNotification) {
+    @objc func handleInterruption(notification: NSNotification) {
         print("handleInterruption")
         guard let value = (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue,
-            let interruptionType =  AVAudioSessionInterruptionType(rawValue: value)
+            let interruptionType =  AVAudioSession.InterruptionType(rawValue: value)
             else {
                 print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey])
                 return }
@@ -1027,17 +1023,19 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func playSong(player: SPTAudioStreamingController, song: Song) {
-        player.playSpotifyURI("spotify:track:\(song.id!))", startingWith: 0, startingWithPosition: 0, callback: { [weak self] (error) in
-            if (error == nil) {
-                print("playing!")
-                if self?.state!.group?.id == self?.state?.curActiveId {
-                    self?.updatePlayPauseBtn(isPlaying: true)
+    func playSong(playerAPI: SPTAppRemotePlayerAPI, song: Song) {
+        if let id = song.id {
+            playerAPI.play("spotify:track:" + id) { [weak self] (_, error) in
+                if (error == nil) {
+                    print("playing!")
+                    if self?.state!.group?.id == self?.state?.curActiveId {
+                        self?.updatePlayPauseBtn(isPlaying: true)
+                    }
+                } else {
+                     print("song play error: " + song.name)
                 }
-            } else {
-                print("song play error: " + song.name)
             }
-        })
+        }
         
         nowPlayingView.setNowPlaying(song: song)
         
@@ -1061,19 +1059,41 @@ class ViewPlaylistViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func updateIsPlaying(update: Bool) {
-        self.state!.player?.setIsPlaying(update, callback: { [weak self] (error) in
-            if (error != nil) {
-                print("error")
+        if let playerAPI = self.state?.appRemote?.playerAPI, let curPlayingId = self.curPlaylingId {
+            if (update) {
+                playerAPI.play("spotify:track:" + curPlayingId, asRadio: false, callback: { [weak self] (_, error) in
+                    if (error == nil), let curTrackPosition = self?.curTrackPosition {
+                        playerAPI.seek(toPosition: curTrackPosition) { (_, _) in
+                            self?.updatePlayPauseBtn(isPlaying: true)
+                        }
+                    } else {
+                        print("updateIsPlaying error")
+                    }
+                })
             } else {
-                self?.updatePlayPauseBtn(isPlaying: update)
+                playerAPI.getPlayerState({ [weak self] (result, error) in
+                    if let playerState = result as? SPTAppRemotePlayerState {
+                        // Get current position
+                        self?.curTrackPosition = playerState.playbackPosition
+                    } else {
+                        print("updateIsPlaying: couldn't get playback position")
+                    }
+                    
+                    // Play the silent track in spotify, we have to do this so the spotify app remains awake in the background
+                    playerAPI.play(Globals.silentTrack, asRadio: false, callback: { [weak self] (_, error) in
+                        if (error == nil) {
+                            self?.updatePlayPauseBtn(isPlaying: false)
+                        } else {
+                            print("updateIsPlaying error")
+                        }
+                    })
+                })
             }
-        })
+        }
     }
     
-    
-    
     func activateAudioSession() {
-        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         try? AVAudioSession.sharedInstance().setActive(true)
     }
     

@@ -12,48 +12,63 @@ import SafariServices
 class ViewController: UIViewController {
     // MARK: Properties
     
-    var auth = SPTAuth.defaultInstance()!
-    var session: SPTSession!
-    var player: SPTAudioStreamingController?
+    //var session: SPTSession!
+    //var player: SPTAudioStreamingController?
     var loginURL: URL?
     var userId: String?
     var svc: SFSafariViewController?
     var deviceToken: String?
     var isFirstTime = false
     @IBOutlet weak var mainImage: UIImageView!
+    static private let kAccessTokenKey = "access-token-key"
+    var accessToken: String?
+    var refreshToken: String?
+    
+    var appRemote: SPTAppRemote!
+    var sessionManager: SPTSessionManager!
+    
+    let SpotifyClientID = "003f496ec27d4f20961bf866071fb6fe"
+    let SpotifyRedirectURL = URL(string: "collabplaylists-login://callback")!
+    
+    lazy var configuration = SPTConfiguration(
+        clientID: SpotifyClientID,
+        redirectURL: SpotifyRedirectURL
+    )
     
     // MARK: Functions
-    
-    func setup () {
-        SPTAuth.defaultInstance().clientID = "003f496ec27d4f20961bf866071fb6fe"
-        SPTAuth.defaultInstance().redirectURL = URL(string: "collabplaylists-login://callback")
-        SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPublicScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthUserReadTopScope, SPTAuthUserLibraryReadScope, SPTAuthUserLibraryModifyScope]
-        SPTAuth.defaultInstance().tokenSwapURL = URL(string: "http://autocollabservice.com/swap")
-        SPTAuth.defaultInstance().tokenRefreshURL = URL(string: "http://autocollabservice.com/refresh")
-        SPTAuth.defaultInstance()
-        loginURL = SPTAuth.loginURL(forClientId: "003f496ec27d4f20961bf866071fb6fe", withRedirectURL: URL(string: "collabplaylists-login://callback"), scopes: [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPublicScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthUserReadTopScope, SPTAuthUserLibraryReadScope, SPTAuthUserLibraryModifyScope], responseType: "code")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         mainImage.frame = CGRect(x: 0, y: 0, width: self.view.frame.width , height: self.view.frame.height)
-        setup()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessful"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loginSuccessful), name: NSNotification.Name(rawValue: "loginSuccessful"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loginFailed), name: NSNotification.Name(rawValue: "loginFailed"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateDeviceToken), name: NSNotification.Name(rawValue: "tokenRegistered"), object: nil)
+        
+        if #available(iOS 13.0, *) {
+            let scene = UIApplication.shared.connectedScenes.first
+            if let sd : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+                self.sessionManager = sd.sessionManager
+                self.appRemote = sd.appRemote
+            }
+        } else {
+            // Fallback on earlier versions
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            self.appRemote = appDelegate.appRemote
+            self.sessionManager = appDelegate.sessionManager
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         let userDefaults = UserDefaults.standard
         if let sessionObj:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
-           if login(sessionObj: sessionObj) {
-                self.performSegue(withIdentifier: "unwindLoginSegue", sender: self)
-                return
-            } else {
-                retryAlert(sessionObj: sessionObj)
-            }
+            let sessionDataObj = sessionObj as! Data
+            let session = NSKeyedUnarchiver.unarchiveObject(with: sessionDataObj) as! SPTSession
+            
+            renewSM(session: session)
         } else {
             let alert = UIAlertController(title: "You are not logged into a spotify account", message: "Log into your spotify prime account to continue", preferredStyle: .alert)
             
@@ -63,15 +78,68 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateAfterFirstLogin() {
-        NSLog("updateafterfirstlogin")
-        let userDefaults = UserDefaults.standard
-        isFirstTime = true
+    // Set up session manager and app remote
+    func renewSM(session : SPTSession) {
+        self.sessionManager.session = session
+//        self.session = session
+//
+//        let _ = Globals.renewSession(sessionManager: self.sessionManager)
+    }
+    
+    // Assume we have a valid session manager and app remote at this point
+    @objc func loginSuccessful() {
+        NSLog("loginSuccessful")
+        isFirstTime = false
         
-        if let sessionObj:AnyObject = userDefaults.object(forKey: "SpotifySession") as AnyObject? {
-            if login(sessionObj: sessionObj) {
-                svc!.dismiss(animated: true, completion: {() in self.performSegue(withIdentifier: "unwindLoginSegue", sender: self)})
+        DispatchQueue.main.async { [self] in
+            if #available(iOS 13.0, *) {
+                let scene = UIApplication.shared.connectedScenes.first
+                if let sd : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+//                    self.sessionManager = sd.sessionManager
+//                    self.appRemote = sd.appRemote
+//                    self.session = sd.sessionManager.session
+                    self.accessToken = sd.accessToken
+                    self.refreshToken = sd.refreshToken
+                }
+            } else {
+                // Fallback on earlier versions
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                self.appRemote = appDelegate.appRemote
+                self.sessionManager = appDelegate.sessionManager
+                // self.session = appDelegate.sessionManager.session
             }
+            
+            self.userId = self.getUserId(accessToken: self.accessToken!)
+            
+//            if let session = self.session {
+//                let userDefaults = UserDefaults.standard
+//                let sessionData = NSKeyedArchiver.archivedData(withRootObject: session)
+//                userDefaults.set(sessionData, forKey: "SpotifySession")
+//                userDefaults.synchronize()
+//            }
+            
+            self.performSegue(withIdentifier: "unwindLoginSegue", sender: self)
+        }
+    }
+    
+    func presentLogin(alert: UIAlertAction!) {
+        let requestedScopes: SPTScope = [.appRemoteControl, .streaming, .playlistReadPrivate, .playlistModifyPublic, .playlistModifyPrivate, .userTopRead, .userLibraryRead, .userLibraryModify]
+        if #available(iOS 11.0, *) {
+            self.sessionManager.initiateSession(with: requestedScopes, options: .default)
+        } else {
+            // Fallback on earlier versions
+            self.sessionManager.initiateSession(with: requestedScopes, options: .default, presenting: self)
+        }
+    }
+    
+    @objc func loginFailed() {
+        let alert = UIAlertController(title: "You are not connected to the Internet", message: "Please connect and retry to continue", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: presentLogin))
+        
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
         }
     }
 
@@ -79,7 +147,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     //MARK: - Navigation
     
@@ -90,7 +157,7 @@ class ViewController: UIViewController {
             
             let user = User(id: userId!, name: nil)
             
-            let state = State(group: nil, user: user!, session: session, player: player)
+            let state = State(group: nil, user: user!, session: nil, sessionManager: self.sessionManager, appRemote: appRemote, accessToken: self.accessToken!, refreshToken: self.refreshToken!)
             state?.user.name = Globals.getUsersName(id: userId!, state: state!)
             DispatchQueue.global().async {
                 state?.user.getSavedSongs(state: state!)
@@ -143,52 +210,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func presentLogin(alert: UIAlertAction!) {
-        self.svc = SFSafariViewController(url: loginURL!)
-        self.present(svc!, animated: true, completion: nil)
-        if auth.canHandle(auth.redirectURL) {
-            // TODO - error handling
-            print("URL:")
-            print(auth.redirectURL)
-        }
-    }
-    
-    func retryAlert(sessionObj: AnyObject) {
-        let alert = UIAlertController(title: "You are not connected to the Internet", message: "Please connect and retry to continue", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { [weak self] (_) in
-            if self!.login(sessionObj: sessionObj) {
-                self?.performSegue(withIdentifier: "unwindLoginSegue", sender: self!)
-            } else {
-                self?.retryAlert(sessionObj: sessionObj)
-            }
-        }))
-        
-        self.present(alert, animated: true)
-    }
-    
-    func login(sessionObj: AnyObject) -> Bool {
-        let sessionDataObj = sessionObj as! Data
-        
-        self.session = NSKeyedUnarchiver.unarchiveObject(with: sessionDataObj) as! SPTSession
-        
-        if (!self.session.isValid()) {
-            let newSession = Globals.renewSession(session: self.session)
-            
-            if (newSession == nil) {
-                return false
-            } else {
-                self.session = newSession!
-            }
-        }
-        self.userId = self.session.canonicalUsername
-        
-        print(self.session.accessToken)
-        
-        return self.session.isValid()
-    }
-    
-    func updateDeviceToken() {
+    @objc func updateDeviceToken() {
         let userDefaults = UserDefaults.standard
         if let tokenObj:AnyObject = userDefaults.object(forKey: "DeviceToken") as AnyObject? {
             let tokenDataObj = tokenObj as! Data
@@ -206,6 +228,25 @@ class ViewController: UIViewController {
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 1)
     }
     
-    // MARK: Helpers
+    func getUserId(accessToken: String) -> String? {
+        let query = "https://api.spotify.com/v1/me"
+        let url = URL(string: query)
+        let request = NSMutableURLRequest(url: url!)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        
+        var responseUserId: String?
+        
+        Globals.sendRequest(request: request, postParameters: nil, method: "GET", completion: { (response) in
+            let responseDict = response as? [String: AnyObject]
+            responseUserId = responseDict?["id"] as? String
+        }, isAsync: 0)
+        
+        if (responseUserId == nil) {
+            print("Could not retrieve userId")
+            return nil
+        }
+        
+        return responseUserId
+    }
 }
 

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import FacebookCore
-import FacebookLogin
-import FBSDKLoginKit
+//import FacebookCore
+//import FacebookLogin
+//import FBSDKLoginKit
 import AVFoundation
 import MediaPlayer
 import MessageUI
@@ -26,7 +26,7 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
     var dismiss: UITapGestureRecognizer!
     var userShown = false
     @IBOutlet weak var addBtn: UIBarButtonItem!
-    var accessToken = AccessToken.current
+    //var accessToken = AccessToken.current
     var prevVC: UIViewController?
     var playlistVC: ViewPlaylistViewController?
     var userPlaylistVC: UserPlaylistsTableViewController?
@@ -249,7 +249,7 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        let image = info[UIImagePickerController.InfoKey.editedImage.rawValue] as! UIImage
         
         self.state!.user.pic = image
         self.userView.userPicView?.image = image
@@ -262,7 +262,7 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
         let boundary = "Boundary-\(NSUUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let imageData = UIImageJPEGRepresentation(image, 1)
+        let imageData = image.jpegData(compressionQuality: 1)
         if (imageData == nil) {
             print("UIImageJPEGRepresentation return nil")
             return
@@ -321,12 +321,12 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
     }
     
-    func triggerDismiss() {
+    @objc func triggerDismiss() {
         presentUserView(present: false)
         userView.saveName()
     }
     
-    func didRightSwipe() {
+    @objc  func didRightSwipe() {
         presentUserView(present: true)
     }
     
@@ -403,7 +403,7 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
             if Globals.useFB {
                 let userDefaults = UserDefaults.standard
                 if userDefaults.object(forKey: "DidRequestFacebookLogin") == nil {
-                    if (AccessToken.current == nil) {
+                    if (/*AccessToken.current == nil*/true) {
                         self.doFBAlert = true
                         
                         let requestedFbData = NSKeyedArchiver.archivedData(withRootObject: true)
@@ -412,19 +412,6 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
                     }
                 }
             }
-            
-            
-            self.state!.player = SPTAudioStreamingController.sharedInstance()
-            if let loggedIn = self.state!.player?.loggedIn, loggedIn {
-                self.state!.player?.logout()
-            }
-            do {
-                try self.state!.player!.start(withClientId: SPTAuth.defaultInstance()!.clientID)
-            } catch {
-                print("Failed to start with clientId")
-            }
-
-            self.state!.player?.login(withAccessToken: self.state!.getAccessToken())
         }
     }
     
@@ -532,10 +519,10 @@ class NetworkTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func facebookBtnLogin(alert: UIAlertAction!) {
-        if (AccessToken.current == nil) {
+        if (/*AccessToken.current == nil*/true) {
             Globals.logIntoFacebook(viewController: self, userId: self.state!.user.id)
         } else {
-            LoginManager().logOut()
+            //LoginManager().logOut()
             self.userView.facebookBtn.setTitle("Connect Facebook Account", for: .normal)
         }
     }

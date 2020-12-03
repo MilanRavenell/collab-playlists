@@ -86,16 +86,16 @@ class FirstTimeAlertConfirmation: UIView {
         print("No text service yet")
     }
     
-    func submitPressed(sender: UIButton!) {
+    @objc func submitPressed(sender: UIButton!) {
         confirmationCodeTextField.resignFirstResponder()
         parent.firstTimeAlertConfirmationSubmit()
     }
     
-    func backPressed(sender: UIButton!) {
+    @objc func backPressed(sender: UIButton!) {
         parent.firstTimeAlertConfirmationBack()
     }
     
-    func textChanged(_ sender: UITextField) {
+    @objc func textChanged(_ sender: UITextField) {
         if sender.text!.count > 0 {
             submit.isEnabled  = true
             submit.alpha = 1

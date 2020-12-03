@@ -56,7 +56,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
             songTable.tableHeaderView?.addSubview(headerLabel)
         }
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator?.center = self.view.center
         self.view.addSubview(activityIndicator!)
         
@@ -85,7 +85,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
             searchController?.searchBar.placeholder = "Ordered by Popularity"
             searchController?.hidesNavigationBarDuringPresentation = true
             searchController?.searchBar.tintColor = UIColor.white
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
         
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight))
@@ -238,7 +238,10 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func playNow() {
-        self.viewPlaylistView?.playSong(player: self.state!.player!, song: selectedSong!)
+        if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+            self.viewPlaylistView?.playSong(playerAPI: playerAPI, song: selectedSong!)
+        }
+        
         self.selectedSong?.loadPic()
         self.state!.group?.songs = [self.selectedSong!]
         self.state?.curActiveId = self.state!.group?.id ?? self.state?.curActiveId
@@ -292,7 +295,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
         return [Song]()
     }
     
-    func didSwipeRight() {
+    @objc func didSwipeRight() {
         if self.searchController!.isActive {
             viewPlaylistView?.totalSongsVC = self
         }
@@ -340,7 +343,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func toggleFilterSongSwitch(filterSwitch: UISwitch) {
+    @objc func toggleFilterSongSwitch(filterSwitch: UISwitch) {
         if filterSwitch.isOn {
             if let id = self.state?.group?.id {
                 if let usersLoaded = self.state!.group?.usersLoaded, usersLoaded {
@@ -378,7 +381,7 @@ class TotalSongsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func triggerDismiss() {
+    @objc func triggerDismiss() {
         presentFilter()
     }
     

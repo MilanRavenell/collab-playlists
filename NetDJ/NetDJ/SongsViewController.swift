@@ -71,7 +71,7 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.songsTable.delegate = self
         self.songsTable.tableFooterView = UIView()
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator?.center = self.view.center
         self.view.addSubview(activityIndicator!)
         
@@ -117,7 +117,7 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             searchController?.searchBar.placeholder = "Search Songs"
             searchController?.hidesNavigationBarDuringPresentation = true
             searchController?.searchBar.tintColor = UIColor.white
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
     }
     
@@ -249,7 +249,10 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func playNow() {
-        self.viewPlaylistView?.playSong(player: self.state!.player!, song: selectedSong!)
+        if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+            self.viewPlaylistView?.playSong(playerAPI: playerAPI, song: self.selectedSong!)
+        }
+        
         self.selectedSong?.loadPic()
         self.state!.group?.songs = [self.selectedSong!]
         self.state?.curActiveId = self.state!.group?.id ?? self.state?.curActiveId
@@ -289,7 +292,7 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
 
-    func didSwipeRight() {
+    @objc func didSwipeRight() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -415,7 +418,7 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func retry() {
+    @objc func retry() {
         DispatchQueue.main.async { [weak self] in
             self?.activityIndicator?.startAnimating()
             self?.retryBtn.isHidden = true

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import FacebookCore
-import FacebookLogin
-import FBSDKLoginKit
+//import FacebookCore
+//import FacebookLogin
+//import FBSDKLoginKit
 
 class UserView: UIView {
     
@@ -245,7 +245,7 @@ class UserView: UIView {
             facebookBtn.frame = CGRect(x: 0, y: 0, width: fbView.frame.width, height: fbView.frame.height)
             facebookBtn.addTarget(self, action: #selector(facebookBtnPressed), for: .touchUpInside)
             facebookBtn.setTitleColor(Globals.getThemeColor1(), for: .normal)
-            if (AccessToken.current == nil) {
+            if (/*AccessToken.current == nil*/true) {
                 facebookBtn.setTitle("Connect Facebook Account", for: .normal)
             } else {
                 facebookBtn.setTitle("Disconnect Facebook Account", for: .normal)
@@ -266,7 +266,7 @@ class UserView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func btnPressed (sender: UIButton!) {
+    @objc func btnPressed (sender: UIButton!) {
         if (sender == self.setDefaultSongs) {
             parent.performSegue(withIdentifier: "defaultSongsSegue", sender: self)
         }
@@ -314,8 +314,8 @@ class UserView: UIView {
     }
     
     // MARK: Actions
-    func facebookBtnPressed(_ sender: Any) {
-        if AccessToken.current != nil {
+    @objc func facebookBtnPressed(_ sender: Any) {
+        if (/*AccessToken.current != nil*/true) {
             let alert = UIAlertController(title: "Disconnect", message: "Do you want to disconnect?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: parent.facebookBtnLogin))
@@ -333,9 +333,9 @@ class UserView: UIView {
             self?.parent.triggerDismiss()
             Globals.deleteStorage()
             self?.parent.state = nil
-            if AccessToken.current != nil {
-                LoginManager().logOut()
-            }
+//            if AccessToken.current != nil {
+//                LoginManager().logOut()
+//            }
             let userDefaults = UserDefaults.standard
             userDefaults.set(nil, forKey: "SpotifySession")
             userDefaults.synchronize()
@@ -346,7 +346,7 @@ class UserView: UIView {
         parent.present(alert, animated: true)
     }
     
-    func triggerPicAlert() {
+    @objc func triggerPicAlert() {
         let alert = UIAlertController(title: "Change profile picture?", message: "Select a method", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Library", style: .default, handler: addPhotoFromLibrary))
@@ -409,7 +409,7 @@ class UserView: UIView {
         return group
     }
     
-    func showEditAlert() {
+    @objc func showEditAlert() {
         let alert = UIAlertController(title: parent.state!.user.name, message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Change Name", style: .default, handler: beginEdit))
         alert.addAction(UIAlertAction(title: "Update Phone Number", style: .default, handler: changePhoneNumber))
@@ -447,7 +447,7 @@ class UserView: UIView {
         parent.presentUpdatePhoneNumberAlert()
     }
     
-    func saveName() {
+    @objc func saveName() {
         if (self.nameTextField.isHidden == false) {
             if (self.nameTextField.text != "") {
                 self.name.text = self.nameTextField.text
@@ -465,7 +465,7 @@ class UserView: UIView {
         }
     }
     
-    func iconLink() {
+    @objc func iconLink() {
         if let url = URL(string:"https://icons8.com/") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }

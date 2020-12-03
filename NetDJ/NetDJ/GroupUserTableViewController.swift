@@ -28,7 +28,7 @@ class GroupUserTableViewController: UIViewController, UITableViewDelegate, UITab
         self.userTable.dataSource = self
         self.userTable.tableFooterView = UIView()
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator?.center = self.view.center
         activityIndicator?.startAnimating()
         self.view.addSubview(activityIndicator!)
@@ -168,7 +168,7 @@ class GroupUserTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // MARK: - Helpers
-    func didSwipeRight() {
+    @objc func didSwipeRight() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -184,7 +184,7 @@ class GroupUserTableViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func totalCanEditSwitchToggled(sender: UISwitch!) {
+    @objc func totalCanEditSwitchToggled(sender: UISwitch!) {
         var i = 0
         if let users = self.state!.group?.users {
             for user in users {
@@ -201,7 +201,7 @@ class GroupUserTableViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func canEditSwitchToggled(sender: UISwitch!) {
+    @objc func canEditSwitchToggled(sender: UISwitch!) {
         if let user = self.state!.group?.users[sender.tag] {
             if (sender.isOn) {
                 self.usersCanEdit.append(user.id)

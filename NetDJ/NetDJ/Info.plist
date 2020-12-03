@@ -38,6 +38,14 @@
 				<string>fb1886072364788623</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.mycompany.CollabPlaylists</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>collabplaylists-login</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3</string>
@@ -47,6 +55,7 @@
 	<string>CollabPlaylists</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>spotify</string>
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
@@ -70,11 +79,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>"Take Photo for Network"</string>
+	<string>&quot;Take Photo for Network&quot;</string>
 	<key>NSContactsUsageDescription</key>
-	<string>"Search your contacts to invite people to your group"</string>
+	<string>&quot;Search your contacts to invite people to your group&quot;</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>"Choose Network Photo from Library"</string>
+	<string>&quot;Choose Network Photo from Library&quot;</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -100,5 +109,24 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 </dict>
 </plist>

@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import FacebookCore
+//import FacebookCore
+//import FacebookLogin
+//import FBSDKLoginKit
 import Contacts
 
 class FriendSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
@@ -60,7 +62,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         searchTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: searchTable.frame.width, height: 50))
         
         let searchHeaderLabel = UILabel(frame: CGRect(x: 0, y: 0, width: searchTable.tableHeaderView!.frame.width, height: searchTable.tableHeaderView!.frame.height))
-        if AccessToken.current == nil {
+        if /*AccessToken.current == nil*/true {
             searchHeaderLabel.text = "Search through your contacts or by Spotify Id"
         } else {
             searchHeaderLabel.text = "Search for friends by Facebook Name or Spotify Id"
@@ -136,7 +138,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
             searchController?.searchBar.placeholder = "Search"
             searchController?.hidesNavigationBarDuringPresentation = true
             searchController?.searchBar.tintColor = UIColor.white
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
         definesPresentationContext = true
         
@@ -147,8 +149,8 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         
         self.view.addSubview(dimView)
         
-        self.view.bringSubview(toFront: selectedTable)
-        self.view.bringSubview(toFront: labelView)
+        self.view.bringSubviewToFront(selectedTable)
+        self.view.bringSubviewToFront(labelView)
         
         searchContacts(query: "")
     }
@@ -169,12 +171,12 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     @objc func keyboardWillAppear(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             keyboardHeight = keyboardFrame.cgRectValue.height
         }
         keyboardActive = true
@@ -249,7 +251,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func textChanged(_ sender: UITextField) {
+    @objc func textChanged(_ sender: UITextField) {
         self.actionToEnable?.isEnabled  = (sender.text!.count > 0)
     }
     
@@ -369,7 +371,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         self.searchTable.reloadData()
     }
     
-    func tableTapped() {
+    @objc func tableTapped() {
         self.searchController?.searchBar.resignFirstResponder()
         self.searchController?.isActive = false
     }
@@ -379,7 +381,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         self.perform(#selector(getResults), with: nil, afterDelay: 0.5)
     }
     
-    func getResults() {
+    @objc func getResults() {
         if let query = searchController?.searchBar.text {
             self.friends = filterFriends(query: query)
             self.searchTable.reloadData()
@@ -490,37 +492,37 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Helpers
     
     func getFriends() {
-        if AccessToken.current == nil {
+        if /*AccessToken.current == nil*/true {
             return
         }
         
-        var responseFriends = [Friend]()
-        
-        let params = ["fields": "id, first_name, last_name, profile_pic"]
-        
-        let connection = GraphRequestConnection()
-        let graphrequest = GraphRequest(graphPath: "/" + AccessToken.current!.userId! +  "/friends", parameters: params, accessToken: AccessToken.current, httpMethod: .GET, apiVersion: .defaultVersion)
-        
-        connection.add(graphrequest) { [weak self] httpResponse, result in
-            switch result {
-            case .success(let response):
-                let data = response.dictionaryValue!["data"] as? [[String: AnyObject]]
-                if (data != nil) {
-                    for friend in data! {
-                        let first = friend["first_name"] as! String
-                        let last = friend["last_name"] as! String
-                        let fbId = friend["id"] as! String
-                        // Figure out how the picture is formatted
-                        let picURL = friend["profile_picture"] as! String
-                        responseFriends.append(Friend(name: first + last, picURL: picURL, fbId: fbId, state: self?.state)!)
-                    }
-                }
-                self?.totalFriends = responseFriends
-            case .failed(let error):
-                print("Graph Request Failed: \(error)")
-            }
-        }
-        connection.start()
+//        var responseFriends = [Friend]()
+//        
+//        let params = ["fields": "id, first_name, last_name, profile_pic"]
+//        
+//        let connection = GraphRequestConnection()
+//        let graphrequest = CNSaveRequest(graphPath: "/" + AccessToken.current!.userId! +  "/friends", parameters: params, accessToken: AccessToken.current, httpMethod: .GET, apiVersion: .defaultVersion)
+//        
+//        connection.add(graphrequest) { [weak self] httpResponse, result in
+//            switch result {
+//            case .success(let response):
+//                let data = response.dictionaryValue!["data"] as? [[String: AnyObject]]
+//                if (data != nil) {
+//                    for friend in data! {
+//                        let first = friend["first_name"] as! String
+//                        let last = friend["last_name"] as! String
+//                        let fbId = friend["id"] as! String
+//                        // Figure out how the picture is formatted
+//                        let picURL = friend["profile_picture"] as! String
+//                        responseFriends.append(Friend(name: first + last, picURL: picURL, fbId: fbId, state: self?.state)!)
+//                    }
+//                }
+//                self?.totalFriends = responseFriends
+//            case .failed(let error):
+//                print("Graph Request Failed: \(error)")
+//            }
+//        }
+//        connection.start()
     }
     
     func filterFriends(query: String) -> [Friend] {
@@ -530,7 +532,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         return friends
     }
     
-    func deleteBtnPressed(sender: UIButton!) {
+    @objc func deleteBtnPressed(sender: UIButton!) {
         let friend = self.selectedFriends[sender.tag]
         self.selectedFriends.remove(at: sender.tag)
         self.selectedHeaderLabel.text = String(self.selectedFriends.count) + " Selected"
@@ -704,7 +706,7 @@ class FriendSearchViewController: UIViewController, UITableViewDelegate, UITable
         }, isAsync: 1)
     }
     
-    func selectedLabelViewTapped() {
+    @objc func selectedLabelViewTapped() {
         if selectedActive {
             animateSelectedUser(show: false)
         } else {

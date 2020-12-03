@@ -74,11 +74,11 @@ class FirstTimeAlertName: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func submitPressed(sender: UIButton!) {
+    @objc func submitPressed(sender: UIButton!) {
         self.parent.firstTimeAlertNameSubmit()
     }
     
-    func textChanged(_ sender: UITextField) {
+    @objc func textChanged(_ sender: UITextField) {
         if sender.text!.count > 0 {
             submit.isEnabled  = true
             submit.alpha = 1

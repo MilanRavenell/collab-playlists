@@ -68,7 +68,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             searchController?.searchBar.placeholder = "Search Songs"
             searchController?.hidesNavigationBarDuringPresentation = true
             searchController?.searchBar.tintColor = UIColor.white
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
         definesPresentationContext = true
         searchController?.searchBar.tintColor = Globals.getThemeColor1()
@@ -77,7 +77,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         rightSwipeGesture.direction = .right
         self.songTable.addGestureRecognizer(rightSwipeGesture)
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator.center = self.view.center
         self.view.addSubview(activityIndicator)
         
@@ -108,7 +108,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         selectedSongTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: selectedSongTable.frame.width, height: 50))
         
         selectedHeaderLabel = UILabel(frame: CGRect(x: 0, y: 0, width: selectedSongTable.tableHeaderView!.frame.width, height: selectedSongTable.tableHeaderView!.frame.height))
-        selectedHeaderLabel.text = "0 Selected"
+        selectedHeaderLabel.text = "Songs added to Network"
         selectedHeaderLabel.textAlignment = .center
         selectedHeaderLabel.textColor = UIColor.gray
         selectedSongTable.tableHeaderView?.addSubview(selectedHeaderLabel)
@@ -120,8 +120,8 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.view.addSubview(dimView)
         
-        self.view.bringSubview(toFront: selectedSongTable)
-        self.view.bringSubview(toFront: labelView)
+        self.view.bringSubviewToFront(selectedSongTable)
+        self.view.bringSubviewToFront(labelView)
         
         self.activityIndicator.startAnimating()
         
@@ -139,10 +139,9 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
                     
                 }
                 
-                if self?.searchController?.searchBar.text == "" {
-                    self?.songs = self?.playlistsAsSong ?? [Song]()
-                    
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if self?.searchController?.searchBar.text == "" {
+                        self?.songs = self?.playlistsAsSong ?? [Song]()
                         self?.activityIndicator.stopAnimating()
                         self?.songTable.reloadData()
                     }
@@ -165,12 +164,12 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     @objc func keyboardWillAppear(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             keyboardHeight = keyboardFrame.cgRectValue.height
         }
         keyboardActive = true
@@ -311,9 +310,9 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
                         item == selectedSong?.id.suffix(16) ?? ""
                     })
                     if indx == nil {
-                        choices.append(("Add Playlist to Network", "icons8-waste-32.png", selectPlaylist))
+                        choices.append(("Add Entire Playlist to Network", "icons8-waste-32.png", selectPlaylist))
                     } else {
-                        choices.append(("Remove Playlist to Network", "icons8-waste-32.png", removePlaylist))
+                        choices.append(("Remove Playlist from Network", "icons8-waste-32.png", removePlaylist))
                     }
                     
                 } else {
@@ -325,7 +324,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
                             item.id == self?.selectedSong?.id
                         })
                         if indx == nil {
-                            choices.append(("Add to Network", "icons8-waste-32.png", selectSong))
+                            choices.append(("Select", "icons8-waste-32.png", selectSong))
                         } else {
                             choices.append(("Remove Song", "icons8-waste-32.png", removeSong))
                         }
@@ -345,9 +344,16 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         choiceSelection.present(show: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.searchController?.searchBar.resignFirstResponder()
+    }
         
     func playNow() {
-        self.state!.viewPlaylistVC?.playSong(player: self.state!.player!, song: selectedSong!)
+        if let appRemote = self.state!.appRemote, let playerAPI = appRemote.playerAPI {
+            self.state!.viewPlaylistVC?.playSong(playerAPI: playerAPI, song: selectedSong!)
+        }
+        
         self.selectedSong?.loadPic()
         self.state!.group?.songs?.insert(self.selectedSong!, at: 0)
         self.state?.curActiveId = self.state!.group?.id ?? self.state?.curActiveId
@@ -385,7 +391,6 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             self.selectedSongs.append(selectedSong)
             selectedSongTable.reloadData()
-            selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
             selectedSongsLabel.text = String(self.selectedSongs.count) + " Selected"
             songTable.reloadData()
             self.searchController?.searchBar.becomeFirstResponder()
@@ -397,7 +402,6 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             self.selectedSongs.remove(at: selectedIndexPath.row)
         }
         
-        selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
         selectedSongsLabel.text = String(self.selectedSongs.count) + " Selected"
         songTable.reloadData()
         selectedSongTable.reloadData()
@@ -467,11 +471,11 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     // MARK: Spotify Search Functions
-    func getSongs() {
-        let query = searchController!.searchBar.text!
+    @objc func getSongs() {
+        let searchString = searchController!.searchBar.text!
         var songs = [Song]()
         
-        if query == "" {
+        if searchString == "" {
             self.songTable.reloadData()
             self.songsCountLabel.text = String(songs.count) + " Results"
             self.activityIndicator.stopAnimating()
@@ -479,7 +483,10 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
             return
         }
         
-        let request = try? SPTSearch.createRequestForSearch(withQuery: query, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: self.state!.getAccessToken())
+        let query = "https://api.spotify.com/v1/search?q=" + searchString + "type=track"
+        let url = URL(string: query)
+        let request = NSMutableURLRequest(url: url!)
+        request.setValue("Bearer \(self.state!.getAccessToken())", forHTTPHeaderField: "Authorization")
         
         var JSON: [String: [String: AnyObject]]?
         
@@ -538,7 +545,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         task.resume()
     }
     
-    func didSwipeRight() {
+    @objc func didSwipeRight() {
         if prevController != "ViewPlaylist" {
             self.songsVC.songSearchVC = self
         }
@@ -594,7 +601,6 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         if sender.tag < selectedSongs.count {
             self.selectedSongs.remove(at: sender.tag)
             self.selectedSongTable.reloadData()
-            selectedHeaderLabel.text = String(self.selectedSongs.count) + " Selected"
             selectedSongsLabel.text = String(self.selectedSongs.count) + " Selected"
         }
     }
@@ -628,7 +634,7 @@ class SongSearchViewController: UIViewController, UITableViewDelegate, UITableVi
         // Pass the selected object to the new view controller.
     }
     
-    func selectedLabelViewTapped() {
+    @objc func selectedLabelViewTapped() {
         if selectedActive {
             animateSelectedSong(show: false)
         } else {

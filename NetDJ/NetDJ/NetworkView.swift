@@ -279,7 +279,7 @@ class NetworkView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func btnPressed(sender: UIButton!) {
+    @objc func btnPressed(sender: UIButton!) {
         if (sender == totalSongsBtn) {
             parent.performSegue(withIdentifier: "totalSongsSegue", sender: self)
         }
@@ -292,7 +292,7 @@ class NetworkView: UIView {
         }
     }
     
-    func deleteLeaveAlarm() {
+    @objc func deleteLeaveAlarm() {
         var alert: UIAlertController?
         if let usersLoaded = parent.state?.group?.usersLoaded, usersLoaded &&  parent.state?.group?.users.count == 1 {
             alert = UIAlertController(title: "Delete Network", message: "Are you sure you want to delete?", preferredStyle: .alert)
@@ -306,7 +306,7 @@ class NetworkView: UIView {
         parent.present(alert!, animated: true)
     }
     
-    func triggerPicAlert() {
+    @objc func triggerPicAlert() {
         let alert = UIAlertController(title: "Change Picture?", message: "Select a method", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Library", style: .default, handler: addPhotoFromLibrary))
@@ -405,12 +405,12 @@ class NetworkView: UIView {
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 1)
     }
     
-    func copyInviteKey(_ sender: Any) {
+    @objc func copyInviteKey(_ sender: Any) {
         UIPasteboard.general.string = parent.state!.group?.inviteKey
         Globals.showAlert(text: "Copied!", view: parent.view)
     }
     
-    func emptySpaceTapped() {
+    @objc func emptySpaceTapped() {
         saveName()
     }
     
@@ -435,7 +435,7 @@ class NetworkView: UIView {
     }
     
     // MARK: HELPERS
-    func showEditAlert() {
+    @objc func showEditAlert() {
         let alert = UIAlertController(title: "Change network name?", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Change", style: .default, handler: beginEdit))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: nil))

@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import FacebookCore
+//import FacebookCore
+//import FacebookLogin
+//import FBSDKLoginKit
 
 class User {
     
@@ -113,37 +115,37 @@ class User {
         
         let params = ["fields": "picture.type(large)"]
         
-        let graphrequest = GraphRequest(graphPath: "/" + fbId, parameters: params, accessToken: AccessToken.current, httpMethod: .GET, apiVersion: .defaultVersion)
+        //let graphrequest = GraphRequest(graphPath: "/" + fbId, parameters: params, tokenString: AccessToken.current?.tokenString, version: "GET", httpMethod: .get)
         
-        graphrequest.start( { [weak self] (urlResponse, requestResult) -> Void in
-            switch requestResult {
-            case .failed(let error):
-                print("error:", error)
-                self?.picHasLoaded = true
-                break
-            case .success(let graphResponse):
-                if let responseDictionary = graphResponse.dictionaryValue {
-                    pic = ((responseDictionary["picture"] as? [String: AnyObject])?["data"] as? [String: AnyObject])?["url"] as? String
-                    
-                    if (pic != nil) {
-                        if let url = URL(string: pic!) {
-                            DispatchQueue.global().async {
-                                let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                                DispatchQueue.main.async {
-                                    self?.pic = UIImage(data: data!, scale: UIScreen.main.scale)
-                                    self?.picHasLoaded = true
-                                    if let imageView = self?.imageView {
-                                        self?.assignPicToView(imageView: imageView, animated: true)
-                                    }
-                                }
-                                return
-                            }
-                        }
-                    }
-                    self?.picHasLoaded = true
-                }
-            }
-        })
+//        graphrequest.start( completionHandler: { [weak self] (urlResponse, requestResult) -> Void in
+//            switch requestResult {
+//            case .failed(let error):
+//                print("error:", error)
+//                self?.picHasLoaded = true
+//                break
+//            case .success(let graphResponse):
+//                if let responseDictionary = graphResponse.dictionaryValue {
+//                    pic = ((responseDictionary["picture"] as? [String: AnyObject])?["data"] as? [String: AnyObject])?["url"] as? String
+//
+//                    if (pic != nil) {
+//                        if let url = URL(string: pic!) {
+//                            DispatchQueue.global().async {
+//                                let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//                                DispatchQueue.main.async {
+//                                    self?.pic = UIImage(data: data!, scale: UIScreen.main.scale)
+//                                    self?.picHasLoaded = true
+//                                    if let imageView = self?.imageView {
+//                                        self?.assignPicToView(imageView: imageView, animated: true)
+//                                    }
+//                                }
+//                                return
+//                            }
+//                        }
+//                    }
+//                    self?.picHasLoaded = true
+//                }
+//            }
+//        })
     }
     
     func getPlaylists(state: State) {

@@ -6,6 +6,10 @@ target 'CollabPlaylists' do
   use_frameworks!
 
   # Pods for CollabPlaylists
+  pod 'FBSDKCoreKit', '4.38'
+  pod 'FBSDKLoginKit', '4.38'
+  pod 'FBSDKShareKit', '4.38'
+  pod 'SwiftLint'
 
   target 'CollabPlaylistsTests' do
     inherit! :search_paths
@@ -16,10 +20,5 @@ target 'CollabPlaylists' do
     inherit! :search_paths
     # Pods for testing
   end
-
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare'
-  pod 'SwiftLint'
 
 end

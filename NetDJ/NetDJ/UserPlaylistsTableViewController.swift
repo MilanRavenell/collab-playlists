@@ -31,7 +31,7 @@ class UserPlaylistsTableViewController: UIViewController, UITableViewDelegate, U
         self.tableView.reloadData()
         self.tableView.tableFooterView = UIView()
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator?.center = self.view.center
         self.view.addSubview(activityIndicator!)
         
@@ -135,7 +135,7 @@ class UserPlaylistsTableViewController: UIViewController, UITableViewDelegate, U
         self.tableView.reloadData()
     }
     
-    func didSwipeRight() {
+    @objc func didSwipeRight() {
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -217,7 +217,7 @@ class UserPlaylistsTableViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
-    func retry() {
+    @objc func retry() {
         retryBtn?.isHidden = true
         emptyLabel?.isHidden = true
         activityIndicator?.startAnimating()

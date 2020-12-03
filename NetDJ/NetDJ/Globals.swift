@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import FacebookCore
-import FacebookLogin
-import FBSDKLoginKit
+//import FacebookCore
+//import FacebookLogin
+//import FBSDKLoginKit
 import Photos
 import MobileCoreServices
 
@@ -23,6 +23,7 @@ class Globals {
     static let bigOffset: CGFloat = 35
     static let useFB = false
     static let dedicatedServer = false
+    static let silentTrack = "spotify:track:7p5bQJB4XsZJEEn6Tb7EaL"
     
     static func updateNetwork(group: Group?, state: State) {
         if group == nil {
@@ -190,8 +191,7 @@ class Globals {
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {_ in}, isAsync: 1)
     }
     
-    static func renewSession(session: SPTSession) -> SPTSession? {
-        
+    static func renewSession(refreshToken: String) -> String {
         //created NSURL
         let requestURL = URL(string: "http://autocollabservice.com/refresh")
         
@@ -199,11 +199,10 @@ class Globals {
         let request = NSMutableURLRequest(url: requestURL!)
         
         //creating the post parameter by concatenating the keys and values from text field
-        let postParameters = "refresh_token=" + session.encryptedRefreshToken
+        // TODO: refreshToken will need to be encrypted
+        let postParameters = "refresh_token=" + refreshToken
         
-        var newSession: SPTSession?
-        
-        print(postParameters)
+        var accessToken = ""
         
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: { (response) in
             let responseDict = response as? [String: AnyObject]
@@ -212,12 +211,11 @@ class Globals {
                 print("authorization failed!")
                 return
             }
-            let accessToken = responseDict!["access_token"] as! String
-            newSession = SPTSession(userName: session.canonicalUsername, accessToken: accessToken, encryptedRefreshToken: session.encryptedRefreshToken, expirationDate: Date(timeIntervalSinceNow: 3600))
             
+            accessToken = responseDict!["access_token"] as! String
         }, isAsync: 0)
         
-        return newSession
+        return accessToken
     }
     
     static func createGroup(userId: String) -> (Int, String) {
@@ -279,7 +277,7 @@ class Globals {
         
         var responseDict: [String: AnyObject]?
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: {(response) in
-            responseDict = response as? [String: AnyObject]
+            responseDict = response as! [String: AnyObject]
         }, isAsync: 0)
         
         if (responseDict == nil) {
@@ -318,7 +316,7 @@ class Globals {
         
         var responseGroups: [[String: AnyObject]]?
         Globals.sendRequest(request: request, postParameters: postParameters, method: "POST", completion: { (response) in
-            responseGroups = response as? [[String: AnyObject]]
+            responseGroups = response as! [[String: AnyObject]]
         }, isAsync: 0)
         
         if (responseGroups == nil) {
@@ -420,21 +418,16 @@ class Globals {
     
     static func getTrackInfo(id: String, state: State) -> (String, String, String?) {
         NSLog("TrackInfo")
-        
-        let url = URL(string: "spotify:track:\(id)")
-        
-        let request = try? SPTTrack.createRequest(forTrack: url, withAccessToken: state.getAccessToken(), market: nil)
-        
-        if (request == nil) {
-            NSLog("failed")
-            return ("None","None", nil)
-        }
+        let query = "https://api.spotify.com/v1/tracks/" + id
+        let url = URL(string: query)
+        let request = NSMutableURLRequest(url: url!)
+        request.setValue("Bearer \(state.getAccessToken())", forHTTPHeaderField: "Authorization")
         
         var name: String?
         var artistName: String?
         var albumCover: String?
         
-        sendRequest(request: request as! NSMutableURLRequest, postParameters: nil, method: "GET", completion: { (response) in
+        sendRequest(request: request, postParameters: nil, method: "GET", completion: { (response) in
             let responseDict = response as? [String: AnyObject]
              name = responseDict?["name"] as? String
             let artists = responseDict?["artists"] as? [[String: AnyObject]]
@@ -1130,20 +1123,20 @@ class Globals {
     }
     
     static func logIntoFacebook(viewController: UIViewController, userId: String) {
-        let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.userFriends], viewController: viewController, completion: { (loginResult) in
-            switch loginResult {
-            case .failed(let error):
-                print(error)
-            case .cancelled:
-                print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                self.addFacebookIdToUser(fbId: AccessToken.current!.userId!, userId: userId)
-                if let networkTable = viewController as? NetworkTableViewController {
-                    networkTable.userView.facebookBtn.setTitle("Disconnect Facebook Account", for: .normal)
-                }
-            }
-        })
+//        let loginManager = LoginManager()
+//        loginManager.logIn(permissions: [.userFriends], viewController: viewController, completion: { (loginResult) in
+//            switch loginResult {
+//            case .failed(let error):
+//                print(error)
+//            case .cancelled:
+//                print("User cancelled login.")
+//            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+//                self.addFacebookIdToUser(fbId: AccessToken.current!.userID, userId: userId)
+//                if let networkTable = viewController as? NetworkTableViewController {
+//                    networkTable.userView.facebookBtn.setTitle("Disconnect Facebook Account", for: .normal)
+//                }
+//            }
+//        })
     }
     
     static func getFbIds(users: [String]) -> [String] {
@@ -1241,7 +1234,7 @@ class Globals {
                     return
                 }
             })
-        case .restricted:
+        default:
             return
         }
         
@@ -1280,7 +1273,7 @@ class Globals {
     }
     
     static func addPhotoFromCamera(controller: UIViewController) {
-        let access = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let access = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         
         switch access {
         case .authorized:
@@ -1288,7 +1281,7 @@ class Globals {
         case .denied:
             return
         case .notDetermined:
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted :Bool) -> Void in
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted :Bool) -> Void in
                 if granted == false
                 {
                     return
@@ -1302,9 +1295,9 @@ class Globals {
         let isCameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
         let isRearCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.rear)
         let isFrontCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.front)
-        let sourceTypeCamera = UIImagePickerControllerSourceType.camera
-        let rearCamera = UIImagePickerControllerCameraDevice.rear
-        let frontCamera = UIImagePickerControllerCameraDevice.front
+        let sourceTypeCamera = UIImagePickerController.SourceType.camera
+        let rearCamera = UIImagePickerController.CameraDevice.rear
+        let frontCamera = UIImagePickerController.CameraDevice.front
         
         if !isCameraAvailable { return }
         let type1 = kUTTypeImage as String

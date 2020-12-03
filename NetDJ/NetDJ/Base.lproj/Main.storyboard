@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qi8-Az-6aI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qi8-Az-6aI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -682,15 +682,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hamburgericon.png" width="25" height="25"/>
-        <image name="icons8-menu-vertical-filled-50.png" width="25" height="25"/>
-        <image name="netDJ_5_big.png" width="748" height="1328"/>
-        <image name="user.png" width="25" height="25"/>
+        <image name="hamburgericon.png" width="18.75" height="18.75"/>
+        <image name="icons8-menu-vertical-filled-50.png" width="18.75" height="18.75"/>
+        <image name="netDJ_5_big.png" width="561" height="996"/>
+        <image name="user.png" width="18.75" height="18.75"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="aq9-DB-zvg"/>
         <segue reference="4zX-1W-dEW"/>
-        <segue reference="Cvj-F0-CLF"/>
-        <segue reference="mDu-iU-77N"/>
+        <segue reference="CDJ-nR-hvF"/>
+        <segue reference="4EV-f6-cxI"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -7,25 +7,52 @@
 //
 
 import UIKit
-import FBSDKLoginKit
-import FacebookCore
-import FacebookLogin
+//import FBSDKLoginKit
+//import FacebookCore
+//import FacebookLogin
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate, SPTSessionManagerDelegate  {
 
     var window: UIWindow?
-    var auth = SPTAuth()
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
+    static private let kAccessTokenKey = "access-token-key"
+    static private let kSessionManagerKey = "session-key"
+    let SpotifyClientID = "003f496ec27d4f20961bf866071fb6fe"
+    let SpotifyRedirectURL = URL(string: "collabplaylists-login://callback")!
+   
+    lazy var configuration = SPTConfiguration(
+        clientID: SpotifyClientID,
+        redirectURL: SpotifyRedirectURL
+    )
+   
+    lazy var appRemote: SPTAppRemote = {
+        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
+        appRemote.delegate = self
+        return appRemote
+    }()
+   
+    lazy var sessionManager: SPTSessionManager = {
+        if let tokenSwapURL = URL(string: "http://autocollabservice.com/swap"),
+            let tokenRefreshURL = URL(string: "http://autocollabservice.com/refresh") {
+            self.configuration.tokenSwapURL = tokenSwapURL
+            self.configuration.tokenRefreshURL = tokenRefreshURL
+            self.configuration.playURI = ""
+        }
+        let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
+        return manager
+    }()
+   
+    var accessToken = UserDefaults.standard.string(forKey: kAccessTokenKey) {
+        didSet {
+            let defaults = UserDefaults.standard
+            defaults.set(accessToken, forKey: AppDelegate.kAccessTokenKey)
+        }
+    }
+    
+    private func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        auth.redirectURL = URL(string: "collabplaylists-login://callback")
-        auth.sessionUserDefaultsKey = "current session"
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        //registerForPushNotifications()
-        //UNUserNotificationCenter.current().delegate = self
         
         // If user opened app from push notification
 //        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
@@ -35,55 +62,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    private func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Called when a user logs into Spotify
-        if url.absoluteString.contains("collabplaylists-login://callback/") && auth.canHandle(auth.redirectURL) {
-            auth.handleAuthCallback(withTriggeredAuthURL: url, callback: { [unowned self] (error, _) in
-                
-                if error != nil {
-                    print(error)
-                }
-
-                var code = ""
-                if let startIndex = url.absoluteString.range(of: "collabplaylists-login://callback/?code=")?.upperBound {
-                    code = url.absoluteString[startIndex ..< url.absoluteString.endIndex]
-                }
-                
-                let tokens = Globals.getTokens(code: code)
-                print(tokens.1)
-                if let userName = self.getUserId(accessToken: tokens.0) {
-                    Globals.createUser(userId: userName)
-                    
-                    
-                    let session = SPTSession(userName: userName, accessToken: tokens.0, encryptedRefreshToken: tokens.1, expirationDate: Date.init(timeIntervalSinceNow: 3600))
-                    
-                    if (session == nil) {
-                        print("session init failed!")
-                        return
-                    }
-                    
-                    let userDefaults = UserDefaults.standard
-                    let sessionData = NSKeyedArchiver.archivedData(withRootObject: session!)
-                    
-                    userDefaults.set(sessionData, forKey: "SpotifySession")
-                    userDefaults.synchronize()
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessful"), object: nil)
-                }
-            })
-            return true
-            
-        } else if url.absoluteString.contains("fb1886072364788623://") {
-            return FBSDKApplicationDelegate.sharedInstance().application(_:app, open: url, options: options)
-        }
-        
-        
-        return false
+//        if url.absoluteString.contains("collabplaylists-login://callback/") {
+//            if let session = self.sessionManager.session {
+//                let userDefaults = UserDefaults.standard
+//                let sessionData = NSKeyedArchiver.archivedData(withRootObject: session)
+//                userDefaults.set(sessionData, forKey: "SpotifySession")
+//                userDefaults.synchronize()
+//
+//                self.sessionManager.application(app, open: url, options: options)
+//
+//                return true
+//            }
+//
+//            return false
+//        }
+        //else if url.absoluteString.contains("fb1886072364788623://") {
+            //return ApplicationDelegate.shared.application(_:app, open: url, options: options)
+        //}
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        FBSDKAppEvents.activateApp()
+        //AppEvents.activateApp()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -172,37 +176,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    func getUserId(accessToken: String) -> String? {
-        // Get user Id
-        let request = try? SPTUser.createRequestForCurrentUser(withAccessToken: accessToken)
-        
-        if (request == nil) {
-            NSLog("failed")
-            return nil
-        }
-        
-        let response: AutoreleasingUnsafeMutablePointer<URLResponse?>? = nil
-        
-        let data = try? NSURLConnection.sendSynchronousRequest(request!, returning: response)
-        
-        if (data == nil) {
-            return nil
-        }
-        
-        do {
-            if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject] {
-                if let _ = jsonResult["error"] {
-                    return nil
-                }
-                return jsonResult["id"] as! String
-            }
-        } catch let error as NSError {
-            print(error.localizedDescription)
-            return nil
-        }
-        return nil
-    }
 }
 
 // Respond to push notification action
@@ -227,6 +200,42 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         // 4
         completionHandler()
+    }
+    
+    func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
+        // Connection was successful, you can begin issuing commands
+        print("connected")
+        
+        self.appRemote.playerAPI?.delegate = self
+        self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
+            if let error = error {
+                debugPrint(error.localizedDescription)
+            }
+        })
+    }
+    
+    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
+        print("disconnected")
+    }
+    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
+        print("failed")
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
+        self.appRemote.connectionParameters.accessToken = session.accessToken
+        self.appRemote.connect()
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
+        print(error)
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
+        print(session)
+    }
+    
+    func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+        debugPrint("Track name: %@", playerState.track.name)
     }
 }
 

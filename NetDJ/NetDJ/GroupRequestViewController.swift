@@ -31,7 +31,7 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
         self.requestTable.rowHeight = 80
         self.requestTable.tableFooterView = UIView()
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator.center = self.view.center
         self.view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -112,7 +112,7 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
         return cell
     }
     
-    func didSwipeRight() {
+    @objc func didSwipeRight() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -125,7 +125,7 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
     
     
     // MARK: Helpers
-    func joinBtnPressed(sender: UIButton!) {
+    @objc func joinBtnPressed(sender: UIButton!) {
         Globals.showAlert(text: "Joined!", view: self.view)
         let group = self.groups[sender.tag]
         self.groups.remove(at: sender.tag)
@@ -166,7 +166,7 @@ class GroupRequestViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func deleteBtnPressed(sender: UIButton!) {
+    @objc func deleteBtnPressed(sender: UIButton!) {
         Globals.showAlert(text: "Deleted!", view: self.view)
         let group = self.groups[sender.tag]
         self.groups.remove(at: sender.tag)
